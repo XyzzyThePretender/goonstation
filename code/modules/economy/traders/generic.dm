@@ -24,14 +24,7 @@
 	/datum/commodity/trader/generic/gasmask,
 	/datum/commodity/trader/generic/monkey,
 	/datum/commodity/trader/ringtone_dogs)
-	/*
-	/datum/commodity/trader/synthmodule/bacteria,
-	/datum/commodity/trader/synthmodule/virii,
-	/datum/commodity/trader/synthmodule/parasite,
-	/datum/commodity/trader/synthmodule/fungi,
-	/datum/commodity/trader/synthmodule/gmcell,
-	/datum/commodity/trader/synthmodule/upgrader)
-	*/
+
 	New()
 		..()
 		var/pickfirstname = pick("Honest","Fair","Merchant","Trader","Kosher","Real Deal","Dealer","Sketchy","100%","Sassy","Zesty")
