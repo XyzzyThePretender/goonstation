@@ -66540,7 +66540,7 @@
 	},
 /area/station/medical/cdc)
 "cTW" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/redwhite{
 	dir = 1
 	},
@@ -66554,7 +66554,7 @@
 	},
 /area/station/medical/cdc)
 "cTY" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 1
 	},
 /obj/machinery/camera{
@@ -67682,7 +67682,7 @@
 "cWu" = (
 /obj/machinery/door_control{
 	id = "pathology_lockdown";
-	name = "Pathology Lockdown Control";
+	name = "Microbiology Lockdown Control";
 	pixel_x = 24;
 	pixel_y = 24
 	},
@@ -67704,7 +67704,7 @@
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/window_blinds/cog2/left{
@@ -67731,7 +67731,7 @@
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -68477,7 +68477,7 @@
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/window_blinds/cog2/middle{
@@ -68956,7 +68956,7 @@
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/window_blinds/cog2/right{
@@ -69445,7 +69445,7 @@
 	pixel_x = 26;
 	pixel_y = 1
 	},
-/obj/storage/secure/closet/fridge/pathology{
+/obj/storage/secure/closet/fridge/microbiology{
 	req_access_txt = "5"
 	},
 /obj/item/reagent_containers/food/snacks/agar_block,
@@ -70774,14 +70774,14 @@
 "dcR" = (
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
 	density = 0;
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/firedoor_spawn,
@@ -70791,7 +70791,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery,
 /area/station/medical/cdc)
 "dcS" = (
@@ -70802,7 +70802,7 @@
 	},
 /obj/machinery/door_control{
 	id = "pathology_lockdown";
-	name = "Pathology Lockdown Control";
+	name = "Microbiology Lockdown Control";
 	pixel_y = 24
 	},
 /obj/disposalpipe/segment/mail/horizontal,
@@ -70849,7 +70849,7 @@
 "dcX" = (
 /obj/disposalpipe/switch_junction/right/east{
 	mail_tag = "pathology";
-	name = "mail junction (pathology)"
+	name = "mail junction (microbiology)"
 	},
 /turf/simulated/floor/caution/corner/ne{
 	dir = 1
@@ -70858,19 +70858,19 @@
 "dcY" = (
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	},
 /obj/machinery/door/poddoor/pyro/shutters{
 	density = 0;
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/firedoor_spawn,
 /obj/disposalpipe/segment/mail/horizontal,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery,
 /area/station/medical/cdc)
 "dcZ" = (
@@ -71399,7 +71399,7 @@
 	name = "Quarantine Ward";
 	req_access_txt = null
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery,
 /area/station/medical/cdc)
 "deD" = (
@@ -72246,7 +72246,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/decal/poster/wallsign/hazard_bio,
@@ -72276,9 +72276,9 @@
 /area/station/maintenance/southeast)
 "dgB" = (
 /obj/machinery/power/apc{
-	areastring = "Pathology Research";
+	areastring = "Microbiology Research";
 	dir = 1;
-	name = "Pathology APC";
+	name = "Microbiology APC";
 	pixel_y = 24
 	},
 /obj/cable{
@@ -78459,7 +78459,7 @@
 	dir = 4
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/cdc)

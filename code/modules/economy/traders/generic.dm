@@ -24,14 +24,7 @@
 	/datum/commodity/trader/generic/gasmask,
 	/datum/commodity/trader/generic/monkey,
 	/datum/commodity/trader/ringtone_dogs)
-	/*
-	/datum/commodity/trader/synthmodule/bacteria,
-	/datum/commodity/trader/synthmodule/virii,
-	/datum/commodity/trader/synthmodule/parasite,
-	/datum/commodity/trader/synthmodule/fungi,
-	/datum/commodity/trader/synthmodule/gmcell,
-	/datum/commodity/trader/synthmodule/upgrader)
-	*/
+
 	New()
 		..()
 		var/pickfirstname = pick("Honest","Fair","Merchant","Trader","Kosher","Real Deal","Dealer","Sketchy","100%","Sassy","Zesty")
@@ -97,54 +90,6 @@
 	price_boundary = list(250, 1000)
 	possible_names = list("We found a few stowaway monkeys on our ship. Feel free to take them off our hands.",
 	"We seem to have a simian situation, and are selling them for a cheap price.")
-
-/datum/commodity/trader/synthmodule
-	comname = "Synth-O-Matic module"
-	comtype = /obj/item/synthmodule
-	desc = "A synth-o-matic module."
-	price_boundary = list(7000, 11000)
-	possible_names = list("We have some Synth-O-Matic upgrades for sale.",
-	"We recently salvaged a couple of Synth-O-Matic machines, and we cannot make use of these spare parts.")
-
-/datum/commodity/trader/synthmodule/vaccine
-	comname = "Synth-O-Matic vaccine module"
-	comtype = /obj/item/synthmodule/vaccine
-
-/datum/commodity/trader/synthmodule/upgrader
-	comname = "Synth-O-Matic efficiency module"
-	comtype = /obj/item/synthmodule/upgrader
-
-/datum/commodity/trader/synthmodule/assistant
-	comname = "Synth-O-Matic assistant module"
-	comtype = /obj/item/synthmodule/assistant
-
-/datum/commodity/trader/synthmodule/synthesizer
-	comname = "Synth-O-Matic synthesizer module"
-	comtype = /obj/item/synthmodule/synthesizer
-
-/datum/commodity/trader/synthmodule/virii
-	comname = "Synth-O-Matic virus module"
-	comtype = /obj/item/synthmodule/virii
-
-/datum/commodity/trader/synthmodule/bacteria
-	comname = "Synth-O-Matic bacterium module"
-	comtype = /obj/item/synthmodule/bacteria
-
-/datum/commodity/trader/synthmodule/fungi
-	comname = "Synth-O-Matic fungus module"
-	comtype = /obj/item/synthmodule/fungi
-
-/datum/commodity/trader/synthmodule/parasite
-	comname = "Synth-O-Matic parasite module"
-	comtype = /obj/item/synthmodule/parasite
-
-/datum/commodity/trader/synthmodule/gmcell
-	comname = "Synth-O-Matic great mutatis cell module"
-	comtype = /obj/item/synthmodule/gmcell
-
-/datum/commodity/trader/synthmodule/radiation
-	comname = "Synth-O-Matic irradiation module"
-	comtype = /obj/item/synthmodule/radiation
 
 /datum/commodity/trader/speedmodule
 	comname = "Cloning upgrade system"

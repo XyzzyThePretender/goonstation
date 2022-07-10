@@ -5796,7 +5796,7 @@
 /turf/simulated/floor/airless/scorched,
 /area/space)
 "pu" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/airless/scorched,
 /area/space)
 "pv" = (

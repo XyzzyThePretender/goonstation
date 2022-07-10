@@ -67,6 +67,6 @@
 			donor.reagents.add_reagent("omnizine", 15) //reduced omnizine amount
 			donor.reagents.add_reagent("teporone", 20)
 			#ifdef CREATE_PATHOGENS
-			add_pathogens(donor, 30) //oh no
+			add_random_custom_disease(donor.reagents, 15)
 			#endif
 			boutput(donor, "<span class='alert'>Your appendix has burst! It has given you medical help... though you might want to see a doctor very soon.</span>")

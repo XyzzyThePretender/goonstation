@@ -1893,6 +1893,7 @@ proc/HYPmutationcheck_sub(var/lowerbound,var/upperbound,var/checkedvariable)
 	var/active = 0
 	var/datum/light/light
 	power_usage = 100
+	var/biochemupgrade = 0
 
 	New()
 		..()
@@ -1913,7 +1914,7 @@ proc/HYPmutationcheck_sub(var/lowerbound,var/upperbound,var/checkedvariable)
 			for (var/obj/machinery/plantpot/P in view(2,src))
 				if(!P.current || P.dead)
 					continue
-				P.growth += 2
+				P.growth += 2 + src.biochemupgrade
 				if(istype(P.plantgenes,/datum/plantgenes/))
 					var/datum/plantgenes/DNA = P.plantgenes
 					if(HYPCheckCommut(DNA,/datum/plant_gene_strain/photosynthesis))

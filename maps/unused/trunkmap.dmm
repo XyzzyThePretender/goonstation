@@ -270,7 +270,7 @@
 	},
 /area/station/medical/cdc)
 "aaQ" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 1
 	},
 /obj/cable{
@@ -1105,7 +1105,7 @@
 "acW" = (
 /obj/machinery/door/poddoor{
 	id = "disease lab";
-	name = "Pathology Lab Blast Doors"
+	name = "Microbiology Lab Blast Doors"
 	},
 /obj/cable{
 	d1 = 1;
@@ -3950,7 +3950,7 @@
 /turf/space,
 /area/space)
 "alN" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/greenwhite{
 	dir = 9
 	},
@@ -3977,7 +3977,7 @@
 	},
 /area/station/medical/cdc)
 "alQ" = (
-/obj/storage/secure/closet/fridge/pathology{
+/obj/storage/secure/closet/fridge/microbiology{
 	req_access_txt = "5"
 	},
 /obj/item/reagent_containers/food/snacks/agar_block,

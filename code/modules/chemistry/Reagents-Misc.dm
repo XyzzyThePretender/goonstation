@@ -3089,7 +3089,7 @@ datum
 			fluid_g = 0
 			transparency = 255
 			value = 2
-			var/list/pathogens = list()
+			var/list/datum/microbe/microbes = list()
 			var/pathogens_processed = 0
 			hygiene_value = -2
 			hunger_value = 0.068
@@ -3146,10 +3146,10 @@ datum
 			on_mob_life(var/mob/M, var/mult = 1)
 				// Let's assume that blood immediately mixes with the bloodstream of the mob.
 				if (!pathogens_processed) //Only process pathogens once
-					pathogens_processed = 1
-					for (var/uid in src.pathogens)
-						var/datum/pathogen/P = src.pathogens[uid]
-						logTheThing("pathology", M, null, "metabolizing [src] containing pathogen [P].")
+					pathogens_processed = TRUE
+					for (var/uid in src.microbes)
+						var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
+						logTheThing("pathology", M, null, "metabolizing [src] containing culture [P.name] (uid: [uid]).")
 						M.infected(P)
 				..()
 
@@ -3168,20 +3168,20 @@ datum
 			on_transfer(var/datum/reagents/source, var/datum/reagents/target, var/trans_amt)
 				var/list/source_pathogens = source.aggregate_pathogens()
 				var/list/target_pathogens = target.aggregate_pathogens()
-				var/target_changed = 0
+				. = FALSE
 				for (var/uid in source_pathogens)
 					if (!(uid in target_pathogens))
 						target_pathogens += uid
-						target_pathogens[uid] = source_pathogens[uid]
-						target_changed = 1
-				if (target_changed)
-					for (var/reagent_id in pathogen_controller.pathogen_affected_reagents)
+						. = TRUE
+				if (.)
+					for (var/reagent_id in microbio_controls.pathogen_affected_reagents)
 						if (target.has_reagent(reagent_id))
 							var/datum/reagent/blood/B = target.get_reagent(reagent_id)
 							if (!istype(B))
 								continue
-							B.pathogens = target_pathogens
-				return
+							for (var/uid in target_pathogens)
+								if (!(uid in B.microbes))
+									B.microbes += uid
 
 		blood/bloodc
 			id = "bloodc"
@@ -3202,6 +3202,40 @@ datum
 
 				holder.del_reagent(id)
 				holder.del_reagent("blood")
+
+		// Marquesas' one stop pathology shop
+		blood/pathogen
+			name = "pathogen"
+			id = "pathogen"
+			description = "A liquid sample of one (or multiple) pathogens."
+			reagent_state = LIQUID
+			fluid_r = 50
+			fluid_b = 50
+			fluid_g = 180
+			transparency = 200
+			depletion_rate = 0.8
+			smoke_spread_mod = 10
+
+			reaction_turf(var/turf/T, var/volume)
+				return
+
+			reaction_mob(var/mob/M, var/method=TOUCH, var/volume_passed)
+				. = ..()
+				// sure just fucking splash around in the stuff
+				// this is mainly so puddles from the sweating symptom can infect
+				for (var/uid in src.microbes)
+					var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
+					logTheThing("pathology", M, null, "is splashed with [src] containing culture [P.name] (uid: [uid]).")
+					if(istype(M, /mob/living/carbon/human))
+						var/mob/living/carbon/human/H = M
+						if(!(prob(100-H.get_disease_protection())))
+							continue
+						if(H.infected(P))
+							H.show_message("<span class='alert'>Ew, some of that disgusting green stuff touched you!</span>")
+				return
+
+			on_plant_life(var/obj/machinery/plantpot/P)
+				return
 
 		blood/hemolymph
 			name = "hemolymph"

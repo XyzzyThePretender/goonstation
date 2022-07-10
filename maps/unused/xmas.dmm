@@ -41,7 +41,7 @@
 	},
 /obj/testtuberack,
 /obj/machinery/camera{
-	c_tag = "Pathology North";
+	c_tag = "Microbiology North";
 	dir = 2;
 	name = "Outpost Camera";
 	network = "Zeta"
@@ -79,7 +79,7 @@
 /area/medical/cdc)
 "aam" = (
 /obj/machinery/camera{
-	c_tag = "Pathology Cells";
+	c_tag = "Microbiology Cells";
 	dir = 2;
 	name = "Outpost Camera";
 	network = "Zeta"
@@ -285,7 +285,7 @@
 	d2 = 8
 	},
 /obj/machinery/door/airlock/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "8"
 	},
 /turf/simulated/floor/white,
@@ -557,7 +557,7 @@
 	d2 = 2
 	},
 /obj/machinery/door/airlock/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "8"
 	},
 /turf/simulated/floor/white,
@@ -1393,7 +1393,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 2;
 	icon_state = "left";
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "8";
 	tag = "icon-left"
 	},
@@ -2954,7 +2954,7 @@
 	d2 = 2
 	},
 /obj/machinery/door/airlock/medical{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "8"
 	},
 /turf/simulated/floor/white,
@@ -10219,7 +10219,7 @@
 /area/crew_quarters/quarters)
 "atq" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/crate,
 /turf/simulated/floor{
@@ -29247,7 +29247,7 @@
 /area/crew_quarters/juryroom)
 "bcy" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor{
 	icon_state = "snow"
@@ -29551,7 +29551,7 @@
 "bdb" = (
 /obj/stool,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/item/chem_grenade/cleaner,
 /obj/item/chem_grenade/cleaner,
@@ -33038,7 +33038,7 @@
 	},
 /obj/item/device/radio/signaler,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/item/device/radio/signaler{
 	pixel_x = 2;

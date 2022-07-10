@@ -17983,7 +17983,7 @@
 	},
 /area/swampzone/ground)
 "vrt" = (
-/obj/storage/secure/closet/fridge/pathology,
+/obj/storage/secure/closet/fridge/microbiology,
 /turf/unsimulated/floor/white,
 /area/swampzone/interiors/outbuildings)
 "vru" = (
@@ -18236,7 +18236,7 @@
 	},
 /area/swampzone/interiors/outbuildings)
 "vHV" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/unsimulated/floor/white,
 /area/swampzone/interiors/outbuildings)
 "vIy" = (
@@ -20032,7 +20032,7 @@
 	},
 /area/swampzone/deeps)
 "xSc" = (
-/obj/machinery/computer/pathology,
+/obj/machinery/computer/microbiology,
 /turf/unsimulated/floor/white,
 /area/swampzone/interiors/outbuildings)
 "xSs" = (

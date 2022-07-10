@@ -6264,7 +6264,7 @@
 	dir = 4;
 	name = "Quarantine"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/green,
 /area/station/medical/cdc)
 "azB" = (
@@ -13783,10 +13783,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/pyro/toxins_alt{
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor,
 /area/station/medical/cdc)
 "bng" = (
@@ -22107,7 +22107,7 @@
 	dir = 6;
 	icon_state = "line4"
 	},
-/obj/storage/secure/closet/fridge/pathology,
+/obj/storage/secure/closet/fridge/microbiology,
 /turf/simulated/floor/greenwhite/other/corner{
 	dir = 1
 	},
@@ -34593,7 +34593,7 @@
 	dir = 8;
 	nostick = 1
 	},
-/obj/item/clothing/suit/labcoat/pathology,
+/obj/item/clothing/suit/labcoat/microbiology,
 /turf/simulated/floor,
 /area/station/medical/cdc)
 "kCe" = (
@@ -36668,7 +36668,7 @@
 	dir = 5;
 	icon_state = "line4"
 	},
-/obj/cabinet/pathology,
+/obj/cabinet/microbiology,
 /turf/simulated/floor/green/side{
 	dir = 5
 	},
@@ -40404,7 +40404,7 @@
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/maintenance/central)
 "nCG" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4
 	},
 /obj/machinery/power/data_terminal,
@@ -41915,7 +41915,7 @@
 /obj/decal/tile_edge/line/green{
 	icon_state = "line3"
 	},
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/machinery/light/incandescent/netural{
 	dir = 1;
 	nostick = 1
@@ -45718,10 +45718,10 @@
 	},
 /obj/machinery/door/airlock/pyro/toxins_alt{
 	dir = 4;
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor,
 /area/station/medical/cdc)
 "qBe" = (
@@ -49784,7 +49784,7 @@
 /turf/simulated/floor/specialroom/bar,
 /area/station/crew_quarters/bar)
 "sMG" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4
 	},
 /obj/machinery/power/data_terminal,
@@ -53664,7 +53664,7 @@
 	dir = 4;
 	nostick = 1
 	},
-/obj/item/clothing/suit/labcoat/pathology,
+/obj/item/clothing/suit/labcoat/microbiology,
 /turf/simulated/floor/greenwhite/other{
 	dir = 4
 	},

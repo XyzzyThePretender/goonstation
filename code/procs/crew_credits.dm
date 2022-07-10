@@ -16,6 +16,7 @@ var/global/crew_creds = null
 		var/list/datum/mind/round_security = list()
 		var/list/datum/mind/round_medical = list()
 		var/list/datum/mind/round_science = list()
+		var/list/datum/mind/round_microbiology = list()
 		var/list/datum/mind/round_engineering = list()
 		var/list/datum/mind/round_civilian = list()
 		var/list/datum/mind/round_other = list()
@@ -50,8 +51,9 @@ var/global/crew_creds = null
 					round_science.Add(M)
 					continue
 
-				// Pathology?
-				if("Pathologist")
+				// Microbiology?
+				if("Microbiologist")
+					round_microbiology.Add(M)
 					#ifdef SCIENCE_PATHO_MAP
 					round_science.Add(M)
 					#else
@@ -150,6 +152,15 @@ var/global/crew_creds = null
 
 		logTheThing("debug", null, null, "Zamujasa/CREWCREDITS: [world.timeofday] done science")
 
+		// Microbiologists
+		if(round_microbiology.len > 0)
+			crew_creds += "<H3>[prob(1) ? "Pathologist" : "Microbiologist"]:</H3>"
+			for(var/datum/mind/M in round_microbiology)
+				if(!M.current) continue
+				crew_creds += "[M.current.real_name][isdead(M.current) ? " \[["<span class='alert'>DEAD</span>"]\] " : ""] (played by [M.displayed_key]) as [M.assigned_role]<BR>"
+			crew_creds += "<HR>"
+
+		logTheThing("debug", null, null, "Zamujasa/CREWCREDITS: [world.timeofday] done microbiology")
 
 		// Engineering Department
 		if(round_engineering.len > 0)

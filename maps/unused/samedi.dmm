@@ -14587,7 +14587,7 @@
 "aGa" = (
 /obj/table/reinforced/auto,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/device/radio,
@@ -29482,7 +29482,7 @@
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 2;
 	icon_state = "research_closed";
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	},
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 1
@@ -29915,14 +29915,14 @@
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
 	icon_state = "research_closed";
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	},
 /obj/machinery/door/poddoor/pyro{
 	density = 0;
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/machinery/door/firedoor/pyro{
@@ -30526,14 +30526,14 @@
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
 	icon_state = "research_closed";
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	},
 /obj/machinery/door/poddoor/pyro{
 	density = 0;
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/machinery/door/firedoor/pyro{
@@ -31401,14 +31401,14 @@
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
 	icon_state = "research_closed";
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	},
 /obj/machinery/door/poddoor/pyro{
 	density = 0;
 	dir = 4;
 	icon_state = "pdoor0";
 	id = "pathology_lockdown";
-	name = "Pathology Quarantine Shutters";
+	name = "Microbiology Quarantine Shutters";
 	opacity = 0
 	},
 /obj/machinery/door/firedoor/pyro{
@@ -31454,7 +31454,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "bqW" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "bqX" = (
@@ -31884,7 +31884,7 @@
 /obj/machinery/power/data_terminal{
 	layer = 2
 	},
-/obj/machinery/computer/pathology,
+/obj/machinery/computer/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "brW" = (
@@ -34353,7 +34353,7 @@
 	},
 /obj/machinery/door_control{
 	id = "pathology_lockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	pixel_x = 24
 	},
 /turf/simulated/floor/white,
@@ -35442,7 +35442,7 @@
 	},
 /obj/machinery/door_control{
 	id = "pathology_lockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	pixel_x = 24
 	},
 /turf/simulated/floor/white,
@@ -42483,7 +42483,7 @@
 	pixel_y = 1
 	},
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor/black,
 /area/research_outpost)
@@ -43025,7 +43025,7 @@
 	pixel_y = 21
 	},
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/storage/crate/furnacefuel,
 /turf/simulated/floor/plating,
@@ -44791,7 +44791,7 @@
 /area/research_outpost/hangar)
 "bUk" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor/shuttlebay,
 /area/research_outpost/hangar)
@@ -44843,7 +44843,7 @@
 /area/research_outpost)
 "bUp" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor/purple/side{
 	dir = 9
@@ -46166,7 +46166,7 @@
 /obj/table/auto,
 /obj/random_item_spawner/tools,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor/plating,
 /area/research_outpost)

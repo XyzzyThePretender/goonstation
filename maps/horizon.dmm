@@ -7219,7 +7219,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "aud" = (
-/obj/storage/secure/closet/fridge/pathology{
+/obj/storage/secure/closet/fridge/microbiology{
 	req_access_txt = "5"
 	},
 /obj/item/reagent_containers/food/snacks/agar_block,
@@ -9001,7 +9001,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/cdc)
 "ayD" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/alarm{
@@ -9403,7 +9403,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "azw" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/decal/cleanable/dirt/dirt2,
 /obj/decal/cleanable/dirt/dirt4,
 /obj/disposalpipe/segment{
@@ -54199,7 +54199,7 @@
 	dir = 8;
 	name = "Pathogen Research"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/black,
 /area/station/medical/cdc)
 "hDK" = (
@@ -54707,7 +54707,7 @@
 "iLA" = (
 /obj/decal/cleanable/dirt/dirt2,
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /obj/disposalpipe/segment/transport{
 	icon_state = "pipe-c"
@@ -54775,7 +54775,7 @@
 /obj/decal/cleanable/blood/tracks{
 	dir = 4
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "iQB" = (
@@ -60466,7 +60466,7 @@
 	name = "Pathogen Research"
 	},
 /obj/decal/cleanable/dirt/dirt2,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/disposalpipe/segment/transport{
 	dir = 4
 	},

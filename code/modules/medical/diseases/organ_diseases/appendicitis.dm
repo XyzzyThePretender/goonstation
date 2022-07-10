@@ -79,22 +79,8 @@
 					if (prob(20))
 						H.reagents.add_reagent("toxin", 20)
 					#ifdef CREATE_PATHOGENS
-					add_pathogens(H, 30)
+					add_random_custom_disease(H.reagents, 15)
 					#endif
 					boutput(H, "<span class='alert'>Your appendix has burst! Seek medical help!</span>")
 
 			H.take_toxin_damage(1 * mult)
-
-//stolen from the admin button because I know fuck all about pathogens - Kyle
-proc/add_pathogens(var/mob/living/A, var/amount)
-	if (!A || !A.reagents)
-		return 0
-
-	A.reagents.add_reagent("pathogen", amount)
-	var/datum/reagent/blood/pathogen/R = A.reagents.get_reagent("pathogen")
-	var/datum/pathogen/P = new /datum/pathogen
-	P.setup(1)
-	R.pathogens += P.pathogen_uid
-	R.pathogens[P.pathogen_uid] = P
-
-	return 1

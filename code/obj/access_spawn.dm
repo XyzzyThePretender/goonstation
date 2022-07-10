@@ -95,10 +95,10 @@
 	req_access = list(access_medlab)
 	color = MEDICAL
 
-/obj/access_spawn/pathology
-	name = "pathology spawn"
+/obj/access_spawn/microbiology
+	name = "microbiology spawn"
 	#ifdef CREATE_PATHOGENS
-	req_access = list(access_pathology)
+	req_access = list(access_microbiology)
 	#elif defined(SCIENCE_PATHO_MAP)
 	req_access = list(access_research)
 	#else

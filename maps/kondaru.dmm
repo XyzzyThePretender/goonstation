@@ -15144,7 +15144,7 @@
 	},
 /obj/firedoor_spawn,
 /obj/disposalpipe/segment/horizontal,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/bluewhite{
 	dir = 4
 	},
@@ -15556,12 +15556,12 @@
 	dir = 4
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "aSD" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /turf/simulated/floor/bluewhite{
@@ -16707,7 +16707,7 @@
 	icon_state = "4-8"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/cable{
 	d1 = 2;
 	d2 = 4;
@@ -16747,7 +16747,7 @@
 	icon_state = "4-8"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "aWp" = (
@@ -17497,7 +17497,7 @@
 /obj/machinery/door/airlock/pyro/glass/windoor{
 	name = "Subject Chamber"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/bluewhite,
 /area/station/medical/cdc)
 "aYx" = (
@@ -20990,7 +20990,7 @@
 	},
 /area/station/medical/medbay/surgery)
 "bkY" = (
-/obj/machinery/disposal/mail/autoname/medbay/pathology,
+/obj/machinery/disposal/mail/autoname/medbay/microbiology,
 /obj/disposalpipe/trunk/mail/east,
 /obj/cable{
 	d2 = 4;
@@ -22160,7 +22160,7 @@
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
 "boS" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4
 	},
 /obj/machinery/power/data_terminal,
@@ -22191,7 +22191,7 @@
 	icon_state = "4-8"
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -23573,7 +23573,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "btW" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/bluewhite{
 	dir = 4
 	},
@@ -24918,7 +24918,7 @@
 	icon_state = "1-2"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/sanitary/white,
 /area/station/medical/morgue)
 "byR" = (

@@ -497,7 +497,7 @@
 /obj/machinery/power/data_terminal{
 	layer = 2
 	},
-/obj/machinery/computer/pathology,
+/obj/machinery/computer/microbiology,
 /obj/cable{
 	d1 = 0;
 	d2 = 2;
@@ -4841,7 +4841,7 @@
 	icon_state = "1-8"
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -17575,11 +17575,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/pyro/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "aDP" = (
@@ -17609,11 +17609,11 @@
 "aDR" = (
 /obj/disposalpipe/segment,
 /obj/machinery/door/airlock/pyro/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "aDS" = (
@@ -39256,7 +39256,7 @@
 	name = "Monkey Pen";
 	req_access_txt = null
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery,
 /area/station/medical/cdc)
 "bxs" = (
@@ -39281,7 +39281,7 @@
 	icon_state = "4-8"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "bxu" = (
@@ -40682,11 +40682,11 @@
 "bAh" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 8;
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "bAi" = (
@@ -41116,7 +41116,7 @@
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "bAT" = (
@@ -51041,7 +51041,7 @@
 /turf/simulated/floor/grime,
 /area/station/hallway/secondary/construction2)
 "bTS" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/cable{
 	d1 = 1;
 	d2 = 2;

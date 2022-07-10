@@ -654,15 +654,8 @@ var/list/blood_decal_violent_icon_states = list("floor1", "floor2", "floor3", "f
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	color = "#12b828"
 	slippery = 5
-	can_sample = 1
-	sample_reagent = "pathogen"
 	can_dry = 1
 	can_fluid_absorb = 0
-
-	Crossed(atom/movable/AM)
-		. = ..()
-		if(prob(4))
-			src.reagents.reaction(AM, TOUCH)
 
 /obj/decal/cleanable/pathogen_cloud
 	name = "disease particles"
@@ -671,26 +664,8 @@ var/list/blood_decal_violent_icon_states = list("floor1", "floor2", "floor3", "f
 	icon_state = "pathogen_cloud"
 	color = "#12b828"
 	slippery = 5
-	can_sample = 1
-	sample_reagent = "pathogen"
 	can_dry = 1
 	can_fluid_absorb = 0
-
-	Crossed(atom/movable/AM)
-		. = ..()
-		if(!ishuman(AM))
-			return
-
-		var/mob/living/carbon/human/H = AM
-		var/chance = 10
-		if(H.wear_mask)
-			chance *= H.wear_mask.path_prot
-		if(H.head)
-			chance *= H.head.path_prot
-
-		if(prob(chance))
-			src.reagents.reaction(AM, INGEST)
-
 
 /obj/decal/cleanable/paper
 	name = "paper"

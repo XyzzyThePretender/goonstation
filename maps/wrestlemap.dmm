@@ -2522,7 +2522,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/pyro/glass{
-	name = "Pathologist's Bedroom"
+	name = "Microbiologist's Bedroom"
 	},
 /obj/firedoor_spawn,
 /obj/access_spawn/medical,
@@ -6840,7 +6840,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/inner/the_cage)
 "cRj" = (
-/obj/storage/secure/closet/fridge/pathology,
+/obj/storage/secure/closet/fridge/microbiology,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 4;
@@ -18178,7 +18178,7 @@
 /turf/simulated/wall/auto/supernorn,
 /area/station/crew_quarters/pool)
 "hEL" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "hEQ" = (
@@ -24825,7 +24825,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/disposal/sci{
-	name = "Pathology Delivery Chute"
+	name = "Microbiology Delivery Chute"
 	},
 /turf/simulated/floor/blue,
 /area/station/medical/cdc)
@@ -26190,8 +26190,8 @@
 /area/station/medical/medbay/surgery/storage)
 "lcl" = (
 /obj/disposalpipe/switch_junction/right/east{
-	mail_tag = "Pathology";
-	name = "Pathology Mail Router"
+	mail_tag = "Microbiology";
+	name = "Microbiology Mail Router"
 	},
 /obj/cable{
 	icon_state = "1-2"
@@ -33193,7 +33193,7 @@
 	})
 "odQ" = (
 /obj/machinery/disposal/sci{
-	name = "Pathology Delivery Chute"
+	name = "Microbiology Delivery Chute"
 	},
 /obj/disposalpipe/trunk/transport,
 /obj/machinery/light{
@@ -34386,8 +34386,8 @@
 "oID" = (
 /obj/disposalpipe/trunk/mail/south,
 /obj/machinery/light_switch/south,
-/obj/machinery/disposal/mail/autoname/medbay/pathology{
-	mail_tag = "Pathology"
+/obj/machinery/disposal/mail/autoname/medbay/microbiology{
+	mail_tag = "Microbiology"
 	},
 /turf/simulated/floor/blue,
 /area/station/medical/cdc)
@@ -42557,7 +42557,7 @@
 "seZ" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4;
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/firedoor_spawn,
 /turf/simulated/floor/white,
@@ -45926,7 +45926,7 @@
 /obj/machinery/power/data_terminal{
 	layer = 2
 	},
-/obj/machinery/computer/pathology,
+/obj/machinery/computer/microbiology,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -48268,7 +48268,7 @@
 "uIl" = (
 /obj/machinery/door/airlock/pyro/external{
 	dir = 4;
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/access_spawn/medical,
 /obj/firedoor_spawn,

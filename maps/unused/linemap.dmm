@@ -3237,7 +3237,7 @@
 	d2 = 8
 	},
 /obj/item/device/radio/intercom/engineering{
-	
+
 	},
 /obj/machinery/light,
 /turf/simulated/floor,
@@ -17516,7 +17516,7 @@
 /obj/item/storage/box/lightbox/tubes,
 /obj/item/device/radio,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor,
 /area/station/janitor/office)
@@ -27795,7 +27795,7 @@
 /area/station/science/storage)
 "bmL" = (
 /obj/machinery/door/airlock/gannets/glass/toxins{
-	name = "Pathology Quarantine";
+	name = "Microbiology Quarantine";
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/white,
@@ -27814,7 +27814,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/gannets/glass/toxins{
-	name = "Pathology";
+	name = "Microbiology";
 	req_access_txt = "5"
 	},
 /obj/disposalpipe/segment/horizontal,
@@ -28697,7 +28697,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "bpa" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "bpb" = (
@@ -28960,7 +28960,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	tag = "icon-pathology (WEST)";
 	icon_state = "pathology";
 	dir = 8
@@ -30111,9 +30111,9 @@
 /area/station/maintenance/southwest)
 "bsl" = (
 /obj/machinery/power/apc{
-	areastring = "Pathology Research";
+	areastring = "Microbiology Research";
 	dir = 1;
-	name = "Pathology Research APC";
+	name = "Microbiology Research APC";
 	pixel_y = 24
 	},
 /obj/cable{

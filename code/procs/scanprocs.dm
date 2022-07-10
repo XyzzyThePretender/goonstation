@@ -145,13 +145,17 @@
 
 		if (ishuman)
 			var/mob/living/carbon/human/H = M
-			if (H.pathogens.len)
-				pathogen_data = "<span class='alert'>Scans indicate the presence of [H.pathogens.len > 1 ? "[H.pathogens.len] " : null]pathogenic bodies.</span>"
-				for (var/uid in H.pathogens)
-					var/datum/pathogen/P = H.pathogens[uid]
-					pathogen_data += "<br>&emsp;<span class='alert'>Strain [P.name] seems to be in stage [P.stage]. Suggested suppressant: [P.suppressant.therapy].</span>."
-					if (P.in_remission)
-						pathogen_data += "<br>&emsp;&emsp;<span class='alert'>It appears to be in remission.</span>."
+			if (H.microbes.len)
+				pathogen_data = "<span class='alert'>Scans indicate the presence of [H.microbes.len] microbial culture[H.microbes.len > 1 ? "s" : null].</span>"
+				for (var/uid in H.microbes)
+					var/datum/microbeplayerdata/P = H.microbes[uid]
+					if (disease_detection && P.master.artificial)
+						pathogen_data += "<br>&emsp;<span class='alert'>[P.master.name]. Suggested treatment: [P.master.suppressant.exactcure].</span>"
+					else
+						pathogen_data += "<br>&emsp;<span class='alert'>[P.master.name]. Suggested treatment: [P.master.suppressant.therapy].</span>"
+					if (P.duration < 0.5*P.master.durationtotal)
+						pathogen_data += "<br>&emsp;&emsp;<span class='notice'>[P.master.name] appears to be receding.</span>"
+
 
 			if (H.get_organ("brain"))
 				if (H.get_brain_damage() >= 100)

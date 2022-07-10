@@ -5756,9 +5756,9 @@
 "md" = (
 /obj/disposalpipe/segment,
 /obj/machinery/power/apc{
-	areastring = "Pathology Research";
+	areastring = "Microbiology Research";
 	dir = 8;
-	name = "Pathology APC";
+	name = "Microbiology APC";
 	pixel_x = -24
 	},
 /obj/cable{
@@ -5888,7 +5888,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "mr" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "ms" = (
@@ -6162,7 +6162,7 @@
 	},
 /obj/machinery/door/airlock/pyro/medical{
 	dir = 4;
-	name = "Pathology";
+	name = "Microbiology";
 	req_access = null
 	},
 /obj/access_spawn/medical,
@@ -6733,7 +6733,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/camera{

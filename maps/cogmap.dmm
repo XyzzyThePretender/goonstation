@@ -49049,7 +49049,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "cyj" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/cable{
 	icon_state = "1-2"
 	},
@@ -49227,7 +49227,7 @@
 /obj/machinery/power/data_terminal{
 	layer = 2
 	},
-/obj/machinery/computer/pathology,
+/obj/machinery/computer/microbiology,
 /obj/cable{
 	icon_state = "0-2"
 	},
@@ -53587,7 +53587,7 @@
 	name = "Quarantine 1";
 	req_access_txt = null
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/firedoor_spawn,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
@@ -56194,7 +56194,7 @@
 	icon_state = "4-8"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "kAj" = (
@@ -56515,11 +56515,11 @@
 "lbR" = (
 /obj/disposalpipe/segment,
 /obj/machinery/door/airlock/pyro/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "lce" = (
@@ -58045,11 +58045,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/pyro/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "nFE" = (
@@ -58585,11 +58585,11 @@
 "owN" = (
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4;
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = null
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "oxf" = (
@@ -60515,7 +60515,7 @@
 	icon_state = "1-4"
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -62767,7 +62767,7 @@
 	name = "Monkey Pen";
 	req_access_txt = null
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/delivery,
 /area/station/medical/cdc)
 "unV" = (

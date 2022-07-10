@@ -8122,7 +8122,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/lab)
 "tX" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4;
 	tag = "icon-pathology (EAST)"
 	},
@@ -11722,7 +11722,7 @@
 /area/station/maintenance/east)
 "BC" = (
 /obj/machinery/door/airlock/pyro/medical/alt{
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/access_spawn/medical,
 /obj/firedoor_spawn,
@@ -11974,7 +11974,7 @@
 /turf/space,
 /area/station/solar/south)
 "Cb" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -13522,7 +13522,7 @@
 "Fq" = (
 /obj/machinery/door/airlock/pyro/medical/alt{
 	dir = 4;
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/access_spawn/medical,
 /obj/firedoor_spawn,

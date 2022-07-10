@@ -14561,7 +14561,7 @@
 /area/station/medical/cdc)
 "Jz" = (
 /obj/machinery/door/airlock/pyro/medical/alt{
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/firedoor_spawn,
 /obj/disposalpipe/segment,
@@ -14570,7 +14570,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/blue,
 /area/station/medical/cdc)
 "JA" = (
@@ -14721,7 +14721,7 @@
 	},
 /area/station/medical/cdc)
 "JV" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -14770,7 +14770,7 @@
 "JY" = (
 /obj/machinery/door/airlock/pyro/medical/alt{
 	dir = 4;
-	name = "Pathology"
+	name = "Microbiology"
 	},
 /obj/firedoor_spawn,
 /obj/disposalpipe/segment{
@@ -14779,7 +14779,7 @@
 /obj/cable{
 	icon_state = "4-8"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/blue,
 /area/station/medical/cdc)
 "JZ" = (
@@ -14867,7 +14867,7 @@
 /turf/simulated/floor/plating/random,
 /area/station/engine/substation/east)
 "Kl" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4;
 	tag = "icon-pathology (EAST)"
 	},
@@ -14878,7 +14878,7 @@
 "Km" = (
 /obj/stool/chair/office/purple,
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/white,
 /area/station/medical/cdc)

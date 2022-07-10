@@ -332,7 +332,14 @@
 		if (prob(1) && prob(5))
 			src.handle_random_emotes()
 
-	src.handle_pathogens()
+		for (var/uid in src.microbes)
+			var/datum/microbeplayerdata/P = src.microbes[uid]
+			P.mob_act(src, P)
+
+	else if (isdead(src) && src.microbes.len)
+		for (var/uid in src.microbes)
+			var/datum/microbeplayerdata/P = src.microbes[uid]
+			P.mob_act_dead(src, P)
 
 	last_human_life_tick = TIME
 
@@ -592,18 +599,6 @@
 
 
 /mob/living/carbon/human
-
-	proc/handle_pathogens()
-		if (isdead(src))
-			if (src.pathogens.len)
-				for (var/uid in src.pathogens)
-					var/datum/pathogen/P = src.pathogens[uid]
-					P.disease_act_dead()
-			return
-		for (var/uid in src.pathogens)
-			var/datum/pathogen/P = src.pathogens[uid]
-			P.disease_act()
-
 
 	proc/get_disease_protection(var/ailment_path=null, var/ailment_name=null)
 		if (!src)

@@ -1801,7 +1801,7 @@
 /area/station/medical/research)
 "aeb" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor/white,
 /area/station/medical/research)
@@ -28977,7 +28977,7 @@
 	icon_state = "1-8"
 	},
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor,
 /area/station/crew_quarters/fitness)
@@ -37235,7 +37235,7 @@
 	density = 1;
 	icon_state = "pdoor1";
 	id = "disease lab";
-	name = "Pathology Lab Blast Doors";
+	name = "Microbiology Lab Blast Doors";
 	opacity = 1
 	},
 /obj/cable{

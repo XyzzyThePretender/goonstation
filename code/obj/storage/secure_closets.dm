@@ -948,8 +948,8 @@
 				new a_sandwich(src)
 			return 1
 
-/obj/storage/secure/closet/fridge/pathology
-	name = "pathology lab fridge"
+/obj/storage/secure/closet/fridge/microbiology
+	name = "microbiology lab fridge"
 	req_access = list(access_medical_lockers)
 	//PATHOLOGY REMOVAL
 	#ifdef CREATE_PATHOGENS

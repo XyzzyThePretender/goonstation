@@ -2432,16 +2432,10 @@
 	if (src.stat > 1)
 		setalive(src)
 
-/mob/proc/infected(var/datum/pathogen/P)
+/mob/proc/infected(var/datum/microbe/P)
 	return
 
-/mob/proc/remission(var/datum/pathogen/P)
-	return
-
-/mob/proc/immunity(var/datum/pathogen/P)
-	return
-
-/mob/proc/cured(var/datum/pathogen/P)
+/mob/proc/cured(var/datum/microbeplayerdata/P)
 	return
 
 /mob/proc/shock(var/atom/origin, var/wattage, var/zone, var/stun_multiplier = 1, var/ignore_gloves = 0)

@@ -17811,7 +17811,7 @@
 "aRe" = (
 /obj/storage/closet/biohazard,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "aRf" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -21470,11 +21470,11 @@
 /turf/simulated/floor/engine,
 /area/research_outpost/chamber)
 "bcT" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "bcV" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/research_outpost/toxins)
@@ -39980,9 +39980,9 @@
 	},
 /obj/machinery/door/airlock/pyro/sci_alt,
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "bYt" = (
 /obj/item/reagent_containers/food/snacks/donut/custom/robust{
 	pixel_y = 4;
@@ -44398,7 +44398,7 @@
 "cuy" = (
 /obj/machinery/synthomatic,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "cwj" = (
 /obj/item/storage/secure/ssafe/diner_arcade{
 	pixel_x = -30
@@ -44585,7 +44585,7 @@
 	},
 /obj/machinery/power/apc/autoname_south,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "dvD" = (
 /obj/disposalpipe/trunk/mail/north,
 /obj/machinery/disposal/mail/small/autoname{
@@ -44709,7 +44709,7 @@
 /turf/simulated/floor,
 /area/research_outpost)
 "dVf" = (
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor,
 /area/research_outpost)
 "dWG" = (
@@ -45058,7 +45058,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "fUm" = (
 /obj/machinery/drone_recharger,
 /turf/simulated/floor/plating/random,
@@ -45167,7 +45167,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "giE" = (
 /obj/machinery/door/poddoor/blast/pyro/podbay_autoclose{
 	id = "mining_podbay"
@@ -45430,7 +45430,7 @@
 /area/station/crew_quarters/barber_shop)
 "hBQ" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "hFC" = (
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/bot/darkpurple,
@@ -45705,10 +45705,10 @@
 	dir = 4
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "jkr" = (
 /obj/cable{
 	d2 = 2;
@@ -45769,9 +45769,9 @@
 /area/research_outpost)
 "jxG" = (
 /obj/machinery/light/incandescent/netural,
-/obj/cabinet/pathology,
+/obj/cabinet/microbiology,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "jzB" = (
 /obj/machinery/manufacturer/science,
 /turf/simulated/floor,
@@ -45864,7 +45864,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "jOW" = (
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/crew_quarters/bar)
@@ -45921,7 +45921,7 @@
 	},
 /obj/machinery/door/airlock/pyro/sci_alt,
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/green,
 /area/research_outpost/maint)
 "kjH" = (
@@ -46054,7 +46054,7 @@
 "ljO" = (
 /obj/machinery/light/incandescent/netural,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "llR" = (
 /obj/cable{
 	icon_state = "4-8"
@@ -46088,7 +46088,7 @@
 "luP" = (
 /obj/machinery/centrifuge,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "lxj" = (
 /obj/table/auto,
 /obj/drink_rack/mug{
@@ -46288,7 +46288,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "mLA" = (
 /obj/cable{
 	d1 = 4;
@@ -46397,7 +46397,7 @@
 	},
 /obj/machinery/light/incandescent/netural,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "nej" = (
 /obj/machinery/light/incandescent/blueish,
 /obj/item/pen/crayon/white,
@@ -46840,7 +46840,7 @@
 	pixel_x = 4
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "pHw" = (
 /obj/table/auto,
 /obj/item/storage/toolbox/emergency{
@@ -47108,7 +47108,7 @@
 "qXh" = (
 /obj/machinery/pathogen_manipulator,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "qZZ" = (
 /obj/machinery/light/incandescent/harsh,
 /obj/storage/crate,
@@ -47147,7 +47147,7 @@
 /obj/machinery/microscope,
 /obj/machinery/light/incandescent/netural,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "rfq" = (
 /obj/disposalpipe/segment/mail,
 /obj/item/device/radio/intercom/engineering{
@@ -47472,7 +47472,7 @@
 /obj/table/reinforced/chemistry/auto,
 /obj/machinery/microscope,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "tNa" = (
 /obj/decal/tile_edge/stripe/extra_big{
 	dir = 8
@@ -47850,7 +47850,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "wgg" = (
 /obj/stool/chair/comfy{
 	dir = 8
@@ -48053,7 +48053,7 @@
 /area/station/crew_quarters/arcade)
 "xFh" = (
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "xIn" = (
 /obj/machinery/computer/power_monitor{
 	dir = 8
@@ -48069,10 +48069,10 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/ce)
 "xIA" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/machinery/light/incandescent/netural,
 /turf/simulated/floor/green,
-/area/research_outpost/pathology)
+/area/research_outpost/microbiology)
 "xNc" = (
 /turf/simulated/floor/wood/two,
 /area/station/crew_quarters/barber_shop)

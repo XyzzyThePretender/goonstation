@@ -8735,7 +8735,7 @@
 	},
 /area/russian/radiation)
 "brr" = (
-/obj/storage/secure/closet/fridge/pathology{
+/obj/storage/secure/closet/fridge/microbiology{
 	req_access_txt = "5"
 	},
 /obj/item/reagent_containers/food/snacks/agar_block,
@@ -9095,7 +9095,7 @@
 /obj/decal/cleanable/blood/tracks{
 	dir = 4
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/white{
 	desc = " It is made of steel.";
 	name = "steel floor"
@@ -10320,7 +10320,7 @@
 	dir = 8;
 	name = "Pathogen Research"
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/black{
 	desc = " It is made of steel.";
 	name = "steel floor"
@@ -10347,7 +10347,7 @@
 	name = "Pathogen Research"
 	},
 /obj/decal/cleanable/dirt/dirt2,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/disposalpipe/segment/transport{
 	dir = 4
 	},
@@ -10426,7 +10426,7 @@
 	},
 /area/russian/radiation)
 "bvV" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/alarm{
@@ -10692,7 +10692,7 @@
 	},
 /area/russian/radiation)
 "bxp" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/decal/cleanable/dirt/dirt2,
 /obj/decal/cleanable/dirt/dirt4,
 /obj/disposalpipe/segment{
@@ -48893,7 +48893,7 @@
 /area/russian/radiation)
 "iXx" = (
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/unsimulated/floor{
 	desc = "";

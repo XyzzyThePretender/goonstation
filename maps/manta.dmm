@@ -25969,7 +25969,7 @@
 /area/station/crew_quarters/hor/horprivate)
 "btl" = (
 /obj/disposalpipe/switch_junction/right/west{
-	mail_tag = "Pathology"
+	mail_tag = "Microbiology"
 	},
 /turf/simulated/wall/auto/reinforced/supernorn,
 /area/station/medical/cdc)
@@ -26425,7 +26425,7 @@
 	icon_state = "line3"
 	},
 /obj/disposalpipe/segment,
-/obj/cabinet/pathology,
+/obj/cabinet/microbiology,
 /turf/simulated/floor/greenwhite,
 /area/station/medical/cdc)
 "buJ" = (
@@ -26437,7 +26437,7 @@
 	dir = 5;
 	icon_state = "line4"
 	},
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/disposalpipe/segment/mail,
 /turf/simulated/floor/greenwhite/corner{
 	dir = 4
@@ -26947,10 +26947,10 @@
 	},
 /obj/machinery/disposal/mail/small{
 	dir = 8;
-	mail_tag = "Pathology";
+	mail_tag = "Microbiology";
 	mailgroup = "science";
 	message = "1";
-	name = "mail chute-'Pathology'"
+	name = "mail chute-'Microbiology'"
 	},
 /obj/disposalpipe/trunk/mail{
 	dir = 1
@@ -27494,7 +27494,7 @@
 /obj/machinery/door/airlock/pyro/glass{
 	dir = 4
 	},
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/green,
 /area/station/medical/cdc)
 "bxP" = (
@@ -27989,7 +27989,7 @@
 	icon_state = "4-8"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/orange,
 /area/station/medical/cdc)
 "bzo" = (
@@ -28630,7 +28630,7 @@
 	icon_state = "4-8"
 	},
 /obj/firedoor_spawn,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /turf/simulated/floor/orange,
 /area/station/medical/cdc)
 "bAR" = (
@@ -29266,7 +29266,7 @@
 	icon_state = "4-8"
 	},
 /obj/landmark/start{
-	name = "Pathologist"
+	name = "Microbiologist"
 	},
 /turf/simulated/floor/green,
 /area/station/medical/cdc)
@@ -29279,7 +29279,7 @@
 	dir = 1;
 	icon_state = "line3"
 	},
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/power/data_terminal,

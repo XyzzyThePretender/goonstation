@@ -36739,7 +36739,7 @@
 "jVy" = (
 /obj/disposalpipe/switch_junction/right/east{
 	mail_tag = "pathology";
-	name = "pathology mail junction"
+	name = "microbiology mail junction"
 	},
 /turf/simulated/floor,
 /area/station/hallway/primary/north)
@@ -42892,7 +42892,7 @@
 /turf/simulated/floor/plating/airless/asteroid/dark,
 /area/space)
 "lzS" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
@@ -58234,7 +58234,7 @@
 /turf/simulated/floor/grass/leafy,
 /area/station/ranch)
 "pwj" = (
-/obj/machinery/disposal/mail/autoname/medbay/pathology,
+/obj/machinery/disposal/mail/autoname/medbay/microbiology,
 /obj/disposalpipe/trunk/west,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -62172,7 +62172,7 @@
 	},
 /area/station/hallway/primary/north)
 "qBn" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4
 	},
 /obj/cable{

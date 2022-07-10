@@ -521,7 +521,7 @@
 	},
 /area/station/engine/vesselpower)
 "aaY" = (
-/obj/machinery/vending/pathology{
+/obj/machinery/vending/microbiology{
 	req_access_txt = "5|24"
 	},
 /obj/machinery/power/apc{
@@ -1717,7 +1717,7 @@
 "adc" = (
 /obj/table/reinforced/auto,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/item/storage/toolbox/emergency,
 /obj/item/device/radio,
@@ -3012,7 +3012,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable{
@@ -3158,7 +3158,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable,
@@ -3205,7 +3205,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable{
@@ -3312,7 +3312,7 @@
 /obj/machinery/power/data_terminal{
 	layer = 2
 	},
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4
 	},
 /obj/cable{
@@ -3390,7 +3390,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable{
@@ -3547,7 +3547,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/window/reinforced/west,
@@ -3592,7 +3592,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable,
@@ -3673,7 +3673,7 @@
 /area/station/medical/cdc)
 "agx" = (
 /obj/machinery/door/window/northleft{
-	name = "Pathology Subject Chamber";
+	name = "Microbiology Subject Chamber";
 	req_access_txt = "24"
 	},
 /obj/window/reinforced/east,
@@ -3681,7 +3681,7 @@
 /area/station/medical/cdc)
 "agy" = (
 /obj/machinery/door/airlock/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "24"
 	},
 /obj/cable{
@@ -3743,7 +3743,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable{
@@ -3799,7 +3799,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable{
@@ -3902,14 +3902,14 @@
 /area/station/science/vessel)
 "agR" = (
 /obj/machinery/door/airlock/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "24"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable{
@@ -4015,7 +4015,7 @@
 	density = 0;
 	icon_state = "pdoor0";
 	id = "pathlockdown";
-	name = "Pathology Lockdown Shutters";
+	name = "Microbiology Lockdown Shutters";
 	opacity = 0
 	},
 /obj/cable,
@@ -11093,7 +11093,7 @@
 	pixel_x = 6
 	},
 /obj/item/device/radio/intercom/catering{
-	
+
 	},
 /turf/simulated/floor/specialroom/cafeteria,
 /area/station/crew_quarters/kitchen)
@@ -32309,7 +32309,7 @@
 /area/station/hallway/secondary/exit)
 "blR" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/table/auto,
 /obj/item/decoration/ashtray,

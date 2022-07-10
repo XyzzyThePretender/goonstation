@@ -3942,7 +3942,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "ajd" = (
-/obj/storage/secure/closet/fridge/pathology{
+/obj/storage/secure/closet/fridge/microbiology{
 	req_access_txt = "5"
 	},
 /obj/item/reagent_containers/food/snacks/agar_block,
@@ -5144,7 +5144,7 @@
 /area/station/science/chemistry)
 "alJ" = (
 /obj/disposalpipe/segment/horizontal,
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "alK" = (
@@ -13141,7 +13141,7 @@
 /turf/simulated/floor/black,
 /area/station/medical/cdc)
 "aGc" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/alarm{

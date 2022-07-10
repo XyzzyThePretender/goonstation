@@ -3633,7 +3633,7 @@ var/global/noir = 0
 					if("randomevents")
 						random_events.event_config()
 					if("pathology")
-						pathogen_controller.cdc_main(src)
+						microbio_controls.cdc_main(src)
 					if("motives")
 						simsController.showControls(usr)
 					if("artifacts")
@@ -3710,7 +3710,7 @@ var/global/noir = 0
 				if (href_list["presearch"])
 					gettxt = href_list["presearch"]
 				else
-					gettxt = input("Which pathogen tree?", "Pathogen tree") in pathogen_controller.pathogen_trees
+					gettxt = input("Which culture?", "Microbiology Cultures") in microbio_controls.cultures
 
 				var/adminLogHtml = get_log_data_html("pathology", gettxt, src)
 				usr.Browse(adminLogHtml, "window=pathology_log;size=750x500")
@@ -4261,9 +4261,8 @@ var/global/noir = 0
 				<A href='?src=\ref[src];action=view_logs;type=signalers_log_string'><small>(Search)</small></A><BR>
 				<A href='?src=\ref[src];action=view_logs;type=atmos_log'>Atmos Log</A>
 				<A href='?src=\ref[src];action=view_logs;type=atmos_log_string'><small>(Search)</small></A><BR>
-				<A href='?src=\ref[src];action=view_logs;type=pathology_log'>Pathology Log</A>
-				<A href='?src=\ref[src];action=view_logs;type=pathology_log_string'><small>(Search)</small></A>
-				<A href='?src=\ref[src];action=view_logs_pathology_strain'><small>(Find pathogen)</small></A><BR>
+				<A href='?src=\ref[src];action=view_logs;type=pathology_log'>Microbiology Log</A>
+				<A href='?src=\ref[src];action=view_logs;type=pathology_log_string'><small>(Search)</small></A><br>
 				<A href='?src=\ref[src];action=view_logs;type=vehicle_log'>Vehicle Log</A>
 				<A href='?src=\ref[src];action=view_logs;type=vehicle_log_string'><small>(Search)</small></A><br>
 				<A href='?src=\ref[src];action=view_logs;type=computers_log'>Computers Log</A>

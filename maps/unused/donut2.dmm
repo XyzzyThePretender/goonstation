@@ -6573,7 +6573,7 @@
 	},
 /area/station/medical/cdc)
 "anb" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/white/checker2{
 	dir = 9
 	},
@@ -6967,7 +6967,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/glass{
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "5"
 	},
 /obj/cable{
@@ -7111,7 +7111,7 @@
 /turf/simulated/floor/plating,
 /area/station/medical/cdc)
 "anY" = (
-/obj/storage/secure/closet/fridge/pathology,
+/obj/storage/secure/closet/fridge/microbiology,
 /turf/simulated/floor/greenwhite{
 	dir = 8
 	},
@@ -7127,7 +7127,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "aob" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/power/data_terminal,
@@ -7607,7 +7607,7 @@
 	mail_tag = "pathology";
 	mailgroup = "science";
 	message = "1";
-	name = "mail chute-'Pathology'"
+	name = "mail chute-'Microbiology'"
 	},
 /turf/simulated/floor/greenwhite{
 	dir = 1
@@ -13878,7 +13878,7 @@
 /area/station/crew_quarters/quarters)
 "aCr" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/storage/crate,
 /obj/item/clothing/under/gimmick/princess,
@@ -38389,7 +38389,7 @@
 /area/station/crew_quarters/juryroom)
 "byI" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /turf/simulated/floor/black,
 /area/station/crew_quarters/juryroom)
@@ -38944,7 +38944,7 @@
 /area/station/janitor/office)
 "bzI" = (
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/storage/secure/closet/civilian/janitor,
 /turf/simulated/floor/specialroom/arcade,
@@ -43457,7 +43457,7 @@
 /obj/table/auto,
 /obj/item/device/radio/signaler,
 /obj/item/device/radio/intercom{
-	
+
 	},
 /obj/item/device/radio/signaler{
 	pixel_x = 2;

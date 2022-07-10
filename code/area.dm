@@ -1705,7 +1705,7 @@ ABSTRACT_TYPE(/area/shuttle/asylum)
 /area/shuttle/asylum/medbay
 		icon_state = "shuttle1"
 
-/area/shuttle/asylum/pathology
+/area/shuttle/asylum/microbiology
 		icon_state = "shuttle2"
 
 /area/shuttle/asylum/observation
@@ -2614,7 +2614,7 @@ ABSTRACT_TYPE(/area/station/medical)
 		name = "Medical Director's  Private Quarters"
 
 /area/station/medical/cdc
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	icon_state = "medcdc"
 	sound_environment = 5
 
@@ -3233,8 +3233,8 @@ ABSTRACT_TYPE(/area/station/catwalk)
 		name = "Research Outpost Toxins"
 		icon_state = "green"
 
-/area/research_outpost/pathology
-		name = "Research Outpost Pathology"
+/area/research_outpost/microbiology
+		name = "Research Outpost Microbiology"
 		icon_state = "pink"
 
 // end station areas //
@@ -4592,7 +4592,7 @@ area/station/crewquarters/cryotron
 		name = "Medical Director's  Private Quarters"
 
 /area/station2/medical/cdc
-	name = "Pathology Research"
+	name = "Microbiology Research"
 	icon_state = "medcdc"
 	sound_environment = 5
 

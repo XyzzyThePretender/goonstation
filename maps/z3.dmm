@@ -11512,7 +11512,7 @@
 /turf/space,
 /area/space)
 "aLz" = (
-/obj/machinery/vending/pathology,
+/obj/machinery/vending/microbiology,
 /turf/simulated/floor/airless/scorched,
 /area/abandonedmedicalship)
 "aLA" = (
@@ -22818,7 +22818,7 @@
 /turf/unsimulated/wall/auto/lead/blue,
 /area/timewarp/ship)
 "sFV" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 4
 	},
 /turf/simulated/floor/purplewhite{

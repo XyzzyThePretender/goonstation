@@ -231,3 +231,4 @@
 	FG.del_reagent("okay_concrete")
 	FG.del_reagent("good_concrete")
 	FG.del_reagent("perfect_concrete")
+	FG.del_reagent("pathogen")

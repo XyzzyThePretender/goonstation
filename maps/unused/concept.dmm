@@ -52684,7 +52684,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 2;
 	icon_state = "left";
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "8";
 	tag = "icon-left"
 	},
@@ -54239,7 +54239,7 @@
 /obj/machinery/door/airlock/medical{
 	icon_state = "door_locked";
 	locked = 1;
-	name = "Pathology Lab";
+	name = "Microbiology Lab";
 	req_access_txt = "8"
 	},
 /turf/simulated/floor/white,

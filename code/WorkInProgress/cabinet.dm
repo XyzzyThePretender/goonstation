@@ -161,7 +161,7 @@
 		qdel(src)
 		return
 
-/obj/cabinet/pathology
+/obj/cabinet/microbiology
 
 	New()
 		#ifdef CREATE_PATHOGENS //PATHOLOGY REMOVAL

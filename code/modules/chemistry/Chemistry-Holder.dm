@@ -360,17 +360,15 @@ datum
 			return amount
 
 		proc/aggregate_pathogens()
-			var/list/ret = list()
-			for (var/reagent_id in pathogen_controller.pathogen_affected_reagents)
+			. = list()
+			for (var/reagent_id in microbio_controls.pathogen_affected_reagents)
 				if (src.has_reagent(reagent_id))
 					var/datum/reagent/blood/B = src.get_reagent(reagent_id)
 					if (!istype(B))
 						continue
-					for (var/uid in B.pathogens)
-						if (!(uid in ret))
-							ret += uid
-							ret[uid] = B.pathogens[uid]
-			return ret
+					for (var/uid in B.microbes)
+						if (!(uid in .))
+							. += uid
 
 		//multiplier is used to handle realtime metabolizations over byond time
 		proc/metabolize(var/mob/target, var/multiplier = 1)

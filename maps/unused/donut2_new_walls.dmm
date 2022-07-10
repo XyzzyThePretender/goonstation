@@ -4980,7 +4980,7 @@
 	req_access_txt = ""
 	},
 /obj/access_spawn/research,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/firedoor_spawn,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
@@ -5126,7 +5126,7 @@
 	},
 /area/station/medical/cdc)
 "amD" = (
-/obj/machinery/vending/pathology{
+/obj/machinery/vending/microbiology{
 	req_access_txt = ""
 	},
 /turf/simulated/floor/white/checker2{
@@ -5394,7 +5394,7 @@
 	dir = 4
 	},
 /obj/access_spawn/research,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/firedoor_spawn,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -5507,12 +5507,12 @@
 "ans" = (
 /obj/machinery/door/airlock/pyro/glass/sci,
 /obj/access_spawn/research,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/firedoor_spawn,
 /turf/simulated/floor/delivery/white,
 /area/station/medical/cdc)
 "ant" = (
-/obj/storage/secure/closet/fridge/pathology,
+/obj/storage/secure/closet/fridge/microbiology,
 /turf/simulated/floor/greenwhite{
 	dir = 8
 	},
@@ -5528,7 +5528,7 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "anw" = (
-/obj/machinery/computer/pathology{
+/obj/machinery/computer/microbiology{
 	dir = 8
 	},
 /obj/machinery/power/data_terminal,
@@ -5788,7 +5788,7 @@
 	mail_tag = "pathology";
 	mailgroup = "science";
 	message = "1";
-	name = "mail chute-'Pathology'"
+	name = "mail chute-'Microbiology'"
 	},
 /obj/disposalpipe/trunk/mail{
 	dir = 1
@@ -45081,7 +45081,7 @@
 	dir = 4
 	},
 /obj/access_spawn/research,
-/obj/access_spawn/pathology,
+/obj/access_spawn/microbiology,
 /obj/firedoor_spawn,
 /obj/cable{
 	icon_state = "4-8"
