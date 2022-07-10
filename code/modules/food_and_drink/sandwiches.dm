@@ -288,9 +288,6 @@
 	heal_amt = 1
 	food_effects = list("food_bad_breath")
 
-	New()
-		..()
-
 	heal(var/mob/M)
 		boutput(M, "<span class='alert'>Oof, how old was that?</span>")
 		if(prob(66))
@@ -329,7 +326,6 @@
 	bites_left = 3
 	heal_amt = 1
 	food_color = "#C8C8C8"
-	brewable = 1
 	brew_result = "beepskybeer"
 	initial_reagents = list("cholesterol"=5,"nanites"=20)
 
@@ -340,7 +336,6 @@
 	bites_left = 3
 	heal_amt = 1
 	food_color = "#C8C8C8"
-	brewable = 1
 	brew_result = "beepskybeer"
 	initial_reagents = list("cholesterol"=5,"nanites"=20)
 
