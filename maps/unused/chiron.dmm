@@ -3033,7 +3033,6 @@
 	},
 /area/station/medical/cdc)
 "afu" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "afv" = (
@@ -3362,14 +3361,14 @@
 /area/station/medical/cdc)
 "aga" = (
 /obj/table/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/cable{
 	icon_state = "4-8";
 	d1 = 4;

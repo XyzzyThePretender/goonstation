@@ -21186,9 +21186,9 @@
 /area/station/medical/cdc)
 "aRR" = (
 /obj/table/reinforced/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
@@ -22727,9 +22727,6 @@
 /turf/simulated/floor/plating,
 /area/station/crew_quarters/fitness)
 "aUM" = (
-/obj/machinery/incubator{
-	dir = 8
-	},
 /obj/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -25040,7 +25037,6 @@
 /turf/simulated/floor/greenwhite,
 /area/station/medical/cdc)
 "aZW" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/greenwhite,
 /area/station/medical/cdc)
 "aZX" = (

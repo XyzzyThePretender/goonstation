@@ -18022,14 +18022,14 @@
 /area/station/maintenance/solar/west)
 "bay" = (
 /obj/table/reinforced/chemistry/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/glass/vial,
 /obj/item/reagent_containers/glass/vial,
 /obj/item/reagent_containers/glass/vial,
@@ -18103,7 +18103,6 @@
 /turf/simulated/floor/darkblue,
 /area/station/turret_protected/ai)
 "baJ" = (
-/obj/machinery/autoclave,
 /obj/cable{
 	icon_state = "4-8"
 	},
@@ -21287,9 +21286,6 @@
 /area/station/medical/dome)
 "bmh" = (
 /obj/machinery/light_switch/west,
-/obj/machinery/incubator{
-	dir = 4
-	},
 /turf/simulated/floor/bluewhite{
 	dir = 8
 	},

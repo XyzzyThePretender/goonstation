@@ -66307,7 +66307,6 @@
 	},
 /area/station/medical/cdc)
 "cUa" = (
-/obj/machinery/autoclave,
 /obj/machinery/light{
 	dir = 4;
 	layer = 9.1;
@@ -68218,9 +68217,9 @@
 /area/station/medical/head)
 "cXX" = (
 /obj/table/reinforced/chemistry/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 4;
@@ -71119,23 +71118,6 @@
 /obj/firedoor_spawn,
 /turf/simulated/floor/delivery,
 /area/station/medical/medbay)
-<<<<<<< HEAD
-"deB" = (
-/obj/wingrille_spawn/auto/reinforced,
-/obj/decal/poster/wallsign/hazard_bio,
-/turf/simulated/floor/plating,
-/area/station/medical/cdc)
-"deC" = (
-/obj/firedoor_spawn,
-/obj/machinery/door/airlock/pyro/glass{
-	name = "Quarantine Ward";
-	req_access_txt = null
-	},
-/obj/access_spawn/microbiology,
-/turf/simulated/floor/delivery,
-/area/station/medical/cdc)
-=======
->>>>>>> master
 "deD" = (
 /obj/disposaloutlet{
 	dir = 4
@@ -78116,7 +78098,6 @@
 /turf/simulated/floor/shuttlebay,
 /area/station/security/checkpoint/podbay)
 "nKf" = (
-/obj/machinery/incubator,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "nLO" = (

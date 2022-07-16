@@ -149,8 +149,13 @@
 	var/list/sound_list_flap = null
 
 	var/list/datum/microbeplayerdata/microbes = list()
+
+	#ifdef DEFAULT_TOTALIMMUNITY
+	var/totalimmunity = FALSE
+	#else
 	///Boolean: prevents the player from getting microbes. Currently defaults to TRUE.
 	var/totalimmunity = TRUE
+	#endif
 
 	var/datum/simsHolder/sims = null
 

@@ -48742,7 +48742,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "cxo" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "cxp" = (
@@ -48833,35 +48832,35 @@
 /area/station/medical/cdc)
 "cxF" = (
 /obj/table/auto,
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 11
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 8
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 5
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 2
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = -1
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 7
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 1
 	},
@@ -49232,7 +49231,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "cyN" = (
-/obj/machinery/incubator,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "cyQ" = (

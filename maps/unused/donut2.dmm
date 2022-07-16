@@ -6732,14 +6732,14 @@
 	},
 /area/station/medical/cdc)
 "ann" = (
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/table/reinforced/chemistry/auto,
 /turf/simulated/floor/greenwhite{
 	dir = 1
@@ -7761,14 +7761,14 @@
 /turf/simulated/floor/plating,
 /area/station/medical/cdc)
 "api" = (
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 8

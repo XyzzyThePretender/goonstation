@@ -613,7 +613,6 @@
 /turf/unsimulated/floor,
 /area/space)
 "aLh" = (
-/obj/machinery/autoclave,
 /turf/unsimulated/floor/white,
 /area/swampzone/interiors/outbuildings)
 "aLH" = (
@@ -19341,7 +19340,6 @@
 /turf/unsimulated/floor/red,
 /area/syndicate_station)
 "wOz" = (
-/obj/machinery/incubator,
 /turf/unsimulated/floor/white,
 /area/swampzone/interiors/outbuildings)
 "wOE" = (

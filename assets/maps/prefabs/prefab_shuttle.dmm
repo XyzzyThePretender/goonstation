@@ -280,7 +280,7 @@
 	icon_state = "tube-broken";
 	dir = 1
 	},
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /turf/space,
 /area/noGenerate)
 "aP" = (

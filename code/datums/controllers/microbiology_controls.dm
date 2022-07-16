@@ -2,7 +2,9 @@ var/datum/microbiology_controller/microbio_controls
 //Does this go here? Should it be in the main microbiology folder?
 /datum/microbiology_controller
 
-	var/list/pathogen_affected_reagents = list("blood", "pathogen", "bloodc")
+	// Don't add ling blood until ling code is redone. No point in accepting an incomplete interaction.
+	// Besides, the ling test is much more accessible. No one in their right mind would resort to distilled microbes to test!
+	var/list/pathogen_affected_reagents = list("blood", "pathogen")
 
 	///Increments on every generated microbe.
 	var/next_uid = 1
@@ -53,8 +55,7 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 				return cultures[uid]
 
 	/**
-	 * Called when any changes are made to a microbe.
-	 * Examples include being infected, cured, manual admin changes, and reporting.
+	 * Called on successful infections and immunizations.
 	 * Runs a for loop pushing the update to all relevant (infected) players.
 	 */
 	proc/push_to_upstream(var/datum/microbe/P)
@@ -143,18 +144,18 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 					var/datum/microbe/CDC = src.cultures[uid]
 					output += "<tr>"
 
-					output += "<td>[round(CDC.creation_time / 60)]:[((CDC.creation_time % 60) < 10) ? 0 : null][(CDC.creation_time % 60)]</td>"
-					output += "<td class='name'>[CDC.name]</td>"
-					output += "<td>[CDC.uid]</td>"
+					output += "<td><center>[round(CDC.creation_time / 60)]:[((CDC.creation_time % 60) < 10) ? 0 : null][(CDC.creation_time % 60)]</center></td>"
+					output += "<td class='name'><center>[CDC.name]</center></td>"
+					output += "<td><center>[CDC.uid]</center></td>"
 
 					//Infected
 					if (CDC.infected)
-						output += "<td>"
+						output += "<td><center>"
 						for (var/poor_sod as anything in CDC.infected)
 							output += "[poor_sod], "
-						output += "</td>"
+						output += "</center></td>"
 					else
-						output += "<td>No infections yet</td>"
+						output += "<td><center>N/A</center></td>"
 
 					//Immune
 					if (CDC.immune)
@@ -163,19 +164,19 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 							output += "[cured], "
 						output += "</td>"
 					else
-						output += "<td>No immunities yet</td>"
+						output += "<td><center>N/A</center></td>"
 
 					//Remaining / Total
-					output += "<td>[CDC.infectioncount] / [CDC.infectiontotal]</td>"
+					output += "<td><center>[CDC.infectioncount] / [CDC.infectiontotal]</center></td>"
 
 					//Duration
-					output += "<td>[round(CDC.durationtotal / 600)]:[((CDC.durationtotal % 60) < 10) ? 0 : null][(CDC.durationtotal / 10) % 60]</td>"
+					output += "<td><center>[round(CDC.durationtotal / 60)]:[((CDC.durationtotal % 60) < 10) ? 0 : null][CDC.durationtotal % 60]</center></td>"
 
 					//Cure
-					output += "<td>[CDC.suppressant]</td>"
+					output += "<td><center>[CDC.suppressant]</center></td>"
 
 					//Effects
-					output += "<td>"
+					output += "<td><center>"
 					for (var/effectindex as anything in CDC.effects)
 						//Duped, possibly crunchable
 						//Color-coded naming: RED = malevolent, BLUE = neutral, GREEN = benevolent
@@ -188,17 +189,17 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 						else
 							output += "[effectindex], "
 
-					output += "</td>"
+					output += "</center></td>"
 					//Logs
-					output += "<td><a href='?src=\ref[topic_holder];action=view_logs_pathology_strain;presearch=[CDC.name]'>(LOGS)</a></td>"
+					output += "<td><center><a href='?src=\ref[topic_holder];action=view_logs_pathology_strain;presearch=[CDC.name]'>(LOGS)</a></center></td>"
 
 					//Actions
-					output += "<td>"
+					output += "<td><center>"
 					output += "<a href='?src=\ref[src];action=cure_one;strain=[uid];topic_holder=\ref[topic_holder]'>(CURE ONE) </a>"
 					output += "<a href='?src=\ref[src];action=cure_all;strain=[uid];topic_holder=\ref[topic_holder]'>(CURE ALL) </a>"
 					output += "<a href='?src=\ref[src];action=infect;strain=[uid];topic_holder=\ref[topic_holder]'>(INFECT) </a>"
 					output += "<a href='?src=\ref[src];action=spawnvial;strain=[uid];topic_holder=\ref[topic_holder]'>(SPAWN VIAL)</a>"
-					output += "</td>"
+					output += "</td></center>"
 
 					output += "</tr>"
 				output += "</tbody></table>"

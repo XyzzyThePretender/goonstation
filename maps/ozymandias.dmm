@@ -33886,7 +33886,6 @@
 /turf/simulated/floor/sanitary,
 /area/station/crew_quarters/showers)
 "jiV" = (
-/obj/machinery/autoclave,
 /obj/machinery/atmospherics/pipe/simple,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -49407,14 +49406,14 @@
 	name = "Arrival Shuttle Hallway"
 	})
 "nhc" = (
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/glass/vial,
 /obj/item/reagent_containers/glass/vial,
 /obj/item/reagent_containers/glass/vial,

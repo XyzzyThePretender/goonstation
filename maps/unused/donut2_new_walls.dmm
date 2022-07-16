@@ -5204,14 +5204,14 @@
 	},
 /area/station/medical/cdc)
 "amL" = (
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/table/reinforced/chemistry/auto,
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/greenwhite{
@@ -5888,14 +5888,14 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "aos" = (
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/machinery/light{
 	dir = 8;
 	icon_state = "tube1"
@@ -19387,7 +19387,7 @@
 "aUy" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
-	level = 2 
+	level = 2
 	},
 /turf/simulated/floor/bluewhite{
 	dir = 4

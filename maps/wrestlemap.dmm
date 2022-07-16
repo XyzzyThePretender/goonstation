@@ -9201,12 +9201,12 @@
 /area/station/mining/cargo_staff_room)
 "dLV" = (
 /obj/table/reinforced/chemistry/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /turf/simulated/floor/bluewhite,
 /area/station/medical/cdc)
 "dLW" = (
@@ -12582,7 +12582,6 @@
 /obj/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/autoclave,
 /obj/disposalpipe/segment/transport,
 /turf/simulated/floor/blue,
 /area/station/medical/cdc)
@@ -48764,7 +48763,6 @@
 /turf/simulated/floor/wood,
 /area/station/crew_quarters/quarters_north)
 "uSa" = (
-/obj/machinery/autoclave,
 /obj/machinery/light/incandescent/cool{
 	dir = 8;
 	layer = 9.1;

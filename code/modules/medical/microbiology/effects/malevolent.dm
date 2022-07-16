@@ -5,39 +5,38 @@
 ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent
 	name = "The Specter of Pathology"
+	var/damage_cap = 15	// 45% to crit for 100 damage crit
 
+#ifdef NEGATIVE_EFFECTS
 /datum/microbioeffects/malevolent/indigestion
 	name = "Indigestion"
 	desc = "A bad case of indigestion which occasionally cramps the infected."
-	//review
 	reactionlist = list("cold_medicine", "magnesium", "aluminum")	//general meds and antacids (milk of magnesia)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_toxin_damage() <= 25))
-			M.take_toxin_damage(1)
+		if (prob(origin.probability) && (M.get_toxin_damage() <= damage_cap))
+			M.take_toxin_damage(2)
 			M.show_message("<span class='alert'>Your stomach hurts.</span>")
 
 /datum/microbioeffects/malevolent/muscleache
 	name = "Muscle Ache"
 	desc = "The infected feels a slight, constant aching of muscles."
-	//review
 	reactionlist = list("water", "haloperidol", "morphine")
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_brute_damage() <= 25))
+		if (prob(origin.probability) && (M.get_brute_damage() <= damage_cap))
 			M.show_message("<span class='alert'>Your muscles ache.</span>")
-			M.TakeDamage("All", 1, 0)
+			M.TakeDamage("All", 2, 0)
 
 /datum/microbioeffects/malevolent/fever
 	name = "Fever"
 	desc = "The body temperature of the infected individual slightly increases."
-	//review
 	reactionlist = MB_COLD_REAGENTS
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_burn_damage() <= 25))
+		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
 			M.bodytemperature += 4
-			M.TakeDamage("chest", 0, 1)
+			M.TakeDamage("chest", 0, 2)
 			M.show_message("<span class='alert'>You feel hot.</span>")
 
 /datum/microbioeffects/malevolent/chills
@@ -46,7 +45,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	reactionlist = MB_HOT_REAGENTS
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_burn_damage() <= 25))
+		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
 			M.bodytemperature -= 8
 			M.show_message("<span class='alert'>You feel cold.</span>")
 			M.emote("shiver")
@@ -60,19 +59,18 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/beesneeze
 	name = "Projectile Bee Egg Sneezing"
 	desc = "The infected sneezes bee eggs frequently."
-	//review
-	reactionlist = list("sugar")	//This effect is very obvious.
+	reactionlist = list("sugar")
 	reactionmessage = "The microbes appear to convert the sugar into a viscous fluid."
 
 	proc/sneeze(var/mob/M, var/datum/microbeplayerdata/origin)
-
 		if (!M || !origin)
 			return
 
 		var/turf/T = get_turf(M)
 		var/flyroll = rand(10)
 		var/turf/target = locate(M.x,M.y,M.z)
-		var/chosen_phrase = pick("<B><span class='alert'>W</span><span class='notice'>H</span>A<span class='alert'>T</span><span class='notice'>.</span></B>",\
+		var/chosen_phrase = pick(
+		"<B><span class='alert'>W</span><span class='notice'>H</span>A<span class='alert'>T</span><span class='notice'>.</span></B>",\
 		"<span class='alert'><B>What the [pick("hell","fuck","christ","shit")]?!</B></span>",\
 		"<span class='alert'><B>Uhhhh. Uhhhhhhhhhhhhhhhhhhhh.</B></span>",\
 		"<span class='alert'><B>Oh [pick("no","dear","god","dear god","sweet merciful [pick("neptune","poseidon")]")]!</B></span>")
@@ -105,8 +103,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/sneezing
 	name = "Sneezing"
 	desc = "The infected sneezes frequently."
-	//definitely revisit
-	reactionlist = list("pepper", "antihistamine", "smelling_salt")
+	reactionlist = list("pepper", "histamine", "smelling_salt")
 	reactionmessage = "The microbes violently discharge fluids when coming in contact with the reagent."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
@@ -135,11 +132,18 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	name = "Sweating"
 	desc = "The infected person sweats like a pig."
 	reactionlist = MB_COLD_REAGENTS
-	reactionmessage = MICROBIO_INSPECT_DISLIKES_GENERIC
+	reactionmessage = "The microbes stop producing droplets of liquid."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
 			make_puddle(M, origin.master.hexcolors)
-			M.show_message(pick(MICROBIO_SWEATING_EFFECT_MESSAGES))
+
+			M.show_message(pick("<span class='alert'>You feel a bit warm.</span>", \
+			"<span class='alert'>You feel rather warm.</span>", \
+			"<span class='alert'>You're sweating heavily.</span>", \
+			"<span class='alert'>You're soaked in your own sweat.</span>"))
+
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_PHYSICAL)
+
+#endif

@@ -143,8 +143,8 @@
 					boutput(user, "<span class='alert'>The [src.name] is empty.</span>")
 					return
 
-				if (istype(target, /obj/item/bloodslide))
-					var/obj/item/bloodslide/BL = target
+				if (istype(target, /obj/item/reagent_containers/bloodslide))
+					var/obj/item/reagent_containers/bloodslide/BL = target
 					if (BL.reagents.total_volume)
 						boutput(user, "<span class='alert'>There is already a pathogen sample on [target].</span>")
 						return

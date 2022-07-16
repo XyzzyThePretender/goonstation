@@ -4778,7 +4778,6 @@
 	name = "Artifact Lounge"
 	})
 "akQ" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "akR" = (

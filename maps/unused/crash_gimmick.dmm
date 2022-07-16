@@ -10071,7 +10071,6 @@
 	},
 /area/russian/radiation)
 "bvh" = (
-/obj/machinery/autoclave,
 /obj/decal/cleanable/dirt/dirt2,
 /turf/simulated/floor/white{
 	desc = " It is made of steel.";
@@ -10704,7 +10703,6 @@
 	},
 /area/russian/radiation)
 "bxq" = (
-/obj/machinery/incubator,
 /obj/decal/cleanable/dirt/dirt2,
 /obj/decal/cleanable/dirt/dirt4,
 /obj/disposalpipe/segment/transport,

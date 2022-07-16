@@ -5,112 +5,165 @@
 	desc = "A large machine that can be used to separate a pathogen sample from a blood sample."
 	anchored = 1
 	density = 1
-	flags = NOSPLASH
+	flags = NOSPLASH | TGUI_INTERACTIVE
 
-	var/obj/item/bloodslide/sample = null
+	var/obj/item/reagent_containers/bloodslide/sample = null
 	var/obj/item/reagent_containers/glass/petridish/dish = null
-	var/datum/microbe/isolated = null
 
+	// Is the machine in operation?
 	var/active = FALSE
+	// How many process cycles
 	var/counter = 8
+	// uid of selected culture
+	var/selected_culture = null
 
-/obj/machinery/centrifuge/ui_interact(mob/user, datum/tgui/ui)
-	ui = tgui_process.try_update_ui(user, src, ui)
-	//if(!ui)
-    	//ui = new(user, src, "Centrifuge")
-    	//ui.open()
+	ui_interact(mob/user, datum/tgui/ui)
+		ui = tgui_process.try_update_ui(user, src, ui)
+		if(!ui)
+			ui = new(user, src, "Centrifuge")
+			ui.open()
 
-/obj/machinery/centrifuge/ui_data(mob/user)
-	. = list(
-		"active" = active,
-		"sample" = list(),
-		"petridish" = list(),
-		"isolated" = isolated,
-	)
+	ui_data(mob/user)
+		. = list(
+			"active" = src.active,
+			"whichculture" = !isnull(src.selected_culture) ? src.selected_culture : 0,
+			)
 
-	//Petri Dish
-	if (src.dish.reagents.has_reagent("pathogen"))
-		for (var/uid in src.dish.reagents.reagent_list["pathogen"].microbes)
-			.["petridish"] += list(list(uid, microbio_controls.pull_from_upstream(uid).name))
-	else
-		.["petridish"] = null
+		//Petri Dish
 
-	//Bloodslide
-	if (!(sample.blood))
-		.["sample"] = null
-		return
+		var/list/petridishContents = list()
 
-	var/datum/reagent/blood/B = src.sample.reagents.reagent_list["blood"]
-	if (!B.microbes.len)
-		.["sample"] = null
-		return
+		if(src.dish)
+			.["dishtotvol"] = src.dish.reagents.total_volume
+			.["dishmaxvol"] = src.dish.initial_volume
+			if (src.dish.reagents.has_reagent("pathogen"))
+				for (var/index in src.dish.reagents.reagent_list["pathogen"].microbes)
+					var/datum/microbe/importing = microbio_controls.pull_from_upstream(index)
+					petridishContents.Add(list(list(
+						uid = index,
+						name = importing.name,
+						goodeff = importing.goodeffectcount,
+						neuteff = importing.neutraleffectcount,
+						badeff = importing.badeffectcount
+					)))
 
-	for (var/uid in B.microbes)
-		.["sample"] += list(list(uid, microbio_controls.pull_from_upstream(uid).name))
+		.["petridish"] = petridishContents
 
+		//bloodslide
 
-/obj/machinery/centrifuge/ui_act(action, params)
-	. = ..()
-	if (.)
-		return
+		var/list/bloodslideContents = list()
 
-	switch (action)
+		if(src.sample)
+			for (var/datum/reagent/aff_reag as anything in microbio_controls.pathogen_affected_reagents)
+				if (!src.sample.reagents.has_reagent(aff_reag))
+					continue
+				var/datum/reagent/blood/R = src.sample.reagents.get_reagent(aff_reag)
+				for (var/index in R.microbes)
+					var/datum/microbe/importing = microbio_controls.pull_from_upstream(index)
+					bloodslideContents.Add(list(list(
+						uid = index,
+						name = importing.name,
+						goodeff = importing.goodeffectcount,
+						neuteff = importing.neutraleffectcount,
+						badeff = importing.badeffectcount
+					)))
 
-		if ("shutdown")
-			src.active = FALSE
-			src.icon_state = "centrifuge0"
-			src.visible_message("<span class='alert'>The centrifuge grinds to a sudden halt. The blood slide flies off the supports and shatters somewhere inside the machine.</span>", \
-			"<span class='alert'>You hear a grinding noise, followed by something shattering.</span>")
-			qdel(src.sample)
-			src.sample = null
-			src.isolated = null
-			counter = 8
-			processing_items.Remove(src)
-			. = TRUE
+		.["sample"] = bloodslideContents
 
-		if ("ejectsample")
-			src.sample.master = null
-			src.sample.set_loc(src.loc)
-			src.contents -= src.sample
-			src.sample.layer = initial(src.sample.layer)
-			src.sample = null
-			src.isolated = null
-			. = TRUE
-
-		if ("ejectdish")
-			src.dish.master = null
-			src.dish.set_loc(src.loc)
-			src.contents -= src.dish
-			src.dish.layer = initial(src.dish.layer)
-			src.dish = null
-			. = TRUE
-
-		if ("isolate")
-			src.active = TRUE
-			src.icon_state = "centrifuge1"
-			processing_items |= src
-			. = TRUE
-/*
-	attackby(var/obj/item/O, var/mob/user)
-		//Early returns
-		if (istype(O, /obj/item/bloodslide) && src.sample)
-
-
-		if (istype(O, /obj/item/reagent_containers/glass/petridish) && src.dish)
-			boutput(user, "<span class='alert'>There is already a petri dish in the machine.</span>")
+	ui_act(action, params)
+		. = ..()
+		if (.)
 			return
 
+		switch (action)
+			if ("shutdown")
+				src.active = FALSE
+				src.icon_state = "centrifuge0"
+				src.visible_message("<span class='alert'>The centrifuge grinds to a sudden halt. The blood slide flies off the supports and shatters somewhere inside the machine.</span>", \
+				"<span class='alert'>You hear a grinding noise, followed by something shattering.</span>")
+				qdel(src.sample)
+				src.sample = null
+				src.selected_culture = null
+				src.counter = 8
+				processing_items.Remove(src)
+				. = TRUE
+
+			if ("eject_slide")
+				if (isnull(src.sample))
+					. = TRUE
+					return
+				// this feels shitty
+				src.sample.master = null
+				src.sample.set_loc(src.loc)
+				src.contents -= src.sample
+				src.sample.layer = initial(src.sample.layer)
+				src.sample = null
+				src.selected_culture = null
+				. = TRUE
+
+			if ("eject_dish")
+				if (isnull(src.dish))
+					. = TRUE
+					return
+				// this feels shitty
+				src.dish.master = null
+				src.dish.set_loc(src.loc)
+				src.contents -= src.dish
+				src.dish.layer = initial(src.dish.layer)
+				src.dish = null
+				. = TRUE
+
+			if ("select_culture")
+				src.selected_culture = params["key"]
+				. = TRUE
+
+			if ("isolate")
+				src.active = TRUE
+				src.icon_state = "centrifuge1"
+				src.visible_message("<span class='notice'>The centrifuge powers up and begins the isolation process.</span>", \
+				"<span class='notice'>You hear a machine powering up.</span>")
+				processing_items.Add(src)
+				. = TRUE
+
+	process()
+		if (!(src.active))
+			return
+		src.counter--
+		if (!src.counter)
+			processing_items.Remove(src)
+			src.visible_message("<span class='notice'>The centrifuge beeps and discards the disfigured bloodslide.</span>", \
+			"<span class='notice'>You hear a machine powering down.</span>")
+
+			if (src.dish.reagents.has_reagent("pathogen"))
+				var/datum/reagent/blood/pathogen/Q = src.dish.reagents.reagent_list["pathogen"]
+				Q.microbes += src.selected_culture
+
+			else
+				src.dish.reagents.add_reagent("pathogen", 5)
+				var/datum/reagent/blood/pathogen/R = src.dish.reagents.get_reagent("pathogen")
+				R.microbes += src.selected_culture
+				src.dish.reagents.update_total()
+
+			//Qdel, update booleans, switch sprite
+			src.dish.icon_state = "petri1"
+			qdel(src.sample)
+			src.sample = null	//redundant?
+			src.selected_culture = null
+			src.active = FALSE
+			src.icon_state = "centrifuge0"
+			src.counter = 8
+
+	attackby(var/obj/item/O, var/mob/user)
 		//valid inserts
-		if (istype(O, /obj/item/bloodslide))
+		if (istype(O, /obj/item/reagent_containers/bloodslide))
 			if (src.sample)
 				boutput(user, "<span class='alert'>There is already a blood slide in the machine.</span>")
 				return
-			if (!O.blood)
-				boutput(user, "<span class='alert'>There is no blood on the bloodslide.</span>")
+			var/obj/item/reagent_containers/bloodslide/BSlide = O
+			if (!BSlide.reagents)
+				boutput(user, "<span class='alert'>There is nothing on the blood slide.</span>")
 				return
-			if (!O.blood.microbes.len)
-				boutput(user, "<span class='alert'>The [O] contains no microbes.</span>")
-
+			//can this be crunched
 			src.sample = O
 			O.set_loc(src)
 			O.master = src
@@ -120,8 +173,14 @@
 				user.client.screen -= O
 			user.u_equip(O)
 			boutput(user, "You insert the blood slide into the machine.")
+			tgui_process.update_uis(src)
 
 		else if (istype(O, /obj/item/reagent_containers/glass/petridish))
+			var/obj/item/reagent_containers/glass/petridish/Pdish = O
+			if (Pdish.reagents == Pdish.initial_volume)
+				boutput(user, "<span class='alert'>The [O] is full and won't be able to hold extracted fluids!</span>")
+				return
+			//can this be crunched
 			src.dish = O
 			O.set_loc(src)
 			O.master = src
@@ -131,168 +190,89 @@
 				user.client.screen -= O
 			user.u_equip(O)
 			boutput(user, "You insert the petri dish into the machine.")
+			tgui_process.update_uis(src)
 
-	attack_hand(mob/user)
-		if ()
-
-		var/output_text = "<B>Centrifuge</B><BR><BR>"
-
-			if (src.source)
-				output_text += "The centrifuge currently contains a [src.source]. <a href='?src=\ref[src];ejectsrc=1'>Eject</a><br><br>"
-			else
-				output_text += "The centrifuge's source slot is empty.<br><br>"
-			if (src.source)
-				if (istype(src.source, /obj/item/bloodslide))
-					if (!src.source.reagents.has_reagent("blood"))
-						output_text += "The [src.source] contains no viable sample.<BR><BR>"
-					else
-						var/datum/reagent/blood/B = src.source.reagents.reagent_list["blood"]
-						if (B.volume && B.microbes.len)
-							if (B.microbes.len > 1)
-								output_text += "The centrifuge is calibrated to isolate a sample of [src.isolated ? src.isolated.name : "all pathogens"].<br><br>"
-								output_text += "The blood in the [src.source] contains multiple pathogens. Calibrate to isolate a sample of:<br>"
-								output_text += "<a href='?src=\ref[src];all=1'>All</a><BR>"
-								for (var/uid in B.microbes)
-									var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
-									output_text += "<a href='?src=\ref[src];isolate=\ref[P]'>[P.name]</a><br>"
-								output_text += "<BR>"
-							else
-								for (var/uid in B.microbes)
-									var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
-									output_text += "The centrifuge will isolate the single sample of [P.name].<br><br>"
-						else
-							output_text += "The [src.source] contains no viable sample.<BR><BR>"
-			else
-				output_text += "There is no isolation source inserted into the centrifuge.<br><br>"
-			if (src.target)
-				output_text += "There is a petri dish inserted into the machine. <a href='?src=\ref[src];ejectdish=1'>Eject</a><br><br>"
-			else
-				output_text += "There is no petri dish inserted into the machine.<br><br>"
-			output_text += "<a href='?src=\ref[src];begin=1'>Begin isolation process</a>"
-
-		user.Browse("<HEAD><TITLE>Centrifuge</TITLE></HEAD><BODY>[output_text]</BODY>", "window=centrifuge")
-		onclose(user, "centrifuge")
-		return
-
-	Topic(href, href_list)
-		if (..())
-			return
-
-
-
-
-		else if (href_list["begin"])
-			var/maybegin = 1
-			if (!src.on)
-				if (!src.source)
-					boutput(usr, "<span class='alert'>You cannot begin isolation without a source container.</span>")
-					maybegin = 0
-				else if (!src.source.reagents.has_reagent("blood"))
-					boutput(usr, "<span class='alert'>You cannot begin isolation without a source blood sample.</span>")
-					maybegin = 0
-				else
-					var/datum/reagent/blood/B = src.source.reagents.reagent_list["blood"]
-					if (!B.microbes.len)
-						boutput(usr, "<span class='alert'>The inserted blood sample is clean, there is nothing to isolate.</span>")
-						maybegin = 0
-					else if (!src.target)
-						boutput(usr, "<span class='alert'>You cannot begin isolation without a target receptacle.</span>")
-						maybegin = 0
-				if (maybegin)
-					src.visible_message("<span class='notice'>The centrifuge powers up and begins the isolation process.</span>", "<span class='notice'>You hear a machine powering up.</span>")
-					src.on = 1
-					src.icon_state = "centrifuge1"
-					var/obj/item/bloodslide/S = src.source
-					var/datum/reagent/blood/pathogen/P = new
-					var/datum/reagent/blood/B = src.source.reagents.reagent_list["blood"]
-					if (src.isolated)
-						P.microbes = list(src.isolated)
-					else
-						P.microbes = B.microbes.Copy()
-					P.volume = 5
-					processing_items |= src
-					src.process_pathogen = P
-					src.process_source = S
-					counter = 12
-		src.Attackhand(usr)
-
-	process()
-		if (!src.active)
-			return
-		counter--
-		if (counter <= 0)
-			processing_items.Remove(src)
-			var/datum/reagent/blood/pathogen/P = src.process_pathogen
-			src.visible_message("<span class='notice'>The centrifuge beeps and discards the disfigured bloodslide.</span>", "<span class='notice'>You hear a machine powering down.</span>")
-			if (src.target.reagents.has_reagent("pathogen"))
-				var/datum/reagent/blood/pathogen/Q = src.target.reagents.reagent_list["pathogen"]
-				for (var/uid in P.microbes)
-					Q.microbes += uid
-			else
-				src.target.reagents.reagent_list += "pathogen"
-				src.target.reagents.reagent_list["pathogen"] = P
-				P.holder = src.target.reagents
-				src.target.reagents.update_total()
-			src.target.icon_state = "petri1"
-			del(src.source)
-			src.source = null
-			src.isolated = null
-			src.on = 0
-			src.icon_state = "centrifuge0"
-*/
 /obj/machinery/microscope
 	name = "Microscope"
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "microscope0"
-	desc = "A device which provides a magnified view of a culture in a petri dish."
+	desc = "A device which provides a magnified view of blood samples in a blood slide or cultures in a petri dish."
 	var/obj/item/target = null
-	var/zoom = 0
+	var/zoom = FALSE
 	anchored = 1
 
-	attack_hand(mob/user)
-		if (!(src.target))
-			boutput(user, "There is nothing loaded under the microscope.")
+	examine()
+		. = ..()
+
+		//Respect the NLR!
+		if (!isalive(usr) || iswraith(usr))
 			return
-		var/action = input("What would you like to do with the microscope?", "Microscope", "View [target]") in list("View [target]", "[src.zoom ? "Zoom Out" : "Zoom In"]", "Remove [target]", "Cancel")
-		if (BOUNDS_DIST(user.loc, src.loc) == 0)
-			if (action == "View [target]")
-				if ((!zoom))
-					boutput(user, "<span class='alert>You can't see much while the microscope is zoomed out!</span>")
-					return
-				var/list/microbelist = target.reagents.aggregate_pathogens()
-				for (var/uid in microbelist)
-					var/datum/microbe/M = microbio_controls.pull_from_upstream(uid)
-					user.show_message("You see [M.desc].")
-				return
-			if (action == "Zoom Out")
-				if (!zoom)
-					boutput(user,"The microscope is already zoomed out.")
-					return
-				zoom = 0
-				icon_state = target ? "microscope1" : "microscope0"
-				user.show_message("The microscope is now zoomed out.")
-			if (action == "Zoom In")
-				if (zoom)
-					boutput(user,"The microscope is already zoomed in.")
-					return
-				zoom = 1
-				icon_state = target ? "microscope3" : "microscope1"
-				user.show_message("The microscope is now zoomed in.")
-			if (action == "Remove [target]")
-				if (zoom)
-					boutput(user, "The microscope is still zoomed in. Readjust it before removing the [target].")
-					return
-				user.show_message("<span class='notice'>You remove the [target] from the microscope.</span>")
-				src.target.set_loc(src.loc)
-				src.target.master = null
-				icon_state = "microscope0"
-				src.contents -= src.target
-				src.target = null
+
+		if (!src.zoom)
+			. += "<br>The microscope is zoomed out."
+			return
+
+		. += "<br>The microscope is zoomed in."
+
+		var/list/microbelist = src.target.reagents.aggregate_pathogens()
+		for (var/uid in microbelist)
+			var/datum/microbe/index = microbio_controls.pull_from_upstream(uid)
+			. += ("<br>You see [index.desc].")
+			if (index.goodeffectcount)
+				. += ("<br>This culture has <span style='color: rgb(0, [200], 0)'>[index.goodeffectcount]</span> good effects.")
+			if (index.neutraleffectcount)
+				. += ("<br>This culture has <span style='color: rgb(0, 0, [200])'>[index.neutraleffectcount]</span> neutral effects.")
+			if (index.badeffectcount)
+				. += ("<br>This culture has <span style='color: rgb([200], 0, 0)'>[index.badeffectcount]</span> bad effects.")
+		return
+
+	verb/eject()
+		set name = "Eject"
+		set src in oview(1)
+		set category = "Local"
+
+		if (!isalive(usr) || iswraith(usr))
+			return
+		if (!src.target)
+			boutput(usr, "<span class='alert'>There is nothing loaded under the microscope.</span>")
+			return
+		if (src.zoom)
+			boutput(usr, "<span class='alert'>The microscope is still zoomed in. Readjust it before ejecting the [src.target].</span>")
+			return
+
+		usr.put_in_hand_or_eject(src.target)
+		src.target.master = null
+		src.contents -= src.target
+		src.target = null
+		icon_state = "microscope0"
+		boutput(usr, "<span class='notice'>You remove the [src.target] from the microscope.</span>")
+		add_fingerprint(usr)
+		return
+
+	proc/zoom(mob/user)
+		src.zoom = !src.zoom
+		if (src.target)
+			icon_state = src.zoom ? "microscope3" : "microscope1"
+		else
+			icon_state = src.zoom ? "microscope2" : "microscope0"
+		playsound(src.loc, "sound/items/Screwdriver2.ogg", 25, -3)
+		//Actionbar marco bugs out the boutput after interrupts so this goes here
+		boutput(user, "The microscope is now zoomed [src.zoom ? "in" : "out"].")
+
+	attack_hand(mob/user)
+		boutput(user, "You start adjusting the microscope...")
+		playsound(src.loc, "sound/items/Screwdriver.ogg", 25, -3)
+		add_fingerprint(usr)
+		SETUP_GENERIC_PRIVATE_ACTIONBAR(user, src, 3 SECONDS, .proc/zoom, user, null, null, \
+		null, INTERRUPT_ACTION | INTERRUPT_MOVE | INTERRUPT_STUNNED | INTERRUPT_ACT)
 
 	attackby(var/obj/item/O, var/mob/user)
-		if (istype(O, /obj/item/reagent_containers/glass/petridish) || istype(O, /obj/item/bloodslide))
+		if (istype(O, /obj/item/reagent_containers/glass/petridish) || istype(O, /obj/item/reagent_containers/bloodslide))
 			if (src.target)
 				boutput(user, "<span class='alert'>There is already a [target] on the microscope.</span>")
+				return
+			if (src.zoom)
+				boutput(user, "There isn't enough clearance to insert the [O] while the microscope is zoomed in.")
 				return
 			src.target = O
 			O.set_loc(src)
@@ -302,27 +282,46 @@
 			if (user.client)
 				user.client.screen -= O
 			user.u_equip(O)
-			if (zoom)
-				boutput(user, "There isn't enough clearance to insert the [O] while the microscope is zoomed in.")
-				return
 			src.icon_state = "microscope1"
-			boutput(user, "You insert the [O] into the microscope.")
+			boutput(user, "You place the [O] under the microscope.")
+			return
 
 		else if (istype(O, /obj/item/reagent_containers/dropper))
-			if (src.target && istype(src.target, /obj/item/reagent_containers/glass/petridish) && O.reagents.total_volume > 0)
-				user.visible_message("[user] drips some of the contents of the dropper into the petri dish.", "You drip some of the contents of the dropper into the petri dish.")
-				var/list/path_list = src.target.reagents.aggregate_pathogens()
-				for (var/rid in O.reagents.reagent_list)
-					var/datum/reagent/R = O.reagents.reagent_list[rid]
-					if (R.volume < 1)
-						continue
-					for (var/uid in path_list)
-						var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
-						if (R in P.suppressant.reactionlist)
-							boutput(user, P.suppressant.reactionmessage)
-						for (var/key in P.effects)
-							if (R in P.effects[key])
-								boutput(user, P.effects[key].reactionmessage)
+			if (!src.target)
+				boutput(user, "<span class='alert'>There's nothing under the microscope!</span>")
+				return
+
+			if (!istype(src.target, /obj/item/reagent_containers/glass/petridish))
+				boutput(user, "<span class='alert'>The [src.target] won't contain the test reagent!</span>")
+				return
+
+			if (!O.reagents.total_volume)
+				boutput(user, "<span class='alert'>The [src.target] is empty!</span>")
+				return
+
+			if (!src.target.reagents.has_reagent("pathogen"))
+				boutput(user, "<span class='alert'>The [O] doesn't have isolated microbial fluid!</span>")
+				return
+
+			//if your sample is too small skip
+			if (src.target.reagents.total_volume < 5)
+				boutput(user, "<span class='alert'>The [src.target] doesn't have enough microbial fluid! ([src.target.reagents.total_volume] / 5)</span>")
+				return
+
+			user.visible_message("[user] drips some of the contents of the dropper into the petri dish.", \
+			"You drip some of the contents of the dropper into the petri dish.")
+
+			var/list/path_list = src.target.reagents.aggregate_pathogens()
+			// Very bad. Triple nested for loop.
+			for (var/rid as anything in O.reagents.reagent_list)
+				var/datum/reagent/R = O.reagents.reagent_list[rid]
+				for (var/uid in path_list)
+					var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
+					if (R in P.suppressant.reactionlist)
+						boutput(user, P.suppressant.reactionmessage)
+					for (var/datum/microbioeffects/mbeffect in P.effects)
+						if (R in mbeffect.reactionlist)
+							boutput(user, mbeffect.reactionmessage)
 
 
 /obj/machinery/computer/microbiology
@@ -331,6 +330,80 @@
 	icon_state = "pathology"
 	desc = "A bulky machine used to control the pathogen manipulator."
 
+	var/obj/item/reagent_containers/glass/vial/sampleconsole = null
+
+	//TGUI
+
+
+	/*
+
+	proc/serialize(datum/microbe/micro)
+
+		. = list(
+			"uid" = micro.uid,
+			"name" = micro.name,
+			"curename" = micro.suppressant.name,
+			"curemethod" = micro.suppressant.exactcure,
+			"durtot" = micro.durationtotal,
+			"inftot" = micro.infectiontotal,
+			"artificial" = micro.artificial
+			)
+
+		for (var/index in micro.effects)
+			.["effects"]["indexeffect"] = micro.effects[index]
+
+	ui_interact(mob/user, datum/tgui/ui)
+		ui = tgui_process.try_update_ui(user, src, ui)
+		if(!ui)
+			ui = new(user, src, "MicrobiologyResearch")
+			ui.open()
+
+	ui_data(mob/user)
+
+	// Reports
+
+		var/list/reportList = list()
+
+		for (var/key in microbio_controls.cultures)
+			if (!microbio_controls.cultures[key].reported)
+				continue
+			reportList += src.serialize(microbio_controls.cultures[key])
+
+		.["reports"] = reportList
+
+	// Sample
+
+		var/list/sampleContents = list()
+
+		if(src.sampleconsole)
+			for (var/datum/reagent/aff_reag as anything in microbio_controls.pathogen_affected_reagents)
+				if (!src.sampleconsole.reagents.has_reagent(aff_reag))
+					continue
+				var/datum/reagent/blood/R = src.sampleconsole.reagents.get_reagent(aff_reag)
+				for (var/index in R.microbes)
+					var/datum/microbe/importing = microbio_controls.pull_from_upstream(index)
+					bloodslideContents.Add(list(list(
+						uid = index,
+						name = importing.name,
+						goodeff = importing.goodeffectcount,
+						neuteff = importing.neutraleffectcount,
+						badeff = importing.badeffectcount
+					)))
+
+		.["testsample"] = sampleContents
+
+	// Designer Holder
+
+	// Analysis
+
+	// Market/Shopping
+
+	ui_act(action, params)
+		. = ..()
+		if (.)
+			return
+
+	*/
 
 /obj/machinery/pathogen_manipulator
 	name = "Pathogen Manipulator"
@@ -339,6 +412,10 @@
 	desc = "A large, softly humming machine."
 	density = 1
 	anchored = 1
+
+	var/obj/item/reagent_containers/glass/vial/samplemanip = null
+
+	//Just hold my vial please.
 
 /obj/item/synthmodule
 	name = "Synth-O-Matic module"
@@ -402,7 +479,9 @@
 	var/emagged = FALSE
 	var/delay = 5
 	var/maintainance = FALSE
-	var/machine_state = 0
+	//Is it working on something
+	var/machine_state = FALSE
+	//Index of whic vial
 	var/sel_vial = 0
 	var/const/synthesize_cost = 100 // used to used to be 2000
 	var/production_amount = 7 // Balance so that you don't need to drain the budget to get a big surplus
@@ -413,30 +492,32 @@
 		..()
 		show_interface(user)
 
+	emag_act(var/mob/user, var/obj/item/card/emag/E)
+		if (src.machine_state)
+			boutput(user, "<span class='notice'>Not while the machine is running.</span>")
+			return
+
+		src.emagged = !src.emagged
+		boutput(user, "<span class='notice'>You switch [src.emagged ? "on" : "off"] the overclocking components and reroute the integrated budget directory.</span>")
+
 	attackby(var/obj/item/O, var/mob/user)
 		if(status & (BROKEN|NOPOWER))
 			boutput(user,  "<span class='alert'>You can't insert things while the machine is out of power!</span>")
 			return
-
-		if (istype(O,/obj/item/card/emag))
-			emagged = !emagged
-			boutput(user, "<span class='notice'>You switch [emagged ? "on" : "off"] the overclocking components and reroute the integrated budget directory.</span>")
-			return
-
 		if (istype(O, /obj/item/reagent_containers/glass/vial))
 			var/done = FALSE
 			if (O.reagents.reagent_list.len > 1 || O.reagents.total_volume < 5)	//full, pure-reagent vials only
 				boutput(user, "<span class='alert'>The machine can only process full vials of pure reagent.</span>")
 				return
 			for (var/i in 1 to 3)
-				if (!(vials[i]))
+				if (!(src.vials[i]))
 					done = TRUE
-					vials[i] = O
+					src.vials[i] = O
 					user.u_equip(O)
 					O.set_loc(src)
 					user.client.screen -= O
 					break
-			if (done == FALSE)
+			if (!done)
 				boutput(user, "<span class='alert'>The machine cannot hold any more vials.</span>")
 				return
 			else
@@ -492,75 +573,181 @@
 				return
 
 		if (isscrewingtool(O))
-			if (machine_state)
+			if (src.machine_state)
 				boutput(user, "<span class='alert'>You cannot do that while the machine is working.</span>")
 				return
-			if (maintainance)
-				icon_state = "synth1"
+			if (src.maintainance)
+				src.icon_state = "synth1"
 				boutput(user, "<span class='notice'>You close the maintenance panel on the Synth-O-Matic.</span>")
 			else
-				icon_state = "synthp"
+				src.icon_state = "synthp"
 				boutput(user, "<span class='notice'>You open the maintenance panel on the Synth-O-Matic.</span>")
-			maintainance = !maintainance
+			src.maintainance = !src.maintainance
 			return
 		..(O, user)
+
+
+	//To TGUI
+
+	//Interact
+	/*
+		if (!(usr in range(1)))
+			return
+		if (src.machine_state)
+			show_interface(usr)
+			return
+		if (src.maintainance)
+			show_interface(usr)
+			return
+	*/
+
+
+	//Data, Staticdata
+
+	//var/list/obj/item/reagent_containers/glass/vial/vials[3]
+	//var/obj/item/beaker = null
+	//var/obj/item/bloodbag = null
+	//var/datum/reagent/selectedresult = null
+	//var/emagged = FALSE
+	//var/delay = 5
+	//var/maintainance = FALSE
+	//var/machine_state = FALSE
+	//var/sel_vial = 0
+	//var/const/synthesize_cost = 100 // used to used to be 2000
+	//var/production_amount = 7 // Balance so that you don't need to drain the budget to get a big surplus
+
+	//Act
+	/*
+			if (href_list["eject"])
+				var/index = text2num_safe(href_list["eject"])
+				//Arrays start at 0 -Byand
+				if(index > 0 && index <= src.vials.len)
+					if (src.vials[index])
+						var/obj/item/reagent_containers/glass/vial/V = src.vials[index]
+						src.vials[index] = null
+						V.set_loc(src.loc)
+						usr.put_in_hand_or_eject(V) // try to eject it into the users hand, if we can
+						V.master = null
+						if (src.sel_vial == index)
+							src.sel_vial = 0
+				show_interface(usr)
+			else if (href_list["ejectanti"])
+				if (src.beaker)
+					src.beaker.set_loc(src.loc)
+					src.beaker.master = null
+					src.beaker = null
+				show_interface(usr)
+			else if (href_list["ejectsupp"])
+				if (src.bloodbag)
+					src.bloodbag.set_loc(src.loc)
+					src.bloodbag.master = null
+					src.bloodbag = null
+				show_interface(usr)
+			else if (href_list["vial"])
+				var/index = text2num_safe(href_list["vial"])
+				if(index > 0 && index <= src.vials.len)
+					if (src.vials[index])
+						src.sel_vial = index
+
+			else if (href_list["buymats"])
+				if (!src.machine_state && (usr in range(1)))
+					if (!src.bloodbag)
+						boutput(usr, "<span class='alert'>No blood reservoir detected.</span>")
+					else if (!beaker)
+						boutput(usr, "<span class='alert'>No egg reservoir detected.</span>")
+					if (src.bloodbag && src.beaker)
+						var/BL = src.bloodbag.reagents.get_reagent_amount("blood")
+						var/EG = src.beaker.reagents.get_reagent_amount("egg")
+						if (EG < 5)
+							boutput(usr, "<span class='alert'>Insufficient egg reservoir (5 units needed).</span>")
+						else if (BL < 25)
+							boutput(usr, "<span class='alert'>Insufficient blood reservoir (25 units needed).</span>")
+						else if (synthesize_cost > wagesystem.research_budget && !src.emagged)
+							boutput(usr, "<span class='alert'>Insufficient research budget to make that transaction.</span>")
+						else
+							boutput(usr, "<span class='notice'>Transaction successful.</span>")
+							src.machine_state = TRUE
+							src.icon_state = "synth2"
+							show_interface(usr)
+							src.visible_message("The [src.name] bubbles and begins synthesis.", "You hear a bubbling noise.")
+							src.beaker.reagents.remove_reagent("egg", 5)
+							src.bloodbag.reagents.remove_reagent("blood", 25)
+							if (src.emagged)
+								src.delay = 3
+							else
+								src.delay = 5
+								wagesystem.research_budget -= synthesize_cost
+						SPAWN(src.delay SECONDS)
+							src.production_amount = rand(BIOCHEMISTRY_PRODUCTION_LOWER_BOUND, BIOCHEMISTRY_PRODUCTION_UPPER_BOUND)
+							for (var/mob/C in viewers(src))
+								C.show_message("The [src.name] ejects [src.production_amount] biochemical sample[src.production_amount ? "s." : "."]", 3)
+							for (var/i in 1 to src.production_amount)
+								var/obj/item/reagent_containers/glass/vial/plastic/V = new /obj/item/reagent_containers/glass/vial/plastic(src.loc)
+								V.reagents.add_reagent(src.selectedresult.id, 5)
+							src.machine_state = FALSE
+							src.icon_state = "synth1"
+	*/
+
+	//State?
+
+	//Frontend!
 
 	proc/show_interface(var/mob/user)
 		. = ""
 		. += "<b>SYNTH-O-MATIC 6.5.535</b><br>"
 		. += "<i>\"Introducing the future in safe and controlled <s>pathology science</s> biochemistry.\"</i><br><br>"
 
-		if (machine_state)
+		if (src.machine_state)
 			. += "The machine is currently working. Please wait."
-		else if (maintainance)
+		else if (src.maintainance)
 			. += "<b>Maintenance panel open.</b><br>"
 		else
 			. += "<b>Active vial:</b><br>"
-			if (sel_vial && vials[sel_vial])
-				var/obj/item/reagent_containers/glass/vial/V = vials[sel_vial]
+			if (src.sel_vial && src.vials[src.sel_vial])
+				var/obj/item/reagent_containers/glass/vial/V = src.vials[src.sel_vial]
 				var/rid = V.reagents.get_master_reagent()
 				var/rname = V.reagents.get_master_reagent_name()
-				. += "Vial #[sel_vial]: [rname]<br>"
+				. += "Vial #[src.sel_vial]: [rname]<br>"
 				for (var/R in concrete_typesof(/datum/reagent/microbiology))
 					var/datum/reagent/RE = new R()
 					if (RE.data == rid)
 						src.selectedresult = RE
-						. += "Valid precursor: <a href='?src=\ref[src];buymats=1'>Synthesize for [synthesize_cost] credits</a><br>"
+						. += "Valid precursor: <a href='?src=\ref[src];buymats=1'>Synthesize for [src.synthesize_cost] credits</a><br>"
 						break
 			else
 				. += "None<br><br>"
-			if (emagged)
+			if (src.emagged)
 				. += "<b>Research Budget:</b> <b>$!ND!_(@+E999999999999999999999</b> Credits<br><br>"
 			else
 				. += "<b>Research Budget:</b> [wagesystem.research_budget] Credits<br><br>"
 
 			. += "<b>Inserted vials:</b><br>"
 			for (var/i in 1 to 3)
-				if (vials[i])
-					var/obj/item/reagent_containers/glass/vial/V = vials[i]
+				if (src.vials[i])
+					var/obj/item/reagent_containers/glass/vial/V = src.vials[i]
 					var/chemname = V.reagents.get_master_reagent_name()
 					. += "Vial #[i]: <a href='?src=\ref[src];vial=[i]'>[chemname]</a> <a href='?src=\ref[src];eject=[i]'>\[eject\]</a><br>"
 				else
 					. += "#[i] Empty slot<br>"
 			. += "<br><b>Egg reservoir: </b>"
-			if (beaker)
-				. += "[beaker] <a href='?src=\ref[src];ejectanti=1'>\[eject\]</a><br><br>"
+			if (src.beaker)
+				. += "[src.beaker] <a href='?src=\ref[src];ejectanti=1'>\[eject\]</a><br><br>"
 				. += "<b>Contents:</b><br>"
-				if (beaker.reagents.reagent_list.len)
-					for (var/reagent in beaker.reagents.reagent_list)
-						var/datum/reagent/R = beaker.reagents.reagent_list[reagent]
+				if (src.beaker.reagents.reagent_list.len)
+					for (var/reagent in src.beaker.reagents.reagent_list)
+						var/datum/reagent/R = src.beaker.reagents.reagent_list[reagent]
 						. += "[R.volume] units of [R.name]<br><br>"
 				else
 					. += "Empty.<br><br>"
 			else
 				. += "No beaker detected.<br><br>"
 			. += "<br><b>Blood Supply: </b>"
-			if (bloodbag)
-				. += "[bloodbag] <a href='?src=\ref[src];ejectsupp=1'>\[eject\]</a><br><br>"
+			if (src.bloodbag)
+				. += "[src.bloodbag] <a href='?src=\ref[src];ejectsupp=1'>\[eject\]</a><br><br>"
 				. += "<b>Contents:</b><br>"
-				if (bloodbag.reagents.reagent_list.len)
-					for (var/reagent in bloodbag.reagents.reagent_list)
-						var/datum/reagent/R = bloodbag.reagents.reagent_list[reagent]
+				if (src.bloodbag.reagents.reagent_list.len)
+					for (var/reagent in src.bloodbag.reagents.reagent_list)
+						var/datum/reagent/R = src.bloodbag.reagents.reagent_list[reagent]
 						. += "[R.volume] units of [R.name]<br><br>"
 				else
 					. += "Empty.<br><br>"
@@ -572,91 +759,82 @@
 	Topic(href, href_list)
 		if (!(usr in range(1)))
 			return
-		if (machine_state)
+		if (src.machine_state)
 			show_interface(usr)
 			return
-		if (maintainance)
+		if (src.maintainance)
 			show_interface(usr)
 			return
 		else
 			if (href_list["eject"])
 				var/index = text2num_safe(href_list["eject"])
 				//Arrays start at 0 -Byand
-				if(index > 0 && index <= vials.len)
-					if (vials[index])
-						var/obj/item/reagent_containers/glass/vial/V = vials[index]
-						vials[index] = null
+				if(index > 0 && index <= src.vials.len)
+					if (src.vials[index])
+						var/obj/item/reagent_containers/glass/vial/V = src.vials[index]
+						src.vials[index] = null
 						V.set_loc(src.loc)
 						usr.put_in_hand_or_eject(V) // try to eject it into the users hand, if we can
 						V.master = null
-						if (sel_vial == index)
-							sel_vial = 0
+						if (src.sel_vial == index)
+							src.sel_vial = 0
 				show_interface(usr)
 			else if (href_list["ejectanti"])
-				if (beaker)
-					beaker.set_loc(src.loc)
-					beaker.master = null
-					beaker = null
+				if (src.beaker)
+					src.beaker.set_loc(src.loc)
+					src.beaker.master = null
+					src.beaker = null
 				show_interface(usr)
 			else if (href_list["ejectsupp"])
-				if (bloodbag)
-					bloodbag.set_loc(src.loc)
-					bloodbag.master = null
-					bloodbag = null
+				if (src.bloodbag)
+					src.bloodbag.set_loc(src.loc)
+					src.bloodbag.master = null
+					src.bloodbag = null
 				show_interface(usr)
 			else if (href_list["vial"])
 				var/index = text2num_safe(href_list["vial"])
-				if(index > 0 && index <= vials.len)
-					if (vials[index])
-						sel_vial = index
+				if(index > 0 && index <= src.vials.len)
+					if (src.vials[index])
+						src.sel_vial = index
 
 			else if (href_list["buymats"])
-				if (machine_state == 0 && (usr in range(1)))
-					if (!bloodbag)
+				if (!src.machine_state && (usr in range(1)))
+					if (!src.bloodbag)
 						boutput(usr, "<span class='alert'>No blood reservoir detected.</span>")
 					else if (!beaker)
 						boutput(usr, "<span class='alert'>No egg reservoir detected.</span>")
-					if (bloodbag && beaker)
-						var/BL = bloodbag.reagents.get_reagent_amount("blood")
-						var/EG = beaker.reagents.get_reagent_amount("egg")
+					if (src.bloodbag && src.beaker)
+						var/BL = src.bloodbag.reagents.get_reagent_amount("blood")
+						var/EG = src.beaker.reagents.get_reagent_amount("egg")
 						if (EG < 5)
 							boutput(usr, "<span class='alert'>Insufficient egg reservoir (5 units needed).</span>")
 						else if (BL < 25)
 							boutput(usr, "<span class='alert'>Insufficient blood reservoir (25 units needed).</span>")
-						else if (synthesize_cost > wagesystem.research_budget && !emagged)
+						else if (synthesize_cost > wagesystem.research_budget && !src.emagged)
 							boutput(usr, "<span class='alert'>Insufficient research budget to make that transaction.</span>")
 						else
 							boutput(usr, "<span class='notice'>Transaction successful.</span>")
-							machine_state = 1
-							icon_state = "synth2"
+							src.machine_state = TRUE
+							src.icon_state = "synth2"
 							show_interface(usr)
 							src.visible_message("The [src.name] bubbles and begins synthesis.", "You hear a bubbling noise.")
-							beaker.reagents.remove_reagent("egg", 5)
-							bloodbag.reagents.remove_reagent("blood", 25)
-							if (emagged)
-								delay = 3
+							src.beaker.reagents.remove_reagent("egg", 5)
+							src.bloodbag.reagents.remove_reagent("blood", 25)
+							if (src.emagged)
+								src.delay = 3
 							else
-								delay = 5
+								src.delay = 5
 								wagesystem.research_budget -= synthesize_cost
-						SPAWN(delay SECONDS)
+						SPAWN(src.delay SECONDS)
+							src.production_amount = rand(BIOCHEMISTRY_PRODUCTION_LOWER_BOUND, BIOCHEMISTRY_PRODUCTION_UPPER_BOUND)
 							for (var/mob/C in viewers(src))
-								C.show_message("The [src.name] ejects [production_amount] biochemical sample[production_amount? "s." : "."]", 3)
-							production_amount = rand(BIOCHEMISTRY_PRODUCTION_LOWER_BOUND, BIOCHEMISTRY_PRODUCTION_UPPER_BOUND)
-							for (var/i in 1 to production_amount)
+								C.show_message("The [src.name] ejects [src.production_amount] biochemical sample[src.production_amount ? "s." : "."]", 3)
+							for (var/i in 1 to src.production_amount)
 								var/obj/item/reagent_containers/glass/vial/plastic/V = new /obj/item/reagent_containers/glass/vial/plastic(src.loc)
 								V.reagents.add_reagent(src.selectedresult.id, 5)
-							machine_state = 0
-							icon_state = "synth1"
+							src.machine_state = FALSE
+							src.icon_state = "synth1"
 		show_interface(usr)
-
-
-/obj/machinery/autoclave
-	name = "Autoclave"
-	desc = "A bulky machine used for sanitizing pathogen growth equipment."
-	icon = 'icons/obj/pathology.dmi'
-	icon_state = "autoclave"
-	density = 1
-	anchored = 1
 
 /obj/machinery/vending/microbiology
 	name = "Path-o-Matic"
@@ -672,18 +850,9 @@
 		..()
 		//Products
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/syringe, 12)
-		product_list += new/datum/data/vending_product(/obj/item/bloodslide, 50)
+		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/bloodslide, 50)
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/vial, 25)
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/petridish, 8)
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/beaker/egg, 20)
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/beaker/spaceacillin, 20)
 		product_list += new/datum/data/vending_product(/obj/item/device/analyzer/healthanalyzer, 4)
-
-/obj/machinery/incubator
-	name = "Incubator"
-	icon = 'icons/obj/pathology.dmi'
-	icon_state = "incubator"
-	var/static/image/icon_beaker = image('icons/obj/chemical.dmi', "heater-beaker")
-	desc = "A machine that can automatically provide a petri dish with nutrients. It can also directly fill vials with a sample of the pathogen inside."
-	anchored = 1
-	density = 1

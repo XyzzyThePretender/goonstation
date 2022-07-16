@@ -3086,7 +3086,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "agK" = (
-/obj/machinery/autoclave,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 6;
@@ -3320,7 +3319,7 @@
 /area/station/medical/cdc)
 "aho" = (
 /obj/table/auto,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 8

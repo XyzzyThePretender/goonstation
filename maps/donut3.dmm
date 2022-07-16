@@ -63218,19 +63218,19 @@
 /area/station/maintenance/inner/nw)
 "rVv" = (
 /obj/table/reinforced/auto,
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -5;
 	pixel_y = 10
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -5;
 	pixel_y = 7
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -5;
 	pixel_y = 4
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -5;
 	pixel_y = 1
 	},

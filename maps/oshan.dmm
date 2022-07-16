@@ -45054,9 +45054,6 @@
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/northwest)
 "fTt" = (
-/obj/machinery/incubator{
-	dir = 1
-	},
 /turf/simulated/floor/green,
 /area/research_outpost/microbiology)
 "fUm" = (
@@ -45158,7 +45155,6 @@
 /turf/simulated/floor/plating/random,
 /area/station/maintenance/south)
 "gie" = (
-/obj/machinery/autoclave,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 6;

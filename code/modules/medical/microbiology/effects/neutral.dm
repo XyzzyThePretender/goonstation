@@ -26,7 +26,8 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 	proc/glasses(var/mob/living/carbon/human/M)
 		var/obj/item/clothing/glasses/G = M.glasses
 		var/obj/item/clothing/glasses/N = new/obj/item/clothing/glasses/sunglasses()
-		M.show_message({"<span class='notice'>[pick("You feel cooler!", "You find yourself wearing sunglasses.", "A pair of sunglasses grow onto your face.")][G?" But you were already wearing glasses!":""]</span>"})
+		M.show_message({"<span class='notice'>[pick("You feel cooler!", "You find yourself wearing sunglasses.", \
+		"A pair of sunglasses grow onto your face.")][G?" But you were already wearing glasses!":""]</span>"})
 		if (G)
 			N.set_loc(M.loc)
 			var/turf/T = get_edge_target_turf(M, pick(alldirs))
@@ -62,21 +63,21 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 	name = "Hoarseness"
 	desc = "The microbes cause dry throat, leading to hoarse speech."
 	reactionlist = list("water")
-	reactionmessage = "The microbes rapidly absorb the water."
+	reactionmessage = MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("wheeze","cough","grumble"))
+			M.emote(pick("wheeze", "cough", "grumble"))
 
 /datum/microbioeffects/neutral/malaise
 	name = "Malaise"
 	desc = "The pathogen causes inconsequential fatigue to its host."
-	reactionlist = list("ethanol")
-	reactionmessage = "The microbes move slowly toward the solution."
+	reactionlist = MB_SEDATIVES_CATAGORY
+	reactionmessage = MICROBIO_INSPECT_LIKES_GENERIC
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("yawn","cough","stretch"))
+			M.emote(pick("yawn", "cough", "stretch"))
 
 //Possibility of incorporating other neurotransmitters here?
 
@@ -87,7 +88,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("twitch","twitch_v","blink","blink_r"))
+			M.emote(pick("twitch", "twitch_v", "blink", "blink_r"))
 
 /datum/microbioeffects/neutral/norepinepherine
 	name = "Norepinepherine Production"
@@ -97,18 +98,17 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("twitch","twitch_v","flinch"))
+			M.emote(pick("twitch", "twitch_v", "flinch"))
 
 /datum/microbioeffects/neutral/tearyeyed
 	name = "Overactive Eye Glands"
 	desc = "The microbes cause the host's lacrimal glands to overproduce tears."
-	//review
-	reactionlist = list("saline")
+	reactionlist = list("saline", "oculine", "water")
 	reactionmessage = "The microbes seem to disappear into the solution."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("blink","blink_r","cry"))
+			M.emote(pick("blink", "blink_r", "cry"))
 
 /datum/microbioeffects/neutral/atosiban
 	name = "Atosiban Production"
@@ -118,12 +118,12 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("frown","scowl","grimace"))
+			M.emote(pick("frown", "scowl", "grimace"))
 
 /datum/microbioeffects/neutral/farts
 	name = "Farts"
 	desc = "The infected individual occasionally farts."
-	reactionlist = list("saline","oil","sugar","water")	//Look into what chemicals go into laxatives
+	reactionlist = list("saline", "oil", "sugar", "water")	//Look into what chemicals go into laxatives
 	reactionmessage = "The microbes appear to produce a large volume of gas. The smell is horrendous."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)

@@ -4243,3 +4243,11 @@ datum
 			mix_phrase = "The mixture comes together slowly. It doesn't seem like it wants to be here."
 			required_reagents = list("poor_cement" = 1, "silicon_dioxide" = 5, "water" = 1)
 			result_amount = 7
+
+		bloodmixeswithmicrobes
+			name = "blood-microbe dispersion"
+			id = "blood"
+			result = "blood"
+			mix_phrase = "The microbial fluid disperses in the blood."
+			required_reagents = list("pathogen" = 1, "blood" = 1)
+			result_amount = 2

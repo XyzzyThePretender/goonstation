@@ -4,13 +4,14 @@
  * @license MIT
  */
 
-import { useLocalState } from '../backend';
+import { useBackend, useSharedState } from '../backend';
 import { Flex, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 
 export const MicrobiologyResearch = (props, context) => {
-  const { act, data } = useLocalState(context);
+  const { data, act } = useBackend(context);
+  const [menu, setMenu] = useSharedState(context, "menu", "logs");
 
   const {
     input,

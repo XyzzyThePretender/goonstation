@@ -9389,7 +9389,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "azu" = (
-/obj/machinery/autoclave,
 /obj/decal/cleanable/dirt/dirt2,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
@@ -9616,7 +9615,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "aAf" = (
-/obj/machinery/incubator,
 /obj/decal/cleanable/dirt/dirt2,
 /obj/decal/cleanable/dirt/dirt4,
 /obj/disposalpipe/segment/transport,

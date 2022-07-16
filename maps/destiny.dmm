@@ -10715,14 +10715,14 @@
 /area/station/maintenance/southwest)
 "aTc" = (
 /obj/table/reinforced/chemistry/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
@@ -45109,9 +45109,6 @@
 	dir = 1;
 	icon_state = "line3"
 	},
-/obj/machinery/incubator{
-	dir = 1
-	},
 /turf/simulated/floor/greenwhite/other{
 	dir = 4
 	},
@@ -59333,7 +59330,6 @@
 	name = "autoname - SS13";
 	pixel_x = 11
 	},
-/obj/machinery/autoclave,
 /obj/decal/tile_edge/line/green{
 	dir = 1;
 	icon_state = "line3"

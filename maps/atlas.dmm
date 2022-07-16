@@ -14713,9 +14713,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/incubator{
-	dir = 1
-	},
 /turf/simulated/floor/bluewhite{
 	dir = 1
 	},
@@ -14889,7 +14886,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "Ko" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/bluewhite{
 	dir = 4
 	},
@@ -14961,8 +14957,8 @@
 /area/station/medical/cdc)
 "KC" = (
 /obj/table/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
 /turf/simulated/floor/bluewhite,

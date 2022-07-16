@@ -159,8 +159,8 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 /datum/microbioeffects/benevolent/metabolisis
 	name = "Accelerated Metabolisis"
 	desc = "The pathogen accelerates the metabolisis of all chemicals present in the host body."
-	reactionlist = list("water")
-	reactionmessage = "The microbes metabolize the water: it seems capable of processing any reagent."
+	reactionlist = MB_METABOLISM_REAGENTS
+	reactionmessage = MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		var/met = FALSE

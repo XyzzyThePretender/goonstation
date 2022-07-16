@@ -1018,7 +1018,7 @@
 /area/russian)
 "acM" = (
 /obj/table/auto,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -3966,7 +3966,6 @@
 	},
 /area/station/medical/cdc)
 "alP" = (
-/obj/machinery/autoclave,
 /obj/machinery/camera{
 	c_tag = "autotag";
 	dir = 6;

@@ -27800,7 +27800,6 @@
 /turf/simulated/floor/plating,
 /area/station/medical/cdc)
 "biW" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "biX" = (
@@ -28969,14 +28968,14 @@
 /area/station/medical/head)
 "blu" = (
 /obj/table/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "blv" = (

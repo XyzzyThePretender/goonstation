@@ -36649,9 +36649,6 @@
 	nostick = 1;
 	pixel_y = 20
 	},
-/obj/machinery/incubator{
-	dir = 1
-	},
 /turf/simulated/floor/greenwhite,
 /area/station/medical/cdc)
 "jEo" = (
@@ -40110,7 +40107,6 @@
 	dir = 4;
 	icon_state = "line1"
 	},
-/obj/machinery/autoclave,
 /obj/machinery/light/incandescent/cool{
 	dir = 4;
 	nostick = 1;

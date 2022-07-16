@@ -149,7 +149,7 @@
 				pathogen_data = "<span class='alert'>Scans indicate the presence of [H.microbes.len] microbial culture[H.microbes.len > 1 ? "s" : null].</span>"
 				for (var/uid in H.microbes)
 					var/datum/microbeplayerdata/P = H.microbes[uid]
-					if (disease_detection && P.master.artificial)
+					if (disease_detection && P.master.reported)
 						pathogen_data += "<br>&emsp;<span class='alert'>[P.master.name]. Suggested treatment: [P.master.suppressant.exactcure].</span>"
 					else
 						pathogen_data += "<br>&emsp;<span class='alert'>[P.master.name]. Suggested treatment: [P.master.suppressant.therapy].</span>"

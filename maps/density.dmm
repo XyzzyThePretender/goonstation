@@ -5962,7 +5962,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/medbay)
 "mA" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "mB" = (
@@ -6038,10 +6037,10 @@
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/dropper/mechanical,
 /obj/item/reagent_containers/dropper,
 /obj/machinery/light{

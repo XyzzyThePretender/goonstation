@@ -8138,7 +8138,6 @@
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "ua" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/bluewhite{
 	dir = 4
 	},
@@ -8158,8 +8157,8 @@
 /area/station/medical/cdc)
 "ud" = (
 /obj/table/auto,
-/obj/item/bloodslide,
-/obj/item/bloodslide,
+/obj/item/reagent_containers/bloodslide,
+/obj/item/reagent_containers/bloodslide,
 /obj/item/reagent_containers/glass/petridish,
 /obj/item/reagent_containers/glass/petridish,
 /obj/machinery/light{

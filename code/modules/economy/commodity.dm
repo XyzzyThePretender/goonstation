@@ -2274,7 +2274,7 @@
 	upperfluc = 150
 	lowerfluc = -20
 */
-
+/*
 /datum/commodity/pathogensample
 	comname = "Pathogen sample"
 	comtype = /obj/item/reagent_containers/glass/vial/prepared
@@ -2283,7 +2283,7 @@
 	price = 700
 	upperfluc = 500
 	lowerfluc = -500
-
+*/
 /datum/commodity/largeartifact
 	comname = "Large Artifact"
 	comtype = null

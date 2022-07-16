@@ -1,13 +1,15 @@
 /**
  * @file
- * @copyright 2022 XyzzyThePretender (https://github.com/XyzzyThePretender)
+ * @copyright 2022
+ * @author XyzzyThePretender (https://github.com/XyzzyThePretender)
  * @license MIT
  */
 
-import { useBackend } from '../backend';
-import { BlockQuote, Box, Button, Divider, Flex, Icon, Modal, Section } from '../components';
-import { Window } from '../layouts';
+// Moron attempts to write JS code, pain is guaranteed...
 
+import { useBackend } from '../backend';
+import { Box, Button, Flex, Icon, LabeledList, Modal, Section } from '../components';
+import { Window } from '../layouts';
 
 export const Centrifuge = (props, context) => {
   const { act, data } = useBackend(context);
@@ -15,53 +17,95 @@ export const Centrifuge = (props, context) => {
     active,
     sample,
     petridish,
-    isolated,
+    dishtotvol,
+    dishmaxvol,
+    whichculture,
   } = data;
-
-  const {
-    uid,
-    name,
-  } = sample || {};
-
 
   return (
     <Window
       title="Centrifuge"
       width={300}
       height={400}>
+
+      {active && (
+        <Modal
+          textAlign="center"
+          fontSize="14px">
+          <Icon name="cog" spin={1} />
+          <Box align="center" content="The centrifuge is currently working." />
+          <Button.Confirm
+            fontSize="16px"
+            fluid
+            content="Emergency Shutdown"
+            onClick={() => act('shutdown')} />
+        </Modal>
+      ) || {}}
+
       <Window.Content>
-        {active && (
-          <Modal
-            textAlign="center"
-            fontSize="14px">
-            <Box width={20} height={5} align="center">
-              The centrifuge is currently working.
+        <Section
+          title="Blood Slide"
+          scrollable
+          buttons={
+            <Box>
+              <Button
+                icon="eject"
+                onClick={() => act('eject_slide')}>
+                {sample ? "Eject " : "Insert"}
+              </Button>
             </Box>
+          }>
+          <LabeledList>
+            {sample.length && sample.map(s => (
+              <LabeledList.Item
+                key={s.uid}
+                fluid
+                color={(whichculture===s.uid) ? 'good' : 'default'}
+                label={s.name}>
+
+                {s.goodeff + " / " + s.neuteff + " / " + s.badeff}
+
+                <Button
+                  icon="eject"
+                  onClick={() => act('select_culture', { uid })} />
+              </LabeledList.Item>
+            )) || <LabeledList.Item fluid content="Nothing." />}
+          </LabeledList>
+        </Section>
+
+        {(whichculture && (dishtotvol < (dishmaxvol - 5))) && (
+          <Section>
             <Button.Confirm
-              fontSize="16px"
-              content="Emergency Shutdown"
-              Confirm="Confirm?">
-              onClick={() => act("shutdown")}
-            </Button.Confirm>
-          </Modal>
-        )}
-        <Section>
+              fluid
+              onClick={() => act('isolate')}
+              center
+              content="Isolate Sample" />
+          </Section>
+        ) || {}}
 
-          Vials (Icon, var bloodslide)
-          Microbes and Isolation selection (Button)
-          Eject (Button, Icon)
-          Navigate (Button, Icon)
+        <Section
+          title="Petri Dish"
+          scrollable
+          buttons={
+            <Box>
+              <Button
+                icon="eject"
+                onClick={() => act('eject_dish')}>
+                {petridish ? "Eject " + " (" + dishtotvol + "/" + dishmaxvol + ")" : "Insert"}
+              </Button>
+            </Box>
+          }>
+          <LabeledList>
+            {petridish.length && petridish.map(d => (
+              <LabeledList.Item
+                key={d.uid}
+                fluid
+                label={d.name}>
 
-          <Divider />
-
-          Petri Dish (Icon, var petridish)
-          Microbes (BlockQuote)
-          Eject (Button, Icon)
-
-          <Divider />
-
-          Button: perform isolation process
-
+                {d.goodeff + " / " + d.neuteff + " / " + d.badeff}
+              </LabeledList.Item>
+            )) || <LabeledList.Item fluid content="Nothing." />}
+          </LabeledList>
         </Section>
       </Window.Content>
     </Window>

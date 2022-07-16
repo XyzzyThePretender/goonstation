@@ -35093,7 +35093,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/storage)
 "bpK" = (
-/obj/machinery/autoclave,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "bpL" = (
@@ -57844,35 +57843,35 @@
 /area/station/hydroponics/bay)
 "chi" = (
 /obj/table/auto,
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 11
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 5
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = 2
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = 7;
 	pixel_y = -1
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 7
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/bloodslide{
+/obj/item/reagent_containers/bloodslide{
 	pixel_x = -7;
 	pixel_y = 1
 	},
@@ -60498,7 +60497,6 @@
 /turf/simulated/floor/black,
 /area/station/crew_quarters/catering)
 "cjY" = (
-/obj/machinery/incubator,
 /turf/simulated/floor/white,
 /area/station/medical/cdc)
 "cjZ" = (
