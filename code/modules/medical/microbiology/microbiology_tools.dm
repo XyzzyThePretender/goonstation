@@ -4,12 +4,12 @@
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "slide0"
 	desc = "An item used by scientists and serial killers operating in the Miami area to store blood samples."
-	flags = NOSPLASH
+	flags = NOSPLASH | FPRINT
 	//rc_flags = RC_FULLNESS | RC_VISIBLE | RC_SPECTRO
 	initial_volume = 5
 
 	// giving it reagent_container will cause a bunch of funky unwanted interactions.
-	// bug is feature || squish?
+	// find and fix
 	on_reagent_change()
 		..()
 		src.reagents.maximum_volume = src.reagents.total_volume
@@ -24,7 +24,7 @@
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "petri0"
 	desc = "A dish tailored hold microbial cultures."
-	flags = NOSPLASH
+	flags = NOSPLASH | FPRINT
 	//rc_flags = RC_FULLNESS | RC_VISIBLE | RC_SPECTRO
 	initial_volume = 40
 
@@ -47,6 +47,7 @@
 /obj/item/reagent_containers/glass/vial
 	name = "vial"
 	desc = "A vial. Can hold up to 5 units."
+	// Recheck the vial sprites
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "vial0"
 	item_state = "vial"

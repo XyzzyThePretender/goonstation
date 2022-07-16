@@ -5,7 +5,7 @@
 	desc = "A large machine that can be used to separate a pathogen sample from a blood sample."
 	anchored = 1
 	density = 1
-	flags = NOSPLASH | TGUI_INTERACTIVE
+	flags = NOSPLASH | TGUI_INTERACTIVE | FPRINT
 
 	var/obj/item/reagent_containers/bloodslide/sample = null
 	var/obj/item/reagent_containers/glass/petridish/dish = null
@@ -200,6 +200,7 @@
 	var/obj/item/target = null
 	var/zoom = FALSE
 	anchored = 1
+	flags = FPRINT
 
 	examine()
 		. = ..()
@@ -240,13 +241,13 @@
 			boutput(usr, "<span class='alert'>The microscope is still zoomed in. Readjust it before ejecting the [src.target].</span>")
 			return
 
+		boutput(usr, "<span class='notice'>You remove the [src.target] from the microscope.</span>")
+		add_fingerprint(usr)
 		usr.put_in_hand_or_eject(src.target)
 		src.target.master = null
 		src.contents -= src.target
 		src.target = null
 		icon_state = "microscope0"
-		boutput(usr, "<span class='notice'>You remove the [src.target] from the microscope.</span>")
-		add_fingerprint(usr)
 		return
 
 	proc/zoom(mob/user)
@@ -329,6 +330,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "pathology"
 	desc = "A bulky machine used to control the pathogen manipulator."
+	flags = FPRINT
 
 	var/obj/item/reagent_containers/glass/vial/sampleconsole = null
 
@@ -412,6 +414,7 @@
 	desc = "A large, softly humming machine."
 	density = 1
 	anchored = 1
+	flags = FPRINT
 
 	var/obj/item/reagent_containers/glass/vial/samplemanip = null
 
@@ -470,7 +473,7 @@
 	icon_state = "synth1"
 	density = 1
 	anchored = 1
-	flags = NOSPLASH
+	flags = NOSPLASH | FPRINT
 
 	var/list/obj/item/reagent_containers/glass/vial/vials[3]
 	var/obj/item/beaker = null

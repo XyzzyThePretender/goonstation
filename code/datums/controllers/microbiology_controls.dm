@@ -35,17 +35,18 @@ var/datum/microbiology_controller/microbio_controls
 I have no idea what the formal OOP design name would be for the following procs.
 Basically, this controller acts as the databank for all microbes.
 External code uses the procs to add or modify indexed microbe data.
-The controller intrinsically updates active (infected) instance on any modification.
+The controller intrinsically updates active (infected) instances on any modification.
 
 Benefits:
-Unaffected by code changes to microbe var definitions (except for uid)
-Meta
+Unaffected by future additions/deletions of datum/microbe vars (except for uid)
+Unifies admin logging with current game information
+Reduces memory redundancies: Reagents only need to have the uid numbers to know which cultures are present.
 
 Shortcomings:
-Limited optimization (can't just change the one var)
-For loop redundancy (cultures list doubles as the admin tool/log, so can't just qdel to save time)
-Possible stack overlap leading to 'merge conflicts'? (idk the exact details of how runtime/stack works for DM)
-DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
+Limited optimization (can't just change the one var across different instances)
+For loop redundancy (cultures list doubles as the admin tool/log, so can't just qdel to save time/space)
+Potentially stack-space intensive
+
 */
 
 	///Called when microbe data is needed. Argument is a microbe uid. Scans the cultures list and returns the microbe data.
@@ -143,10 +144,12 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 				for (var/uid as anything in src.cultures)
 					var/datum/microbe/CDC = src.cultures[uid]
 					output += "<tr>"
-					output += "<td><center>[round(CDC.creation_time / (1 MINUTE))]:[((CDC.creation_time % (1 MINUTE)) < (10 SECONDS)) ? 0 : null][(CDC.creation_time % (1 MINUTE))]</center></td>"
+					output += "<td><center>[round(CDC.creation_time / (1 MINUTE))]:[((CDC.creation_time % (1 MINUTE)) < (10 SECONDS)) ? 0 : null][(CDC.creation_time % (1 MINUTE))*0.1]</center></td>"
 					output += "<td class='name'><center>[CDC.name]</center></td>"
 					output += "<td><center>[CDC.uid]</center></td>"
 
+					// Add an action to go to the playerpanel
+					// Playerpanel: integrate microbio (cure/show data)
 					//Infected
 					if (CDC.infected)
 						output += "<td><center>"
@@ -291,21 +294,28 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 				output += "<b>Name: </b> [P.name]<br>"
 
 				//add, remove effects
+				output += "<b>Name: </b> [P.name]<br>"
 
 				//add, change suppressant
+				output += "<b>Name: </b> [P.name]<br>"
 
 				//adjust infection total
+				output += "<b>Name: </b> [P.name]<br>"
 
 				//adjust duration total
+				output += "<b>Name: </b> [P.name]<br>"
 
 				//set artificial boolean
+				output += "<b>Name: </b> [P.name]<br>"
 
 				//set reported boolean
+				output += "<b>Name: </b> [P.name]<br>"
 
 				//Button to finalize
+				output += "<b>Name: </b> [P.name]<br>"
 
-				//Button to completely reset ?
-
+				//Button to reset
+				output += "<b>Name: </b> [P.name]<br>"
 
 				if (P.suppressant)
 					output += "<b>Description: </b> [P.desc]<br>"
