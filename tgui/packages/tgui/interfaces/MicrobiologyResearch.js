@@ -24,10 +24,10 @@ export const MicrobiologyResearch = (props, context) => {
       height={685}>
       <Window.Content>
         <Section>
-          AAA!!
+          WIP!!
         </Section>
         <Section>
-          AAA!!
+          WIP!!
         </Section>
       </Window.Content>
     </Window>

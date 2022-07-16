@@ -66,8 +66,3 @@ ABSTRACT_TYPE(/datum/microbioeffects)
 		var/turf/T = get_turf(M)
 		var/obj/decal/cleanable/pathogen_sweat/D = make_cleanable(/obj/decal/cleanable/pathogen_sweat,T)
 		D.color = hex
-
-	//This func and its code could probably be simplified.
-	/// Used as an auxillary storage for running counters/timers.
-	proc/onadd(var/datum/microbe/P)
-		return

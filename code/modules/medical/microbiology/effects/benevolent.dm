@@ -56,6 +56,12 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 			if (prob(P.probability))
 				M.show_message("<span class='notice'>You feel cleansed.</span>")
 
+/*
+//Both of the commented effects are likely to be deleted.
+//Genetics has anaerobic resp, which renders these obsolete
+//Hesitant to delete the spritework. Maybe something can be salvaged from it?
+//Associated code found in movement_modifiers.dm, statusEffects.dm, statussystem.dmi
+
 //PROBLEM: This effect can kill someone.
 //Solution: set a limit on brute for functioning (too much brute -> effect stops working)
 /datum/microbioeffects/benevolent/oxygenconversion
@@ -94,57 +100,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 		else
 			// faster reserve replenishment at higher stages
 			P.master.effectdata["oxygen_storage"] = min(100, P.master.effectdata["oxygen_storage"] + 2)
-
-/datum/microbioeffects/benevolent/resurrection
-	name = "Necrotic Resurrection"
-	desc = "The microbes will attempt to revive dead hosts."
-	reactionlist = list("synthflesh")
-	reactionmessage = "Dead parts of the synthflesh seem to start transferring blood again!"
-	must_unlock = TRUE
-	var/cooldown = 1 MINUTES			// Make this competitive?
-
-	onadd(var/datum/microbe/origin)
-		origin.effectdata += "Ressurection"
-
-	mob_act_dead(var/mob/M, var/datum/microbeplayerdata/P)
-		if(!P.master.effectdata["resurrect_cd"]) // if not yet set, initialize it so that it is off cooldown
-			P.master.effectdata["resurrect_cd"] = -cooldown
-		if(TIME-P.master.effectdata["resurrect_cd"] < cooldown)
-			return
-		if (M.traitHolder.hasTrait("puritan"))	//See forum post "Cloning: A Discussion".
-			return
-		// Shamelessly stolen from Strange Reagent
-		if (isdead(M) || istype(get_area(M),/area/afterlife/bar))
-			P.master.effectdata["resurrect_cd"] = TIME
-			// range from 65 to 45. This is applied to both brute and burn, so the total max damage after resurrection is 130 to 90.
-			var/brute = min(rand(45,65), M.get_brute_damage())
-			var/burn = min(rand(45,65), M.get_burn_damage())
-
-			// let's heal them before we put some of the damage back
-			// but they don't get back organs/limbs/whatever, so I don't use full_heal
-			M.HealDamage("All", 100000, 100000)
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				H.blood_volume = 500 					// let's not have people immediately suffocate from being exsanguinated
-				H.take_toxin_damage(-INFINITY)
-				H.take_oxygen_deprivation(-INFINITY)
-				H.take_brain_damage(-INFINITY)
-
-			M.TakeDamage("chest", brute, burn)
-			M.take_brain_damage(70)						// and a lot of brain damage
-			setalive(M)
-			M.changeStatus("paralysis", 15 SECONDS) 			// paralyze the person for a while, because coming back to life is hard work
-			M.change_misstep_chance(40)					// even after getting up they still have some grogginess for a while
-			M.stuttering = 15
-			if (M.ghost && M.ghost.mind && !(M.mind && M.mind.dnr)) // if they have dnr set don't bother shoving them back in their body
-				M.ghost.show_text("<span class='alert'><B>You feel yourself being dragged out of the afterlife!</B></span>")
-				M.ghost.mind.transfer_to(M)
-				qdel(M.ghost)
-			if (ishuman(M))
-				var/mob/living/carbon/human/H = M
-				H.contract_disease(/datum/ailment/disease/tissue_necrosis, null, null, 1) // this disease will make the person more and more rotten even while alive
-				H.visible_message("<span class='alert'>[H] suddenly starts moving again!</span>","<span class='alert'>You feel the disease weakening as you rise from the dead.</span>")
-
+*/
 
 /datum/microbioeffects/benevolent/neuronrestoration
 	name = "Neuron Restoration"

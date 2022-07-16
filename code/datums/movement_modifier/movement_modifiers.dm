@@ -219,7 +219,7 @@
 		return list(0-(applied_modifier*((2-missing_arms)*0.5)),1)
 
 // pathogen stuff
-
+// likely to be removed
 /datum/movement_modifier/patho_oxygen
 	multiplicative_slowdown = 0.75
 

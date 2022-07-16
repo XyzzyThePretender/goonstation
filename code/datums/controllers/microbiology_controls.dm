@@ -143,8 +143,7 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 				for (var/uid as anything in src.cultures)
 					var/datum/microbe/CDC = src.cultures[uid]
 					output += "<tr>"
-
-					output += "<td><center>[round(CDC.creation_time / 60)]:[((CDC.creation_time % 60) < 10) ? 0 : null][(CDC.creation_time % 60)]</center></td>"
+					output += "<td><center>[round(CDC.creation_time / (1 MINUTE))]:[((CDC.creation_time % (1 MINUTE)) < (10 SECONDS)) ? 0 : null][(CDC.creation_time % (1 MINUTE))]</center></td>"
 					output += "<td class='name'><center>[CDC.name]</center></td>"
 					output += "<td><center>[CDC.uid]</center></td>"
 
@@ -170,7 +169,7 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 					output += "<td><center>[CDC.infectioncount] / [CDC.infectiontotal]</center></td>"
 
 					//Duration
-					output += "<td><center>[round(CDC.durationtotal / 60)]:[((CDC.durationtotal % 60) < 10) ? 0 : null][CDC.durationtotal % 60]</center></td>"
+					output += "<td><center>[round(CDC.durationtotal / (1 MINUTE))]:[((CDC.durationtotal % (1 MINUTE)) < (10 SECONDS)) ? 0 : null][(CDC.durationtotal % (1 MINUTE))*0.1]</center></td>"
 
 					//Cure
 					output += "<td><center>[CDC.suppressant]</center></td>"
@@ -235,7 +234,7 @@ DOES NOT NEED TO BE Associative list (necessary for indefinite datums)
 			//List of cures
 			if ("suppressants")
 
-				//Name - Color - Description - Cure Type - Exact Cure - Reaction Reagents - Cure Reagents (if applicable)
+				//Name - Color - Description - Cure Type - Exact Cure - Reaction Reagents - Cure Reagents
 				output += "<table class='pathology-table'><thead><tr><th>Name</th><th>Color</th><th>Description</th><th>Cure Type</th><th>Exact Cure</th><th>Activator reagents</th><<th>Suppression reagents</th></thead><tbody>"
 				for (var/cureindex as anything in src.cures)
 					var/datum/suppressant/S = cureindex

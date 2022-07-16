@@ -7,6 +7,8 @@
 "Bacteria", "Virions", "Fungi", "Parasites", "Contagion", "Scourge")
 
 #ifdef RP_MODE
+	// RP may have longer, drawn-out illnesses because RP is excluded from damaging and transmissible effects.
+	// Consideration for the pace of RP
 	#define MICROBIO_LOWERDURATIONVALUE 900		//seconds
 	#define MICROBIO_UPPERDURATIONVALUE 1200	//seconds
 #else
@@ -42,6 +44,7 @@
 // Cure Defines
 
 // Cure Reagent Catagories
+// 10 units of any reagent in the cure's reagent list will permatoggle the cure-reduced duration regime.
 // Be mindful of allergies.
 
 // Big Four: Medications
@@ -51,16 +54,16 @@
 #define MB_OXY_MEDS_CATAGORY list("atropine", "epinephrine", "iron", "omnizine", "perfluorodecalin", "salbutamol")
 
 // Drugs
-#define MB_SEDATIVES_CATAGORY list("capulettium", "capulettium_plus", "ethanol", "ether", "haloperidol", \
-"ketamine", "lithium", "morphine", "neurodepressant")
+#define MB_SEDATIVES_CATAGORY list("ethanol", "ether", "haloperidol", "ketamine", "lithium", "morphine", "neurodepressant")
 #define MB_STIMULANTS_CATAGORY list("smelling_salt", "ephedrine", "epinephrine", "methamphetamine", "sugar", \
 "synaptizine", "synd_methamphetamine", "triplemeth")
 // Because botany almost always makes weed...
 #define MB_HALLUCINOGENICS_CATAGORY list("cold_medicine", "lysergic acid diethylamide", "psilocybin", "space drugs", "THC")
 
 // Therapies
-#define MB_HOT_REAGENTS list("phlogiston", "infernite")
-#define MB_COLD_REAGENTS list("cryostylane", "cryoxadone")
+// Keep in mind any source that changes body temperature will suffice. Think outside the box!
+#define MB_HOT_REAGENTS list("phlogiston", "infernite", "sangria")
+#define MB_COLD_REAGENTS list("cryostylane", "cryoxadone", "mintjulep")
 
 // Inspection Groups
 // NEVER use these for cures!
@@ -70,7 +73,7 @@
 #define MB_METABOLISM_REAGENTS list("antihol", "calomel", "charcoal", "haloperidol", "hunchback", "insulin", "penteticacid", \
 "smelling_salt", "water")
 
-#define MB_TOXINS_REAGENTS list("chlorine", "fluorine", "lithium", "mercury", "plasma", "cyanide", \
+#define MB_TOXINS_REAGENTS list("chlorine", "fluorine", "mercury", "plasma", "cyanide", \
 "formaldehyde", "sulfonal", "histamine")
 
 #define MB_BRAINDAMAGE_REAGENTS list("capulettium", "capulettium_plus", "haloperidol", "mercury", "neurotoxin", "sarin")
@@ -83,8 +86,7 @@
 
 #define MICROBIO_INSPECT_DISLIKES_GENERIC "The microbes seem to shut down in the presence of the solution!"
 
-//unused
-#define MICROBIO_INSPECT_DISLIKES_POWERFUL_EFFECT "The microbes are attemping to escape from the area affected by the reagent!"
+#define MICROBIO_INSPECT_DISLIKES_POWERFUL_EFFECT "The microbes are attemping to escape from the area affected by the reagent!" //unused
 
 #define MICROBIO_INSPECT_HIT_CURE "The microbes in the test reagent are rapidly withering away!"
 
