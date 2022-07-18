@@ -653,7 +653,6 @@ var/list/blood_decal_violent_icon_states = list("floor1", "floor2", "floor3", "f
 	icon_state = "floor1"
 	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
 	color = "#12b828"
-	slippery = 5
 	can_dry = 1
 	can_fluid_absorb = 0
 
@@ -663,9 +662,13 @@ var/list/blood_decal_violent_icon_states = list("floor1", "floor2", "floor3", "f
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "pathogen_cloud"
 	color = "#12b828"
-	slippery = 5
 	can_dry = 1
 	can_fluid_absorb = 0
+
+	New()
+		..()
+		SPAWN(rand(3, 6) SECONDS)
+		qdel(src)
 
 /obj/decal/cleanable/paper
 	name = "paper"

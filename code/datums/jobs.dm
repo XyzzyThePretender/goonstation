@@ -592,11 +592,11 @@ ABSTRACT_TYPE(/datum/job/research)
 		return
 
 
-#ifdef CREATE_PATHOGENS
+#ifdef OPEN_MICROBIO_JOB
 /datum/job/research/microbiologist
 #endif
 	name = "Microbiologist"
-	#ifdef CREATE_PATHOGENS
+	#ifdef OPEN_MICROBIO_JOB
 	limit = 2
 	#else
 	limit = 0

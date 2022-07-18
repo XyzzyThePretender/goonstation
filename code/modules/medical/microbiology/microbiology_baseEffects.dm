@@ -10,7 +10,7 @@ ABSTRACT_TYPE(/datum/microbioeffects)
 	var/reactionmessage = MICROBIO_INSPECT_DISLIKES_GENERIC
 
 	/// Boolean: FALSE default. On TRUE, the effect must be discovered through analysis before showing up on the designer.
-	var/must_unlock = FALSE
+	var/must_discover = FALSE
 
 	/**
 	 * This is the center of the custom disease effect.
@@ -18,12 +18,6 @@ ABSTRACT_TYPE(/datum/microbioeffects)
 	 * OVERRIDE: A subclass (direct or otherwise) is expected to override this.
 	*/
 	proc/mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-
-	/**
-	 * This functions identically to mob_act, except it is only called when the mob is dead. (mob_act is not called if that is the case.)
-	 * OVERRIDE: Only override this if if it needed for the symptom.
-	*/
-	proc/mob_act_dead(var/mob/M, var/datum/microbeplayerdata/origin)
 
 	/**
 	 * This is the proc that handles direct transmission from one mob to another.

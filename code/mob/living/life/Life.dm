@@ -339,7 +339,7 @@
 	else if (isdead(src) && src.microbes.len)
 		for (var/uid in src.microbes)
 			var/datum/microbeplayerdata/P = src.microbes[uid]
-			P.mob_act_dead(src, P)
+			src.cured(P)
 
 	last_human_life_tick = TIME
 

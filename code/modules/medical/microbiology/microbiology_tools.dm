@@ -60,7 +60,6 @@
 		else
 			icon_state = "vial1"
 
-	// or just do initial_volume = 5
 	New()
 		var/datum/reagents/R = new /datum/reagents(5)
 		R.my_atom = src

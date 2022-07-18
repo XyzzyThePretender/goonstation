@@ -1,7 +1,7 @@
 // Neutral effects are not designed to cause harm.
 // Neutral effects use the emote system to inform infected players
-// There are currently 10 neutral effects.
-// Neutral effects could exploit the facets of neurochemicals and neurotransmitters for ideas.
+// There are currently 9 neutral effects.
+
 ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 /datum/microbioeffects/neutral
 	name = "Neutral Effects"
@@ -15,13 +15,14 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
 			M.emote("hiccup")
+			make_cloud(M, origin.master.hexcolors)
 
 /datum/microbioeffects/neutral/sunglass
 	name = "Sunglass Glands"
 	desc = "The infected grew sunglass glands."
 	reactionlist = list("flashpowder")
 	reactionmessage = "The microbes appear to be wearing sunglasses."
-	must_unlock = TRUE
+	must_discover = TRUE
 
 	proc/glasses(var/mob/living/carbon/human/M)
 		var/obj/item/clothing/glasses/G = M.glasses
@@ -53,7 +54,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 	desc = "The microbes cause the user's brain to believe the body is dying."
 	reactionlist = MB_BRAINDAMAGE_REAGENTS
 	reactionmessage = "The microbes appear to be.. sort of dead?"
-	must_unlock = TRUE
+	must_discover = TRUE
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_OHGODHELP))	//No spam plox
@@ -62,12 +63,22 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 /datum/microbioeffects/neutral/hoarseness
 	name = "Hoarseness"
 	desc = "The microbes cause dry throat, leading to hoarse speech."
-	reactionlist = list("water")
-	reactionmessage = MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT
+	reactionlist = list("saline", "oculine", "water")
+	reactionmessage = MICROBIO_INSPECT_LIKES_GENERIC
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("wheeze", "cough", "grumble"))
+			M.emote(pick("wheeze", "grumble"))
+
+/datum/microbioeffects/neutral/fluent
+	name = "Fluent"
+	desc = "The microbes cause the host to overproduce saliva and tears."
+	reactionlist = list("saline", "oculine", "water")
+
+	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
+		if (prob(origin.probability))
+			M.emote(pick("blink_r", "cry", "drool", "gurgle"))
+			make_puddle(M, origin.master.hexcolors)
 
 /datum/microbioeffects/neutral/malaise
 	name = "Malaise"
@@ -77,18 +88,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
-			M.emote(pick("yawn", "cough", "stretch"))
-
-//Possibility of incorporating other neurotransmitters here?
-
-/datum/microbioeffects/neutral/acetylcholine
-	name = "Acetylcholine Production"
-	desc = "A gland on the microbe produces acetylcholine, causing an infected host to experience involuntary convulsions."
-	reactionlist = list("atropine")	//atropine is a receptor antagonist (blocks ACh)
-
-	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability))
-			M.emote(pick("twitch", "twitch_v", "blink", "blink_r"))
+			M.emote(pick("yawn", "stretch"))
 
 /datum/microbioeffects/neutral/norepinepherine
 	name = "Norepinepherine Production"
@@ -100,20 +100,10 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 		if (prob(origin.probability))
 			M.emote(pick("twitch", "twitch_v", "flinch"))
 
-/datum/microbioeffects/neutral/tearyeyed
-	name = "Overactive Eye Glands"
-	desc = "The microbes cause the host's lacrimal glands to overproduce tears."
-	reactionlist = list("saline", "oculine", "water")
-	reactionmessage = "The microbes seem to disappear into the solution."
-
-	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability))
-			M.emote(pick("blink", "blink_r", "cry"))
-
 /datum/microbioeffects/neutral/atosiban
 	name = "Atosiban Production"
 	desc = "The microbes produce atosiban, inhibiting oxytocin receptors."
-	reactionlist = list("THC", "sugar", "hugs")	//What makes dopamine?
+	reactionlist = MB_HALLUCINOGENICS_CATAGORY
 	reactionmessage = "The microbes start to move in a strangely cheerful manner."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
@@ -123,10 +113,10 @@ ABSTRACT_TYPE(/datum/microbioeffects/neutral)
 /datum/microbioeffects/neutral/farts
 	name = "Farts"
 	desc = "The infected individual occasionally farts."
-	reactionlist = list("saline", "oil", "sugar", "water")	//Look into what chemicals go into laxatives
+	reactionlist = MB_METABOLISM_REAGENTS
 	reactionmessage = "The microbes appear to produce a large volume of gas. The smell is horrendous."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability))
 			M.emote("fart")
-
+			make_cloud(M, origin.master.hexcolors)

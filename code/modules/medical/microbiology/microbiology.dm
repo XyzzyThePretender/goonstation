@@ -193,7 +193,7 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 	proc/progress_pathogen(var/mob/M, var/datum/microbeplayerdata/P)
 		ticked = TRUE
 
-		if (!(P.duration))
+		if (!(P.duration) || isdead(M))
 			M.cured(P)
 			return
 
@@ -209,27 +209,17 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 			P.tickmult = 1
 
 		// If we don't want 6 decimal places use ceil or round. ceil is more aggressive than round
-		if (ishuman(M))
-			var/mob/living/carbon/human/H = M
-			P.probability = percentmult((-A * X**2 + B * X) / H.microbes.len, tickmult)
-		else
-			P.probability = percentmult(-A * X**2 + B * X, tickmult)
+		var/mob/living/carbon/human/H = M
+		P.probability = percentmult((-A * X**2 + B * X) / H.microbes.len, tickmult)
 
 		P.iscured = P.master.suppressant.suppress_act(P)
 
 		P.duration -= (P.tickmult ? P.tickmult : 1) SECONDS
 
-
 	/// for loop through effects list in the master var, then progresses
 	proc/mob_act(var/mob/M, var/datum/microbeplayerdata/S)
 		for (var/datum/microbioeffects/effect in S.master.effects)
 			effect.mob_act(M, S)
-		progress_pathogen(M, S)
-
-	/// it's like mob_act, but for dead people!
-	proc/mob_act_dead(var/mob/M, var/datum/microbeplayerdata/S)
-		for (var/datum/microbioeffects/effect in S.master.effects)
-			effect.mob_act_dead(M, S)
 		progress_pathogen(M, S)
 
 ///return FALSE on failure, TRUE after success
@@ -273,5 +263,6 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 	microbio_controls.push_to_upstream(P)	//Update elsewhere about cure
 	logTheThing("pathology", src, null, "is cured of and gains immunity to [P.name] (uid: [P.uid]).")
 	qdel(S)
-	boutput(src, "<span class='notice'>You feel that the disease has passed.</span>")
+	if (!isdead(src))
+		boutput(src, "<span class='notice'>You feel that the disease has passed.</span>")
 	return TRUE

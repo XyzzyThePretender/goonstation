@@ -50,31 +50,33 @@
 // Big Four: Medications
 #define MB_BRUTE_MEDS_CATAGORY list("analgesic", "omnizine", "styptic_powder", "saline", "synthflesh")
 #define MB_BURN_MEDS_CATAGORY list("menthol", "omnizine", "silver_sulfadiazine", "saline", "synthflesh")
-#define MB_TOX_MEDS_CATAGORY list("anti_rad", "antihol", "charcoal",  "omnizine", "penteticacid", "cocktail_citrus")
+#define MB_TOX_MEDS_CATAGORY list("anti_rad", "antihol", "charcoal", "omnizine", "penteticacid", "cocktail_citrus")
 #define MB_OXY_MEDS_CATAGORY list("atropine", "epinephrine", "iron", "omnizine", "perfluorodecalin", "salbutamol")
 
 // Drugs
-#define MB_SEDATIVES_CATAGORY list("ethanol", "ether", "haloperidol", "ketamine", "lithium", "morphine", "neurodepressant")
-#define MB_STIMULANTS_CATAGORY list("smelling_salt", "ephedrine", "epinephrine", "methamphetamine", "sugar", \
-"synaptizine", "synd_methamphetamine", "triplemeth")
+#define MB_SEDATIVES_CATAGORY list("cold_medicine", "ethanol", "ether", "haloperidol", "ketamine", "krokodil", \
+"lithium", "morphine", "neurodepressant")
+#define MB_STIMULANTS_CATAGORY list("coffee", "coffee_fresh", "ephedrine", "epinephrine", "methamphetamine", "nicotine", \
+"smelling_salt", "sugar", "synaptizine", "synd_methamphetamine", "triplemeth")
 // Because botany almost always makes weed...
-#define MB_HALLUCINOGENICS_CATAGORY list("cold_medicine", "lysergic acid diethylamide", "psilocybin", "space drugs", "THC")
+#define MB_HALLUCINOGENICS_CATAGORY list("CBD", "cold_medicine", "lysergic acid diethylamide", "psilocybin", "space drugs", "THC")
 
 // Therapies
 // Keep in mind any source that changes body temperature will suffice. Think outside the box!
-#define MB_HOT_REAGENTS list("phlogiston", "infernite", "sangria")
-#define MB_COLD_REAGENTS list("cryostylane", "cryoxadone", "mintjulep")
+#define MB_HOT_REAGENTS list("coffee", "coffee_fresh", "pyrosium", "nicotine", "sangria")	//Consider teporone if new therapies are added
+#define MB_COLD_REAGENTS list("cryostylane", "cryoxadone", "krokodil", "mintjulep")
+#define MB_EXERCISE_REAGENTS list("epinephrine", "menthol", "saline", "synthflesh", "water")
 
 // Inspection Groups
 // NEVER use these for cures!
 
-#define MB_ACID_REAGENTS list("acetic_acid", "acid", "clacid", "pacid")
+#define MB_ACID_REAGENTS list("acetic_acid", "acid", "clacid", "pacid")	// one-off
 
 #define MB_METABOLISM_REAGENTS list("antihol", "calomel", "charcoal", "haloperidol", "hunchback", "insulin", "penteticacid", \
 "smelling_salt", "water")
 
 #define MB_TOXINS_REAGENTS list("chlorine", "fluorine", "mercury", "plasma", "cyanide", \
-"formaldehyde", "sulfonal", "histamine")
+"formaldehyde", "sulfonal", "histamine") // one-off
 
 #define MB_BRAINDAMAGE_REAGENTS list("capulettium", "capulettium_plus", "haloperidol", "mercury", "neurotoxin", "sarin")
 
@@ -87,8 +89,6 @@
 #define MICROBIO_INSPECT_DISLIKES_GENERIC "The microbes seem to shut down in the presence of the solution!"
 
 #define MICROBIO_INSPECT_DISLIKES_POWERFUL_EFFECT "The microbes are attemping to escape from the area affected by the reagent!" //unused
-
-#define MICROBIO_INSPECT_HIT_CURE "The microbes in the test reagent are rapidly withering away!"
 
 // Machine Defines
 

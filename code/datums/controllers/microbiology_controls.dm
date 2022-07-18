@@ -6,7 +6,7 @@ var/datum/microbiology_controller/microbio_controls
 	// Besides, the ling test is much more accessible. No one in their right mind would resort to distilled microbes to test!
 	var/list/pathogen_affected_reagents = list("blood", "pathogen")
 
-	///Increments on every generated microbe.
+	/// Increments on every generated microbe.
 	var/next_uid = 1
 
 	/**

@@ -1,5 +1,5 @@
 // Benevolent effects are mostly modernized from the old _benevolent stuff
-// There are 9 beneficial effects, but 2 are possibly untenable (oxy storage, oxy gen)
+// There are 8 beneficial effects, 4 must be unlocked
 
 ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 /datum/microbioeffects/benevolent
@@ -8,12 +8,12 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 /datum/microbioeffects/benevolent/mending
 	name = "Wound Mending"
 	desc = "Slow paced brute damage healing."
-	reactionlist = list("synthflesh")
-	reactionmessage = "Microscopic damage on the synthetic flesh appears to be mended by the microbes."
+	reactionlist = MB_BRUTE_MEDS_CATAGORY
+	reactionmessage = MICROBIO_INSPECT_LIKES_GENERIC
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
 		if (prob(P.probability))
-			M.HealDamage("All", 2, 0)
+			M.HealDamage("All", P.probability, 0)
 
 /datum/microbioeffects/benevolent/healing
 	name = "Burn Healing"
@@ -23,18 +23,18 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
 		if (prob(P.probability))
-			M.HealDamage("All", 0, 2)
+			M.HealDamage("All", 0, P.probability)
 
 /datum/microbioeffects/benevolent/fleshrestructuring
 	name = "Flesh Restructuring"
 	desc = "Fast paced general healing."
 	reactionlist = MB_ACID_REAGENTS
 	reactionmessage = "The microbes become agitated and work to repair the damage caused by the acid."
-	must_unlock = TRUE
+	must_discover = TRUE
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
 		if (prob(P.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_RARE))
-			M.HealDamage("All", 2, 2)
+			M.HealDamage("All", P.probability, P.probability)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.bleeding)
@@ -49,75 +49,44 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 	desc = "The microbes clean the body of damage caused by toxins."
 	reactionlist = MB_TOXINS_REAGENTS
 	reactionmessage = "The microbes appear to have entirely metabolized... all chemical agents in the dish."
+	must_discover = TRUE
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
 		if (prob(P.probability) && M.get_toxin_damage())
-			M.take_toxin_damage(-1)
+			M.take_toxin_damage(-P.probability)
 			if (prob(P.probability))
 				M.show_message("<span class='notice'>You feel cleansed.</span>")
 
-/*
-//Both of the commented effects are likely to be deleted.
-//Genetics has anaerobic resp, which renders these obsolete
-//Hesitant to delete the spritework. Maybe something can be salvaged from it?
-//Associated code found in movement_modifiers.dm, statusEffects.dm, statussystem.dmi
-
-//PROBLEM: This effect can kill someone.
-//Solution: set a limit on brute for functioning (too much brute -> effect stops working)
-/datum/microbioeffects/benevolent/oxygenconversion
-	name = "Oxygen Conversion"
-	desc = "The microbes convert organic tissue into oxygen when required by the host."
-	reactionlist = list("synthflesh")
-	reactionmessage = "The microbes consume the synthflesh, converting it into oxygen."
-
-	onadd(var/datum/microbe/origin)
-		origin.effectdata += "Oxy Conversion"
+//Need a sprite change (status effect icon)
+/datum/microbioeffects/benevolent/haste
+	name = "Haste"
+	desc = "The microbes improve respiratory efficiency, allowing the host to move slightly faster."
+	reactionlist = MB_METABOLISM_REAGENTS
+	reactionmessage = MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT
+	must_discover = TRUE
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
 		var/mob/living/carbon/C = M
-		if (C.get_oxygen_deprivation())
-			C.setStatus("patho_oxy_speed_bad", duration = INFINITE_STATUS, optional = 10)	//optional is "efficiency" in statusEffects
-
-//Both of these may need a sprite brushup (status effect icon)
-/datum/microbioeffects/benevolent/oxygenstorage
-	name = "Oxygen Storage"
-	desc = "The microbes store oxygen and releases it when needed by the host."
-	reactionlist = MB_OXY_MEDS_CATAGORY
-	reactionmessage = "The microbes appear to generate bubbles of oxygen around the reagent."
-
-	onadd(var/datum/microbe/origin)
-		origin.effectdata += "Oxy Storage"
-
-	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
-		if(!P.master.effectdata["oxygen_storage"]) // if not yet set, initialize
-			P.master.effectdata["oxygen_storage"] = 0
-
-		var/mob/living/carbon/C = M
-		if (C.get_oxygen_deprivation())
-			if(P.master.effectdata["oxygen_storage"] > 10)
-				C.setStatus("patho_oxy_speed", duration = INFINITE_STATUS, optional = P.master.effectdata["oxygen_storage"])
-				P.master.effectdata["oxygen_storage"] = 0
-		else
-			// faster reserve replenishment at higher stages
-			P.master.effectdata["oxygen_storage"] = min(100, P.master.effectdata["oxygen_storage"] + 2)
-*/
+		if (!C.hasStatus("hastened"))
+			C.setStatus("hastened", duration = (P.duration - 1 SECONDS))
 
 /datum/microbioeffects/benevolent/neuronrestoration
 	name = "Neuron Restoration"
 	desc = "Infection slowly repairs nerve cells in the brain."
 	reactionlist = MB_BRAINDAMAGE_REAGENTS
-	reactionmessage = "The microbes release a chemical in an attempt to counteract the effects of the test reagent."
+	reactionmessage = MICROBIO_INSPECT_LIKES_GENERIC
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/P)
 		if (prob(P.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_RARE))
-			M.take_brain_damage(-1)
+			M.take_brain_damage(-P.probability)
 
 /datum/microbioeffects/benevolent/metabolisis
 	name = "Accelerated Metabolisis"
-	desc = "The pathogen accelerates the metabolisis of all chemicals present in the host body."
+	desc = "The microbes accelerate the metabolisis of all chemicals present in the host body."
 	reactionlist = MB_METABOLISM_REAGENTS
-	reactionmessage = MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT
+	reactionmessage = MICROBIO_INSPECT_LIKES_GENERIC
 
+	// Doubling rates of metabolism.
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		var/met = FALSE
 		for (var/rid in M.reagents.reagent_list)
@@ -131,3 +100,46 @@ ABSTRACT_TYPE(/datum/microbioeffects/benevolent)
 				M.reagents.remove_reagent(rid, R.depletion_rate)
 		if (met)
 			M.reagents.update_total()
+
+/datum/microbioeffects/benevolent/critical
+	name = "Systemic Symbiosis"
+	desc = "The microbes bind to various parts of the host's body and attempt to keep a critically injured host alive."
+	reactionlist = MB_STIMULANTS_CATAGORY
+	reactionmessage = MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT
+	must_discover = TRUE
+	var/last_losebreath = null
+
+	// Want to try to cure the most lethal complication (severity: shock < heart failure < flatline)
+	// Will definitely need balancing work.
+	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
+		if (!M.incrit)
+			src.last_losebreath = null
+			return
+
+		// set the first point
+		if (isnull(src.last_losebreath))
+			src.last_losebreath = M.losebreath
+			return
+
+		var/mob/living/living = M
+
+		// attenuate sharp rates of losebreath
+		var/current = M.losebreath
+		if ((current > src.last_losebreath) && ((current - src.last_losebreath) > 5))
+			living.lose_breath(-0.5*(current - src.last_losebreath))
+
+		switch (M.health)
+			if (-50 to 0)	//shock
+				if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON) && living.find_ailment_by_type(/datum/ailment/malady/shock))
+					// simplify?
+					living.cure_disease_by_path(/datum/ailment/malady/shock)
+
+			if (-100 to -51)
+				if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON) && living.find_ailment_by_type((/datum/ailment/malady/heartfailure)))
+					living.cure_disease_by_path(/datum/ailment/malady/heartfailure)
+
+			if (-INFINITY to -100)
+				if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON) && living.find_ailment_by_name(/datum/ailment/malady/flatline))
+					living.Virus_ShockCure()
+					boutput(M, "<span class='notice'>You feel an electrical impulse across your entire body!</span>")
+					origin.iscured = TRUE 	// the microbe sacrifices itself to try to buy you a little more time

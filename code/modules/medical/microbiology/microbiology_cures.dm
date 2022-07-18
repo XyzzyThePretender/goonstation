@@ -5,24 +5,26 @@ ABSTRACT_TYPE(/datum/suppressant)
 	var/color = "transparent"
 	// technically this can be crunched with suppressant/medication child, but the low number of cures doesn't justify this restructure
 	/// Which general catagory the cure belongs to.
-	var/therapy = "unknown"
+	var/therapy = "YOU SHOULD NOT BE SEEING THIS"
 	/// A concise description of what the cure requires.
-	var/exactcure = "unknown"
+	var/exactcure = "YOU SHOULD NOT BE SEEING THIS"
 	/// A list of reagent IDs which can be designated as the cure.
 	var/list/cure_synthesis = list()
 	/// A list of reagent IDs that will cause a reaction under the microscope
 	var/reactionlist = list()
-	var/reactionmessage = MICROBIO_INSPECT_HIT_CURE
+	var/reactionmessage = "The microbes in the test reagent are rapidly withering away!"
 
 	/// How many units of reagent must be present to trigger the cure
 	var/reagent_cure_threshold = 10
 
 	proc/suppress_act(var/datum/microbeplayerdata/P)
-		for (var/R in cure_synthesis)
-			if (!(P.affected_mob.reagents.has_reagent(R, reagent_cure_threshold)))
+		var/total = 0
+		for (var/R in src.cure_synthesis)
+			if (!(P.affected_mob.reagents.has_reagent(R, src.reagent_cure_threshold)))
 				continue
-			if (!(P.iscured))
-				P.affected_mob.show_message("<span class='notice'>You feel better.</span>")
+			total += P.affected_mob.reagents.get_reagent_amount(R)
+			if (!(P.iscured) && total >= src.reagent_cure_threshold)
+				P.affected_mob.show_message("<span class='notice'>You think your illness is beginning to recede.</span>")
 				return TRUE
 		return FALSE
 
@@ -64,14 +66,6 @@ ABSTRACT_TYPE(/datum/suppressant)
 	cure_synthesis = MB_OXY_MEDS_CATAGORY
 	reactionlist = MB_OXY_MEDS_CATAGORY
 
-/datum/suppressant/spaceacillin
-	name = "Spaceacillin"
-	desc = "The microbes are suppressed by spaceacillin."
-	therapy = "Medications"
-	exactcure = "Spaceacillin"
-	cure_synthesis = list("spaceacillin")
-	reactionlist = list("spaceacillin")
-
 // DRUGS
 
 /datum/suppressant/sedatives
@@ -106,10 +100,10 @@ ABSTRACT_TYPE(/datum/suppressant)
 	therapy = "Therapy"
 	exactcure = "Hyperthermia therapy"
 	cure_synthesis = MB_HOT_REAGENTS
-	reactionlist = MB_COLD_REAGENTS
+	reactionlist = MB_HOT_REAGENTS
 
 	suppress_act(var/datum/microbeplayerdata/P)
-		if (!(P.affected_mob.bodytemperature > 320 + P.duration))	//Base temp is 273 + 37 = 310. Add 10 to avoid natural variance.
+		if (!(P.affected_mob.bodytemperature > (320 + P.duration * 0.01)))	//Base temp is 273 + 37 = 310. Add 10 to avoid natural variance.
 			return FALSE
 		else if (!(P.iscured))
 			P.affected_mob.show_message("<span class='notice'>You feel better.</span>")
@@ -122,15 +116,37 @@ ABSTRACT_TYPE(/datum/suppressant)
 	therapy = "Therapy"
 	exactcure = "Cryogenic therapy"
 	cure_synthesis = MB_COLD_REAGENTS
-	reactionlist = MB_HOT_REAGENTS
+	reactionlist = MB_COLD_REAGENTS
 
 	suppress_act(var/datum/microbeplayerdata/P)
-		if (!(P.affected_mob.bodytemperature < 300 - P.duration)) // Same idea as for heat, but inverse.
+		if (!(P.affected_mob.bodytemperature < (300 - P.duration * 0.01))) // Same idea as for heat, but inverse.
 			return FALSE
 		else if (!(P.iscured))
 			P.affected_mob.show_message("<span class='notice'>You feel better.</span>")
 			return TRUE
 		..()
+
+/datum/suppressant/exercise
+	name = "Exercise"
+	desc = "The microbes are suppressed by intense exercise."
+	therapy = "Therapy"
+	exactcure = "Exercise"
+	cure_synthesis = MB_EXERCISE_REAGENTS
+	reactionlist = MB_EXERCISE_REAGENTS
+
+	//include athletic trait? genetics fitness?
+	// same pitfall of 'blow up place to deny cure'
+	// needs to expand fitness (dumbbells, workout mats, exercise equip. from cargo, etc.)
+	suppress_act(var/datum/microbeplayerdata/P)
+		if (!(P.affected_mob.hasStatus("fitness_stam_regen") || P.affected_mob.hasStatus("fitness_stam_max")))
+			return FALSE
+		else if (!(P.iscured))
+			P.affected_mob.show_message("<span class='notice'>You feel better.</span>")
+			return TRUE
+		..()
+
+
+// Potential ideas
 
 //datum/suppressant/radiotherapy
 	//Awaiting new radiation system

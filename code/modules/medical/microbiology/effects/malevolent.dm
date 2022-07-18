@@ -1,6 +1,6 @@
 // Malevolent effects are capable of causing harm.
 // Transmission-enabling effects are always malevolent.
-// There are 8 malevolent effects, of which 4 cause transmission
+// There are 8 malevolent effects, of which 4 cause transmission. Beesneeze must be unlocked.
 
 ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent
@@ -21,7 +21,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/muscleache
 	name = "Muscle Ache"
 	desc = "The infected feels a slight, constant aching of muscles."
-	reactionlist = list("water", "haloperidol", "morphine")
+	reactionlist = list("water", "haloperidol", "menthol", "morphine", "salicylic_acid")
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability) && (M.get_brute_damage() <= damage_cap))
@@ -30,24 +30,25 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 
 /datum/microbioeffects/malevolent/fever
 	name = "Fever"
-	desc = "The body temperature of the infected individual slightly increases."
+	desc = "The body temperature of the infected individual increases."
 	reactionlist = MB_COLD_REAGENTS
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
 			M.bodytemperature += 4
-			M.TakeDamage("chest", 0, 2)
+			M.TakeDamage("chest", 0, origin.probability)
 			M.show_message("<span class='alert'>You feel hot.</span>")
 
 /datum/microbioeffects/malevolent/chills
-	name = "Common Chills"
-	desc = "The infected feels the sensation of lowered body temperature."
+	name = "Chills"
+	desc = "The body temperature of the infected individual decreases."
 	reactionlist = MB_HOT_REAGENTS
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
 			M.bodytemperature -= 8
 			M.show_message("<span class='alert'>You feel cold.</span>")
+			M.TakeDamage("chest", 0, origin.probability)
 			M.emote("shiver")
 		if (M.bodytemperature < 0)
 			M.bodytemperature = 0
@@ -61,6 +62,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	desc = "The infected sneezes bee eggs frequently."
 	reactionlist = list("sugar")
 	reactionmessage = "The microbes appear to convert the sugar into a viscous fluid."
+	must_discover = TRUE
 
 	proc/sneeze(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (!M || !origin)
@@ -100,8 +102,8 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_AEROBIC)
 
-/datum/microbioeffects/malevolent/sneezing
-	name = "Sneezing"
+/datum/microbioeffects/malevolent/congestion
+	name = "Congestion"
 	desc = "The infected sneezes frequently."
 	reactionlist = list("pepper", "histamine", "smelling_salt")
 	reactionmessage = "The microbes violently discharge fluids when coming in contact with the reagent."
