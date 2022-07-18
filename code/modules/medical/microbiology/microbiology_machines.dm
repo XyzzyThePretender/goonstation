@@ -859,3 +859,21 @@
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/beaker/egg, 20)
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/beaker/spaceacillin, 20)
 		product_list += new/datum/data/vending_product(/obj/item/device/analyzer/healthanalyzer, 4)
+
+/obj/machinery/incubator
+	name = "Incubator"
+	icon = 'icons/obj/pathology.dmi'
+	icon_state = "incubator"
+	var/static/image/icon_beaker = image('icons/obj/chemical.dmi', "heater-beaker")
+	desc = "A machine that can automatically provide a petri dish with nutrients. It can also directly fill vials with a sample of the pathogen inside."
+	anchored = 1
+	density = 1
+	flags = NOSPLASH
+	var/obj/item/reagent_containers/glass/petridish/target = null
+	var/medium = null
+
+	update_icon()
+		if (src.target)
+			icon_state = "incubator_on"
+		else
+			icon_state = "incubator"
