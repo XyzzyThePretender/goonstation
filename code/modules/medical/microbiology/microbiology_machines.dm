@@ -318,10 +318,10 @@
 				var/datum/reagent/R = O.reagents.reagent_list[rid]
 				for (var/uid in path_list)
 					var/datum/microbe/P = microbio_controls.pull_from_upstream(uid)
-					if (R in P.suppressant.reactionlist)
+					if (R in P.suppressant.cure_synthesis && (R.volume > MB_REACTION_MINIMUM))
 						boutput(user, P.suppressant.reactionmessage)
 					for (var/datum/microbioeffects/mbeffect in P.effects)
-						if (R in mbeffect.reactionlist)
+						if (R in mbeffect.reactionlist && (R.volume > MB_REACTION_MINIMUM))
 							boutput(user, mbeffect.reactionmessage)
 
 

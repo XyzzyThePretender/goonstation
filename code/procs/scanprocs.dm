@@ -147,14 +147,18 @@
 			var/mob/living/carbon/human/H = M
 			if (H.microbes.len)
 				pathogen_data = "<span class='alert'>Scans indicate the presence of [H.microbes.len] microbial culture[H.microbes.len > 1 ? "s" : null].</span>"
-				for (var/uid in H.microbes)
-					var/datum/microbeplayerdata/P = H.microbes[uid]
-					if (disease_detection && P.master.reported)
-						pathogen_data += "<br>&emsp;<span class='alert'>[P.master.name]. Suggested treatment: [P.master.suppressant.exactcure].</span>"
+				for (var/uid as anything in H.microbes)
+					var/datum/microbeplayerdata/origin = H.microbes[uid]
+					if (disease_detection)
+						pathogen_data += "<br>&emsp;<span class='alert'>[origin.master.name]. Suggested treatment: [origin.master.suppressant.exactcure].</span>"
+						if (origin.master.reported)
+							pathogen_data += "<br>&emsp;<span class='alert'>Effects:</span>"
+							for (var/datum/microbioeffects/E as anything in origin.master.effects)
+								pathogen_data += "<br>&emsp;&emsp;<span class='alert'>[E.name]</span>"
 					else
-						pathogen_data += "<br>&emsp;<span class='alert'>[P.master.name]. Suggested treatment: [P.master.suppressant.therapy].</span>"
-					if (P.duration < 0.5*P.master.durationtotal)
-						pathogen_data += "<br>&emsp;&emsp;<span class='notice'>[P.master.name] appears to be receding.</span>"
+						pathogen_data += "<br>&emsp;<span class='alert'>[origin.master.name]. Suggested treatment: [origin.master.suppressant.therapy].</span>"
+					if (origin.duration < 0.5*origin.master.durationtotal)
+						pathogen_data += "<br>&emsp;&emsp;<span class='notice'>[origin.master.name] appears to be receding.</span>"
 
 
 			if (H.get_organ("brain"))

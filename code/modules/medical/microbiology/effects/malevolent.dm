@@ -1,6 +1,6 @@
 // Malevolent effects are capable of causing harm.
 // Transmission-enabling effects are always malevolent.
-// There are 8 malevolent effects, of which 4 cause transmission. Beesneeze must be unlocked.
+// There are 8 malevolent effects, of which 4 cause transmission.
 
 ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent
@@ -11,7 +11,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/indigestion
 	name = "Indigestion"
 	desc = "A bad case of indigestion which occasionally cramps the infected."
-	reactionlist = list("cold_medicine", "magnesium", "aluminum")	//general meds and antacids (milk of magnesia)
+	reactionlist = list("cold_medicine", "magnesium", "aluminum", "milk")	//general meds and antacids (milk of magnesia)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability) && (M.get_toxin_damage() <= damage_cap))
@@ -62,7 +62,6 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	desc = "The infected sneezes bee eggs frequently."
 	reactionlist = list("sugar")
 	reactionmessage = "The microbes appear to convert the sugar into a viscous fluid."
-	must_discover = TRUE
 
 	proc/sneeze(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (!M || !origin)
@@ -88,11 +87,9 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 				target = locate(M.x-flyroll, M.y, M.z)
 
 		var/obj/item/reagent_containers/food/snacks/ingredient/egg/bee/toThrow = new /obj/item/reagent_containers/food/snacks/ingredient/egg/bee(T)
-
 		M.visible_message("<span class='alert'>[M] sneezes out a space bee egg!</span> [chosen_phrase]", \
 		"<span class='alert'>You sneeze out a bee egg!</span> [chosen_phrase]", \
 		"<span class='alert'>You hear someone sneezing.</span>")
-
 		toThrow.throw_at(target, 6, 1)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
@@ -105,15 +102,13 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/congestion
 	name = "Congestion"
 	desc = "The infected sneezes frequently."
-	reactionlist = list("pepper", "histamine", "smelling_salt")
-	reactionmessage = "The microbes violently discharge fluids when coming in contact with the reagent."
+	reactionlist = list("pepper", "histamine", "smelling_salt", "saline")
+	reactionmessage = "The microbes violently discharge fluids when contacting with the reagent."
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
-
 			M.visible_message("<span class='alert'>[M] sneezes!</span>", "<span class='alert'>You sneeze.</span>", \
 			"<span class='alert'>You hear someone sneezing.</span>")
-
 			make_cloud(M, origin.master.hexcolors)
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_AEROBIC)
@@ -139,13 +134,9 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
 			make_puddle(M, origin.master.hexcolors)
-
-			M.show_message(pick("<span class='alert'>You feel a bit warm.</span>", \
-			"<span class='alert'>You feel rather warm.</span>", \
+			M.show_message(pick("<span class='alert'>You feel rather warm.</span>", \
 			"<span class='alert'>You're sweating heavily.</span>", \
 			"<span class='alert'>You're soaked in your own sweat.</span>"))
-
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_PHYSICAL)
-
 #endif

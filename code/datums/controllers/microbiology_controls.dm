@@ -10,6 +10,8 @@ var/datum/microbiology_controller/microbio_controls
 	var/next_uid = 1
 
 	/**
+	 * The controller holds a list of all created microbe datums.
+	 * This centralized list is used for logging and pushing updates.
 	 * Equivalent in function to the upstream of a GitHub repo. By design, this list is ALWAYS up to date.
 	 * Associative list: key = microbe uid, data = microbe datum
 	 */
@@ -237,8 +239,8 @@ Potentially stack-space intensive
 			//List of cures
 			if ("suppressants")
 
-				//Name - Color - Description - Cure Type - Exact Cure - Reaction Reagents - Cure Reagents
-				output += "<table class='pathology-table'><thead><tr><th>Name</th><th>Color</th><th>Description</th><th>Cure Type</th><th>Exact Cure</th><th>Activator reagents</th><<th>Suppression reagents</th></thead><tbody>"
+				//Name - Color - Description - Cure Type - Exact Cure - Cure Reagents
+				output += "<table class='pathology-table'><thead><tr><th>Name</th><th>Color</th><th>Description</th><th>Cure Type</th><th>Exact Cure</th><<th>Suppression reagents</th></thead><tbody>"
 				for (var/cureindex as anything in src.cures)
 					var/datum/suppressant/S = cureindex
 
@@ -258,12 +260,6 @@ Potentially stack-space intensive
 
 					//Exact Cure
 					output += "<td>[S.exactcure]</td>"
-
-					//Activator Reagents
-					output += "<td>"
-					for (var/R as anything in S.reactionlist)
-						output += "[R], "
-					output += "</td>"
 
 					//Reagent Cures
 					if (!(S.cure_synthesis.len))

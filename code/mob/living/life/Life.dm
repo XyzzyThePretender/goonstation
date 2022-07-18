@@ -332,14 +332,14 @@
 		if (prob(1) && prob(5))
 			src.handle_random_emotes()
 
-		for (var/uid in src.microbes)
-			var/datum/microbeplayerdata/P = src.microbes[uid]
-			P.mob_act(src, P)
+		for (var/uid as anything in src.microbes)
+			var/datum/microbeplayerdata/origin = src.microbes[uid]
+			origin.mob_act(src, origin)
 
 	else if (isdead(src) && src.microbes.len)
-		for (var/uid in src.microbes)
-			var/datum/microbeplayerdata/P = src.microbes[uid]
-			src.cured(P)
+		for (var/uid as anything in src.microbes)
+			var/datum/microbeplayerdata/origin = src.microbes[uid]
+			src.cured(origin)
 
 	last_human_life_tick = TIME
 

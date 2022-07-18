@@ -1,5 +1,4 @@
 // Generation
-
 #define MICROBIO_SHAPES list("stringy", "snake", "blob", "spherical", \
 "tetrahedral", "star shaped", "tesselated")
 
@@ -20,23 +19,19 @@
 #define MICROBIO_INDIVIDUALMICROBELIMIT 3
 
 // Probability Factors
-
-#define MICROBIO_MAXIMUMPROBABILITY 3 //between 1 and 5
+#define MICROBIO_MAXIMUMPROBABILITY 5 //between 1 and 5
 
 // Effect-Specific Probability Factors, effectively the old rarity system
-
 #define MICROBIO_EFFECT_PROBABILITY_FACTOR_OHGODHELP 0.01
 #define MICROBIO_EFFECT_PROBABILITY_FACTOR_HORRIFYING 0.1
 #define MICROBIO_EFFECT_PROBABILITY_FACTOR_RARE 0.2
 #define MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON 0.5
 
 // Transmission Types
-
 #define MICROBIO_TRANSMISSION_TYPE_PHYSICAL "Physical"	//sweating
 #define MICROBIO_TRANSMISSION_TYPE_AEROBIC "Aerobic"	//cough, sneeze, beesneeze
 
 // Transmission Alert Messages
-
 #define MICROBIO_TRANSMISSION_GENERIC_MSG "<span class='alert'>You're starting to feel unwell. Maybe you should get a checkup.</span>"
 #define MICROBIO_TRANSMISSION_TYPE_PHYSICAL_MSG "<span class='alert'>Ew, their hands feel really gross and sweaty!</span>"
 #define MICROBIO_TRANSMISSION_TYPE_AEROBIC_MSG "<span class='alert'>A drop of saliva lands on your face.</span>"
@@ -69,7 +64,6 @@
 
 // Inspection Groups
 // NEVER use these for cures!
-
 #define MB_ACID_REAGENTS list("acetic_acid", "acid", "clacid", "pacid")	// one-off
 
 #define MB_METABOLISM_REAGENTS list("antihol", "calomel", "charcoal", "haloperidol", "hunchback", "insulin", "penteticacid", \
@@ -81,7 +75,6 @@
 #define MB_BRAINDAMAGE_REAGENTS list("capulettium", "capulettium_plus", "haloperidol", "mercury", "neurotoxin", "sarin")
 
 // Inspection Responses
-
 #define MICROBIO_INSPECT_LIKES_GENERIC "The microbes are moving towards the area affected by the reagent!"
 
 #define MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT "The microbes are rapidly encircling the reagent!"
@@ -90,10 +83,12 @@
 
 #define MICROBIO_INSPECT_DISLIKES_POWERFUL_EFFECT "The microbes are attemping to escape from the area affected by the reagent!" //unused
 
+// To limit microtesting:
+#define MB_REACTION_MINIMUM 2
+
 // Machine Defines
 
 // Synthomatic
-
 #define BIOCHEMISTRY_PRODUCTION_LOWER_BOUND 5
 #define BIOCHEMISTRY_PRODUCTION_UPPER_BOUND 8
 
