@@ -1,9 +1,8 @@
 var/datum/microbiology_controller/microbio_controls
-//Does this go here? Should it be in the main microbiology folder?
+
 /datum/microbiology_controller
 
 	// Don't add ling blood until ling code is redone. No point in accepting an incomplete interaction.
-	// Besides, the ling test is much more accessible. No one in their right mind would resort to distilled microbes to test!
 	var/list/pathogen_affected_reagents = list("blood", "pathogen")
 
 	/// Increments on every generated microbe.
@@ -23,15 +22,19 @@ var/datum/microbiology_controller/microbio_controls
 	//Normally static after New unless admins try to hotcode something in.
 	var/list/datum/suppressant/cures = list()
 
+	//Preloaded list of chems used to screen for valid chems when building cultures.
+	var/list/datum/reagent/effectreagents = list()
+
 	New()	//Initialize effect and cure paths.
 		..()
-		for (var/X in concrete_typesof(/datum/microbioeffects))
+		for (var/X as anything in concrete_typesof(/datum/microbioeffects))
 			var/datum/microbioeffects/E = new X
-			effects += E
+			src.effects += E
+			src.effectreagents += E.associated_reagent
 
-		for (var/X in concrete_typesof(/datum/suppressant))
+		for (var/X as anything in concrete_typesof(/datum/suppressant))
 			var/datum/suppressant/C = new X
-			cures += C
+			src.cures += C
 
 /*
 I have no idea what the formal OOP design name would be for the following procs.
@@ -51,11 +54,11 @@ Potentially stack-space intensive
 
 */
 
-	///Called when microbe data is needed. Argument is a microbe uid. Scans the cultures list and returns the microbe data.
+	/// Called when microbe data is needed. Argument is a microbe uid. Scans the cultures list and returns the microbe data.
 	proc/pull_from_upstream(var/inputuid)
-		for (var/uid in cultures)
+		for (var/uid as anything in microbio_controls.cultures)
 			if (uid == inputuid)
-				return cultures[uid]
+				return microbio_controls.cultures[uid]
 
 	/**
 	 * Called on successful infections and immunizations.
@@ -65,14 +68,14 @@ Potentially stack-space intensive
 		if (!P)
 			return
 		cultures[P.uid] = P
-		for (var/mob/living/carbon/human/H in P.infected)
-			push_to_players(H,P)
+		for (var/mob/living/carbon/human/H as anything in P.infected)
+			push_to_players(H, P)
 
 	///Pushes microbe data to players.
 	proc/push_to_players(var/mob/living/carbon/human/H, var/datum/microbe/P)
 		if (!H.microbes.len)	//If the listed mob does not have any microbes return early
 			return
-		for (var/uid in H.microbes)
+		for (var/uid as anything in H.microbes)
 			if (P.uid == uid)
 				H.microbes[uid].master = P
 
@@ -81,16 +84,18 @@ Potentially stack-space intensive
 		if (!P)
 			logTheThing("debug", null, null, "<b>pathology:</b> Attempted to add null microbe to cultures")
 			return
-		cultures[P.uid] = P
+		microbio_controls.cultures[P.uid] = P
 
 ////////////////////////////////////////////////
 
-	//Dunno
+	//Associative list: ckey is key, data is tab
 	var/list/cdc_state = list()
 
+	/// Associative list: key is ckey, data is /datum/microbe
+	var/list/datum/microbe/cdc_creator = list()
 
 	//Defines href action states
-	var/static/list/states = list("strains", "symptoms", "suppressants"/*, "pathogen creator"*/)
+	var/static/list/states = list("strains", "symptoms", "suppressants", "pathogen creator")
 
 	proc/cdc_main(var/topic_holder)
 
@@ -104,14 +109,13 @@ Potentially stack-space intensive
 			boutput(usr, "<span class='alert'>I'm sorry, you require a security clearance of Primary Researcher to go in there. Protocol and all. You know.</span>")
 			return
 
-		//Ckey shenanigans for logging I think?
-		//Why is this an associative list?
+		//Local client Tabs
 		var/state = 1
 		if (usr.ckey in cdc_state)
 			state = cdc_state[usr.ckey]
 		else
-			cdc_state += usr.ckey
-			cdc_state[usr.ckey] = 1
+			src.cdc_state += usr.ckey
+			src.cdc_state[usr.ckey] = 1
 
 		//Setup the table
 		var/stylesheet = {"<style>
@@ -125,7 +129,7 @@ Potentially stack-space intensive
 
 		var/output = "<html><title>Center for Disease Control</title><head>[stylesheet]</head><body><h2>Center for Disease Control</h2>"
 
-		//State Control
+		//Building tabs
 		for (var/i in 1 to src.states.len)
 			if (i != 1)
 				output += " - "
@@ -135,7 +139,6 @@ Potentially stack-space intensive
 				output += "<span style='color:#dd0000; font-weight:bold'>[states[i]]</span>"
 		output += "<br>"
 
-		//SWEET MERCIFUL CRAP
 		switch (states[state])
 			//General Overview
 			if ("strains")
@@ -151,7 +154,7 @@ Potentially stack-space intensive
 					output += "<td><center>[CDC.uid]</center></td>"
 
 					// Add an action to go to the playerpanel
-					// Playerpanel: integrate microbio (cure/show data)
+					// Playerpanel: integrate (cure/show data)
 					//Infected
 					if (CDC.infected)
 						output += "<td><center>"
@@ -210,10 +213,9 @@ Potentially stack-space intensive
 
 			//List of effects
 			if ("symptoms")
-				// Name - Catagory - Description - Act. Reagents
-				output += "<table class='pathology-table'><thead><tr><th>Name</th><th>Description</th><th>Activator Reagents</th></thead><tbody>"
-				for (var/effectindex as anything in src.effects)
-					var/datum/microbioeffects/EF = effectindex
+				// Name - Catagory - Description - Precursor Reagents
+				output += "<table class='pathology-table'><thead><tr><th>Name</th><th>Description</th><th>Precursor Reagents</th></thead><tbody>"
+				for (var/datum/microbioeffects/EF as anything in src.effects)
 					output += "<tr>"
 
 					//Color-coded naming: RED = malevolent, BLUE = neutral, GREEN = benevolent
@@ -229,10 +231,7 @@ Potentially stack-space intensive
 					//Description
 					output += "<td>[EF.desc]</td>"
 
-					output += "<td>"
-					for (var/reagent as anything in EF.reactionlist)
-						output += "[reagent], "
-					output += "</td>"
+					output += "<td>[EF.associated_reagent]</td>"
 
 					output += "</tr>"
 
@@ -241,8 +240,7 @@ Potentially stack-space intensive
 
 				//Name - Color - Description - Cure Type - Exact Cure - Cure Reagents
 				output += "<table class='pathology-table'><thead><tr><th>Name</th><th>Color</th><th>Description</th><th>Cure Type</th><th>Exact Cure</th><<th>Suppression reagents</th></thead><tbody>"
-				for (var/cureindex as anything in src.cures)
-					var/datum/suppressant/S = cureindex
+				for (var/var/datum/suppressant/S as anything in src.cures)
 
 					output += "<tr>"
 
@@ -272,74 +270,66 @@ Potentially stack-space intensive
 
 					output += "</tr>"
 
-//This waits until the core structure is OK
-	/*
+
 			if ("pathogen creator")
+				//give a blank datum or return to an autosave
+				if (!(usr.ckey in src.cdc_creator))
+					var/datum/microbe/P = new /datum/microbe
+					src.cdc_creator[usr.ckey] = P
 
-				//give a blank datum
-				var/datum/microbe/P = new /datum/microbe
+				var/datum/microbe/P = src.cdc_creator[usr.ckey]
 
-				output += "<h3>Microbe Creator</h3>"
+				output += "<h3>Microbe Creator</h3><br>"
 
 				// Time Created - Name - UID - Players Infected - Players Immune/Cured
 				// Actions: (Cure One) (Cure All) (Infect) (Spawn Vial) (Logs)
 
-				output += "<b>UID: </b> [P.uid]<br>"
+				// UID
+				output += "<b>UID: </b>[P.uid]<br><br>"
 
-				//rename
-				output += "<b>Name: </b> [P.name]<br>"
+				// Name
+				output += "<b>Name: </b><a href='?src=\ref[src];action=pathogen_creator;do=rename;topic_holder=\ref[topic_holder]'>[P.name]</a><br>"
+				output += "<a href='?src=\ref[src];action=pathogen_creator;do=randomname;topic_holder=\ref[topic_holder]'>(Random Name)</a><br><br>"
+
+				// Description
+				if (P.suppressant)
+					output += "<b>Description: </b> <a href='?src=\ref[src];action=pathogen_creator;do=desc;topic_holder=\ref[topic_holder]'>[P.desc]</a><br><br>"
 
 				//add, remove effects
-				output += "<b>Name: </b> [P.name]<br>"
+				output += "<b>Effects: </b><br>"
+				if (P.effects.len)
+					for (var/datum/microbioeffects/EF as anything in P.effects)
+						output += "- [EF] <a href='?src=\ref[src];action=pathogen_creator;do=remove;which=\ref[EF];topic_holder=\ref[topic_holder]'>(remove)</a><br>"
+				else
+					output += " -- None -- <br>"
+				if (P.effects.len < 3)
+					output += "<a href='?src=\ref[src];action=pathogen_creator;do=add;topic_holder=\ref[topic_holder]'>Add effect</a><br><br>"
 
 				//add, change suppressant
-				output += "<b>Name: </b> [P.name]<br>"
+				if (P.suppressant)
+					output += "<b>Suppressant: </b>[P.suppressant]<br>"
+				output += "<a href='?src=\ref[src];action=pathogen_creator;do=suppressant;topic_holder=\ref[topic_holder]'>Assign suppressant</a><br><br>"
 
 				//adjust infection total
-				output += "<b>Name: </b> [P.name]<br>"
+				output += "<b>Infection Total:</b> <a href='?src=\ref[src];action=pathogen_creator;do=infectiontotal;topic_holder=\ref[topic_holder]'>[P.infectiontotal]</a><br>"
+
 
 				//adjust duration total
-				output += "<b>Name: </b> [P.name]<br>"
+				output += "<b>Duration Total:</b> <a href='?src=\ref[src];action=pathogen_creator;do=durationtotal;topic_holder=\ref[topic_holder]'>[P.durationtotal]</a><br>"
 
 				//set artificial boolean
-				output += "<b>Name: </b> [P.name]<br>"
+				output += "<b>Artificial?</b> <a href='?src=\ref[src];action=pathogen_creator;do=artificial;topic_holder=\ref[topic_holder]'>[P.artificial ? "Yes" : "No"]</a><br>"
 
 				//set reported boolean
-				output += "<b>Name: </b> [P.name]<br>"
+				output += "<b>Reported?</b> <a href='?src=\ref[src];action=pathogen_creator;do=reported;topic_holder=\ref[topic_holder]'>[P.reported ? "Yes" : "No"]</a><br>"
 
 				//Button to finalize
-				output += "<b>Name: </b> [P.name]<br>"
+				if (P.effects.len && P.suppressant && P.infectiontotal && P.durationtotal)
+					output += "<a href='?src=\ref[src];action=pathogen_creator;do=create;topic_holder=\ref[topic_holder]'>Create</a><br><br>"
 
 				//Button to reset
-				output += "<b>Name: </b> [P.name]<br>"
+				output += "<a href='?src=\ref[src];action=pathogen_creator;do=reset;topic_holder=\ref[topic_holder]'>Reset</a>"
 
-				if (P.suppressant)
-					output += "<b>Description: </b> [P.desc]<br>"
-
-				if (!P.body_type)
-					output += "<a href='?src=\ref[src];action=pathogen_creator;do=body_type;topic_holder=\ref[topic_holder]'>Assign microbody</a><br>"
-				else
-					output += "<b>Microbody:</b> [P.body_type]<br>"
-					output += "<b>Stages:</b> <a href='?src=\ref[src];action=pathogen_creator;do=stages;topic_holder=\ref[topic_holder]'>[P.stages]</a><br>"
-					output += "<b>Advance speed:</b> <a href='?src=\ref[src];action=pathogen_creator;do=advance_speed;topic_holder=\ref[topic_holder]'>[P.advance_speed]</a><br>"
-					output += "<b>Symptomatic:</b> <a href='?src=\ref[src];action=pathogen_creator;do=symptomatic;topic_holder=\ref[topic_holder]'>[P.symptomatic ? "Yes" : "No"]</a><br>"
-					output += "<b>Suppression threshold:</b> <a href='?src=\ref[src];action=pathogen_creator;do=suppression_threshold;topic_holder=\ref[topic_holder]'>[P.suppression_threshold]</a><br>"
-					output += "<b>Spread:</b> <a href='?src=\ref[src];action=pathogen_creator;do=spread;topic_holder=\ref[topic_holder]'>[P.spread]</a><br>"
-					if (!P.suppressant)
-						output += "<a href='?src=\ref[src];action=pathogen_creator;do=suppressant;topic_holder=\ref[topic_holder]'>Assign suppressant</a><br>"
-					else
-						output += "<b>Suppressant: </b>[P.suppressant]<br><br>"
-						output += "<b>Effects: </b><br>"
-						if (P.effects.len)
-							for (var/datum/pathogeneffects/EF in P.effects)
-								output += "- [EF] <a href='?src=\ref[src];action=pathogen_creator;do=remove;which=\ref[EF];topic_holder=\ref[topic_holder]'>(remove)</a><br>"
-						else
-							output += " -- None -- <br>"
-						output += "<a href='?src=\ref[src];action=pathogen_creator;do=add;topic_holder=\ref[topic_holder]'>Add effect</a><br><br>"
-				output += "<a href='?src=\ref[src];action=pathogen_creator;do=reset;topic_holder=\ref[topic_holder]'>Reset pathogen</a>"
-				if (P.body_type && P.suppressant && length(P.effects))
-					output += " -- <a href='?src=\ref[src];action=pathogen_creator;do=create;topic_holder=\ref[topic_holder]'>Create pathogen</a>"
-	*/
 			else
 				output += "<h1>NOTHING TO SEE HERE YET</h1>"
 		output += "</body></html>"
@@ -353,7 +343,7 @@ Potentially stack-space intensive
 
 		switch(href_list["action"])
 
-			// Uhh...
+			// Tabs
 			if ("setstate")
 				cdc_state[key] = text2num_safe(href_list["state"])
 
@@ -382,7 +372,7 @@ Potentially stack-space intensive
 			if ("cure_all")
 				var/datum/microbe/CDC = pull_from_upstream(href_list["strain"])
 
-				for (var/mob/living/carbon/human/H in CDC.infected)
+				for (var/mob/living/carbon/human/H as anything in CDC.infected)
 					LAGCHECK(LAG_LOW)
 					if (CDC.uid in H.microbes)
 						H.cured(H.microbes[CDC.uid])
@@ -417,55 +407,70 @@ Potentially stack-space intensive
 				V.reagents.reagent_list[RE.id] = RE
 				V.reagents.update_total()
 
-/*
 			if ("pathogen_creator")
-				var/datum/pathogen/P = src.cdc_creator[usr.ckey]
+				var/datum/microbe/P = src.cdc_creator[usr.ckey]
 				switch (href_list["do"])
 					if ("reset")
-						//P.clear()
-						src.gen_empty(usr.ckey)
+						P.clear()
+
+					if ("rename")
+						var/name2sanitize = input("New Name: ", "Rename") as null|text
+						if (!isnull(name2sanitize))
+							P.name = name2sanitize
+
+					if ("randomname")
+						P.generate_name()
+
+					if ("desc")
+						var/desc2sanitize = input("New Description: ", "Description") as null|text
+						if (!isnull(desc2sanitize))
+							P.desc = desc2sanitize
 
 					if ("suppressant")
 						var/list/types = list()
-						for (var/spath in src.path_to_suppressant)
-							var/datum/suppressant/S = src.path_to_suppressant[spath]
-							types += S.name
+						for (var/datum/suppressant/S as anything in src.cures)
 							types[S.name] = S
 						var/chosen = input("Which suppressant?", "Suppressant", types[1]) in types
 						P.suppressant = types[chosen]
-						P.desc = "[P.suppressant.color] dodecahedrical [P.body_type.plural]"
+						P.desc = "[P.suppressant.color] hyperfractal microbes"
 
 					if ("add")
 						var/list/types = list()
-						for (var/efpath in src.path_to_symptom)
-							var/datum/pathogeneffects/EF = src.path_to_symptom[efpath]
-							types += EF.name
+						for (var/datum/microbioeffects/EF as anything in src.effects)
 							types[EF.name] = EF
 						var/chosen = input("Which symptom?", "Add new symptom", types[1]) in types
 						if (!(types[chosen] in P.effects))
 							P.effects += types[chosen]
-							var/datum/pathogeneffects/EF = types[chosen]
-							EF.onadd(P)
 
 					if ("remove")
-						var/datum/pathogeneffects/EF = locate(href_list["which"])
+						var/datum/microbioeffects/EF = locate(href_list["which"])
 						if (EF in P.effects)
 							P.effects -= EF
 
+					if ("infectiontotal")
+						var/inftot = input("New Infection Total: ", "Infection Total") as null|num
+						if (!isnull(inftot))
+							P.infectiontotal = inftot
+
+					if ("durationtotal")
+						var/durtot = input("New Duration Total in seconds: ", "Duration Total") as null|num
+						if (!isnull(durtot))
+							P.durationtotal = durtot
+
+					if ("artificial")
+						P.artificial = !P.artificial
+
+					if ("reported")
+						P.reported = !P.reported
+
 					if ("create")
-						P.dnasample = new/datum/pathogendna(P)
-						P.pathogen_uid = "p[next_uid]"
-						next_uid++
+						if (!(P.uid in src.cultures))
+							microbio_controls.add_to_cultures(P)
+							message_admins("[key_name(usr)] created a new microbial culture ([P]) via the creator. (uid = [P.uid])")
+							P = new /datum/microbe
+						else
+							alert("Attempted to create a microbial culture with an already existing UID.")
 
-						pathogen_trees += P.name_base
-						var/datum/pathogen_cdc/CDC = new /datum/pathogen_cdc(P.pathogen_uid)
-						pathogen_trees[P.name_base] = CDC
-						next_mutation[P.pathogen_uid] = P.mutation + 1
-						CDC.microbody_type = "[P.body_type]"
-						CDC.mutations += P.name
-						CDC.mutations[P.name] = P
 
-						message_admins("[key_name(usr)] created a new pathogen ([P]) via the creator.")
-						src.gen_empty(usr.ckey)
-*/
+				src.cdc_creator[usr.ckey] = P
 		cdc_main(th)

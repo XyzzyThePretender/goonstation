@@ -1,45 +1,45 @@
-// A blood slide, used by the centrifuge.
 /obj/item/reagent_containers/bloodslide
 	name = "blood slide"
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "slide0"
 	desc = "An item used by scientists and serial killers operating in the Miami area to store blood samples."
-	flags = NOSPLASH | FPRINT
+	flags = NOSPLASH
 	//rc_flags = RC_FULLNESS | RC_VISIBLE | RC_SPECTRO
 	initial_volume = 5
 
-	// giving it reagent_container will cause a bunch of funky unwanted interactions.
+	// giving it reagent_container will cause a bunch of funky interactions.
 	// find and fix
 	on_reagent_change()
 		..()
 		src.reagents.maximum_volume = src.reagents.total_volume
 		//Technically there should be a separate cover slip item, but that seems too un-gamey.
-		boutput(usr, "<span class='notice'>You seal the sample in the [src.name].</span>")
-		src.flags -= OPENCONTAINER	// This should make the blood slide... permanent.
-		src.icon_state = "slide1"	// Could this be changed to account for non-blood samples
-		src.desc = "The blood slide contains a drop of [src.reagents.get_master_reagent_name()]."
+		if (OPENCONTAINER in src.flags)
+			boutput(usr, "<span class='notice'>You seal the sample in the [src].</span>")
+			src.flags -= OPENCONTAINER	// This should make the blood slide... permanent.
+		src.desc = "The blood slide contains [src.reagents.get_master_reagent_name()]."
+		src.UpdateIcon()
+
+	// This will need spritework
+	// Could this be changed to account for non-blood samples
+	update_icon()
+		if (src.reagents.total_volume)
+			src.icon_state = "slide1"
 
 /obj/item/reagent_containers/glass/petridish
 	name = "petri dish"
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "petri0"
 	desc = "A dish tailored hold microbial cultures."
-	flags = NOSPLASH | FPRINT
+	flags = NOSPLASH
 	//rc_flags = RC_FULLNESS | RC_VISIBLE | RC_SPECTRO
 	initial_volume = 40
-
-	examine()
-		. = ..()
-		if (src.reagents.reagent_list["pathogen"])
-			var/datum/reagent/blood/pathogen/P = src.reagents.reagent_list["pathogen"]
-			. += "<span class='notice'>It contains [P.volume] unit\s of harvestable microbes.</span><br>"
 
 	afterattack(obj/target, mob/user, flag)
 		if (istype(target, /obj/machinery/microscope))
 			return
 
 	update_icon()
-		if (src.reagents && src.reagents.total_volume)
+		if (src.reagents.total_volume)
 			icon_state = "petri1"
 		else
 			icon_state = "petri0"
@@ -51,20 +51,14 @@
 	icon = 'icons/obj/pathology.dmi'
 	icon_state = "vial0"
 	item_state = "vial"
-	rc_flags = RC_FULLNESS | RC_VISIBLE | RC_SPECTRO
+	initial_volume = 5
+	//rc_flags = RC_FULLNESS | RC_VISIBLE | RC_SPECTRO
 
-	on_reagent_change()
-		..()
-		if (reagents.total_volume < 0.05)
+	update_icon()
+		if (!src.reagents.total_volume)
 			icon_state = "vial0"
 		else
 			icon_state = "vial1"
-
-	New()
-		var/datum/reagents/R = new /datum/reagents(5)
-		R.my_atom = src
-		src.reagents = R
-		..()
 
 /obj/item/reagent_containers/glass/vial/plastic
 	name = "plastic vial"
@@ -88,10 +82,10 @@
 		..()
 		SPAWN(2 SECONDS)
 			#ifdef CREATE_PATHOGENS // PATHOLOGY REMOVAL
-			add_random_custom_disease(src.reagents, 5)
+			add_random_custom_disease(src.reagents, src.initial_volume)
 			#else
 			var/datum/reagents/RE = src.reagents
-			RE.add_reagent("water", 5)
+			RE.add_reagent("water", src.initial_volume)
 			#endif
 
 // First ask if a box would be OK instead of a special rack
@@ -427,36 +421,3 @@
 /////////////////////////////////////////////////////blue
 
 */
-
-
-
-
-/obj/item/reagent_containers/glass/beaker/egg
-	name = "Beaker of Eggs"
-	desc = "Eggs; fertile ground for some microbes."
-
-	icon_state = "beaker"
-
-	New()
-		..()
-		src.reagents.add_reagent("egg", 50)
-
-/obj/item/reagent_containers/glass/beaker/spaceacillin
-	name = "Beaker of Spaceacillin"
-	desc = "It's penicillin in space."
-
-	icon_state = "beaker"
-
-	New()
-		..()
-		src.reagents.add_reagent("spaceacillin", 50)
-
-/obj/item/reagent_containers/glass/beaker/stablemut
-	name = "Beaker of Stable Mutagen"
-	desc = "Stable Mutagen; fertile ground for some microbes."
-
-	icon_state = "beaker"
-
-	New()
-		..()
-		src.reagents.add_reagent("dna_mutagen", 50)

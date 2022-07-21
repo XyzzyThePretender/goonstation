@@ -11,13 +11,13 @@
 	var/creation_time = null
 
 	/// Indexes mobs who are currently infected.
-	var/mob/infected = list()
+	var/mob/living/carbon/human/infected = list()
 
 	/// Preserves the order of infection. Used for logging/investigation. Add to this list when a new mob is infected.
-	var/mob/infectedhistory = list()
+	var/mob/living/carbon/human/infectedhistory = list()
 
 	/// Indexes mobs who no longer have this culture.
-	var/mob/immune = list()
+	var/mob/living/carbon/human/immune = list()
 
 	/// Number. Counts how many more mobs the culture can infect. Prevents new infections at zero.
 	var/infectioncount = 0
@@ -49,13 +49,11 @@
 	New()
 		..()
 		creation_time = round(world.time)		//deciseconds
-
-// PROCS FOR GENERATION
-
-	/// Atomized for disjointed creation methods (randomgen/TGUI/admincreator). Remember: never allow code to override a uid!
-	proc/set_uid()
 		src.uid = "[microbio_controls.next_uid]"
 		microbio_controls.next_uid++
+		generate_name()
+
+// PROCS FOR GENERATION
 
 	/// Atomized for a 'reroll name' operation in TGUI/admincreator
 	proc/generate_name()
@@ -64,7 +62,7 @@
 
 	/// Atomized for rerolling convenience in admincreator
 	proc/generate_effects()
-		for (var/i in 1 to 3)
+		for (var/i in 1 to 3)	// 3 to limit server loading
 			var/check = FALSE
 			do
 				check = add_symptom(pick(microbio_controls.effects))
@@ -89,8 +87,6 @@
 
 	/// Called for naturally generated cultures.
 	proc/randomize()
-		set_uid()
-		generate_name()
 		generate_effects()
 		generate_cure()
 		generate_attributes()
@@ -188,6 +184,10 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 		if (!(origin.tickmult))
 			origin.tickmult = 1
 
+		// -Ax^2 + Bx = P(x)
+		// Zeroes at origin and x = durationtotal
+		// B = P_max * 4 / durationtotal (s^-1)
+		// A = B / durationtotal (s^-2)
 		var/B = MICROBIO_MAXIMUMPROBABILITY * 4 / origin.master.durationtotal SECONDS	//seconds^-1
 		var/A = B / origin.master.durationtotal SECONDS	//seconds^-2
 		var/X = origin.duration * 0.1	//seconds
@@ -216,7 +216,7 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 		return FALSE
 	if (src.totalimmunity)	//Has the player opted out of the system?
 		return FALSE
-	if (src.microbes.len >= MICROBIO_INDIVIDUALMICROBELIMIT)	//Is the player completely saturated with cultures?
+	if (src.microbes.len >= 3)	//Is the player completely saturated with cultures?
 		return FALSE
 	if (src in P.immune)	//Is the player listed as immune to this specific culture?
 		return FALSE

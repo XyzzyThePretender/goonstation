@@ -3,8 +3,7 @@
 
 // Uncomment to enable negative effects
 // Use the shell to enable negative effects only for Classic
- #ifdef RP_MODE
- #else
+ #ifndef RP_MODE
  #define NEGATIVE_EFFECTS 2
  #endif
 

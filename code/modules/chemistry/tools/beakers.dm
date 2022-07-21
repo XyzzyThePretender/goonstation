@@ -112,6 +112,21 @@
 	name = "beaker (silver sulfadiazine)"
 	initial_reagents = "silver_sulfadiazine"
 
+/obj/item/reagent_containers/glass/beaker/egg
+	name = "Beaker of Eggs"
+	desc = "Eggs; fertile ground for some microbes."
+	initial_reagents = "egg"
+
+/obj/item/reagent_containers/glass/beaker/spaceacillin
+	name = "Beaker of Spaceacillin"
+	desc = "It's penicillin in space."
+	initial_reagents = "spaceacillin"
+
+/obj/item/reagent_containers/glass/beaker/stablemut
+	name = "Beaker of Stable Mutagen"
+	desc = "Stable Mutagen; fertile ground for some microbes."
+	initial_reagents = "dna_mutagen"
+
 /* ======================================================= */
 /* -------------------- Large Beakers -------------------- */
 /* ======================================================= */

@@ -3,7 +3,7 @@
 "tetrahedral", "star shaped", "tesselated")
 
 #define MICROBIO_NAMINGLIST list("Disease", "Strain", "Plague", "Syndrome", \
-"Bacteria", "Virions", "Fungi", "Parasites", "Contagion", "Scourge")
+"Bacteria", "Virions", "Parasites", "Contagion", "Scourge")
 
 #ifdef RP_MODE
 	// RP may have longer, drawn-out illnesses because RP is excluded from damaging and transmissible effects.
@@ -15,82 +15,24 @@
 	#define MICROBIO_UPPERDURATIONVALUE 900		//seconds
 #endif
 
-// Could be a var in human.dm
-#define MICROBIO_INDIVIDUALMICROBELIMIT 3
-
 // Probability Factors
 #define MICROBIO_MAXIMUMPROBABILITY 5 //between 1 and 5
 
-// Effect-Specific Probability Factors, effectively the old rarity system
-#define MICROBIO_EFFECT_PROBABILITY_FACTOR_OHGODHELP 0.01
-#define MICROBIO_EFFECT_PROBABILITY_FACTOR_HORRIFYING 0.1
+// Effect-Adjusted Probability Factors
 #define MICROBIO_EFFECT_PROBABILITY_FACTOR_RARE 0.2
 #define MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON 0.5
 
 // Transmission Types
 #define MICROBIO_TRANSMISSION_TYPE_PHYSICAL "Physical"	//sweating
-#define MICROBIO_TRANSMISSION_TYPE_AEROBIC "Aerobic"	//cough, sneeze, beesneeze
+#define MICROBIO_TRANSMISSION_TYPE_AEROBIC "Aerobic"	//cough, congestion, beesneeze
 
 // Transmission Alert Messages
 #define MICROBIO_TRANSMISSION_GENERIC_MSG "<span class='alert'>You're starting to feel unwell. Maybe you should get a checkup.</span>"
 #define MICROBIO_TRANSMISSION_TYPE_PHYSICAL_MSG "<span class='alert'>Ew, their hands feel really gross and sweaty!</span>"
 #define MICROBIO_TRANSMISSION_TYPE_AEROBIC_MSG "<span class='alert'>A drop of saliva lands on your face.</span>"
 
-// Cure Defines
-
-// Cure Reagent Catagories
-// 10 units of any reagent in the cure's reagent list will permatoggle the cure-reduced duration regime.
-// Be mindful of allergies.
-
-// Big Four: Medications
-#define MB_BRUTE_MEDS_CATAGORY list("analgesic", "omnizine", "styptic_powder", "saline", "synthflesh")
-#define MB_BURN_MEDS_CATAGORY list("menthol", "omnizine", "silver_sulfadiazine", "saline", "synthflesh")
-#define MB_TOX_MEDS_CATAGORY list("anti_rad", "antihol", "charcoal", "omnizine", "penteticacid", "cocktail_citrus")
-#define MB_OXY_MEDS_CATAGORY list("atropine", "epinephrine", "iron", "omnizine", "perfluorodecalin", "salbutamol")
-
-// Drugs
-#define MB_SEDATIVES_CATAGORY list("cold_medicine", "ethanol", "ether", "haloperidol", "ketamine", "krokodil", \
-"lithium", "morphine", "neurodepressant")
-#define MB_STIMULANTS_CATAGORY list("coffee", "coffee_fresh", "ephedrine", "epinephrine", "methamphetamine", "nicotine", \
-"smelling_salt", "sugar", "synaptizine", "synd_methamphetamine", "triplemeth")
-// Because botany almost always makes weed...
-#define MB_HALLUCINOGENICS_CATAGORY list("CBD", "cold_medicine", "lysergic acid diethylamide", "psilocybin", "space drugs", "THC")
-
-// Therapies
-// Keep in mind any source that changes body temperature will suffice. Think outside the box!
-#define MB_HOT_REAGENTS list("coffee", "coffee_fresh", "pyrosium", "nicotine", "sangria")	//Consider teporone if new therapies are added
-#define MB_COLD_REAGENTS list("cryostylane", "cryoxadone", "krokodil", "mintjulep")
-#define MB_EXERCISE_REAGENTS list("epinephrine", "menthol", "saline", "synthflesh", "water")
-
-// Inspection Groups
-// NEVER use these for cures!
-#define MB_ACID_REAGENTS list("acetic_acid", "acid", "clacid", "pacid")	// one-off
-
-#define MB_METABOLISM_REAGENTS list("antihol", "calomel", "charcoal", "haloperidol", "hunchback", "insulin", "penteticacid", \
-"smelling_salt", "water")
-
-#define MB_TOXINS_REAGENTS list("chlorine", "fluorine", "mercury", "plasma", "cyanide", \
-"formaldehyde", "sulfonal", "histamine") // one-off
-
-#define MB_BRAINDAMAGE_REAGENTS list("capulettium", "capulettium_plus", "haloperidol", "mercury", "neurotoxin", "sarin")
-
-// Inspection Responses
-#define MICROBIO_INSPECT_LIKES_GENERIC "The microbes are moving towards the area affected by the reagent!"
-
-#define MICROBIO_INSPECT_LIKES_POWERFUL_EFFECT "The microbes are rapidly encircling the reagent!"
-
-#define MICROBIO_INSPECT_DISLIKES_GENERIC "The microbes seem to shut down in the presence of the solution!"
-
-#define MICROBIO_INSPECT_DISLIKES_POWERFUL_EFFECT "The microbes are attemping to escape from the area affected by the reagent!" //unused
-
 // To limit microtesting:
-#define MB_REACTION_MINIMUM 2
-
-// Machine Defines
-
-// Synthomatic
-#define BIOCHEMISTRY_PRODUCTION_LOWER_BOUND 5
-#define BIOCHEMISTRY_PRODUCTION_UPPER_BOUND 8
+#define MB_REACTION_MINIMUM 1
 
 // Unused
 #define MICROBIO_SHAKESPEARE list("Expectation is the root of all heartache.",\

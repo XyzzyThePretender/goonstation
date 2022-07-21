@@ -11,45 +11,46 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/indigestion
 	name = "Indigestion"
 	desc = "A bad case of indigestion which occasionally cramps the infected."
-	reactionlist = list("cold_medicine", "magnesium", "aluminum", "milk")	//general meds and antacids (milk of magnesia)
+	associated_reagent = "ipecac"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_toxin_damage() <= damage_cap))
-			M.take_toxin_damage(2)
-			M.show_message("<span class='alert'>Your stomach hurts.</span>")
+		if (prob(origin.probability) && (M.get_toxin_damage() < damage_cap))
+			M.take_toxin_damage(origin.probability)
+			M.emote("groan")
+			boutput(M, "<span class='alert'>Your stomach hurts.</span>")
 
 /datum/microbioeffects/malevolent/muscleache
 	name = "Muscle Ache"
 	desc = "The infected feels a slight, constant aching of muscles."
-	reactionlist = list("water", "haloperidol", "menthol", "morphine", "salicylic_acid")
+	associated_reagent = "itching"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_brute_damage() <= damage_cap))
-			M.show_message("<span class='alert'>Your muscles ache.</span>")
-			M.TakeDamage("All", 2, 0)
+		if (prob(origin.probability) && (M.get_brute_damage() < damage_cap))
+			M.TakeDamage("All", origin.probability, 0)
+			boutput(M, "<span class='alert'>Your muscles ache.</span>")
 
 /datum/microbioeffects/malevolent/fever
 	name = "Fever"
 	desc = "The body temperature of the infected individual increases."
-	reactionlist = MB_COLD_REAGENTS
+	associated_reagent = "infernite"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
-			M.bodytemperature += 4
+		if (prob(origin.probability) && (M.get_burn_damage() < damage_cap))
+			M.bodytemperature += origin.probability
 			M.TakeDamage("chest", 0, origin.probability)
-			M.show_message("<span class='alert'>You feel hot.</span>")
+			boutput(M, "<span class='alert'>You feel hot.</span>")
 
 /datum/microbioeffects/malevolent/chills
 	name = "Chills"
 	desc = "The body temperature of the infected individual decreases."
-	reactionlist = MB_HOT_REAGENTS
+	associated_reagent = "cryoxadone"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
-			M.bodytemperature -= 8
-			M.show_message("<span class='alert'>You feel cold.</span>")
+			M.bodytemperature -= origin.probability
 			M.TakeDamage("chest", 0, origin.probability)
 			M.emote("shiver")
+			boutput(M, "<span class='alert'>You feel cold.</span>")
 		if (M.bodytemperature < 0)
 			M.bodytemperature = 0
 
@@ -60,8 +61,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/beesneeze
 	name = "Projectile Bee Egg Sneezing"
 	desc = "The infected sneezes bee eggs frequently."
-	reactionlist = list("sugar")
-	reactionmessage = "The microbes appear to convert the sugar into a viscous fluid."
+	associated_reagent = "bee"
 
 	proc/sneeze(var/mob/M, var/datum/microbeplayerdata/origin)
 		if (!M || !origin)
@@ -69,7 +69,7 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 
 		var/turf/T = get_turf(M)
 		var/flyroll = rand(10)
-		var/turf/target = locate(M.x,M.y,M.z)
+		var/turf/target = locate(M.x, M.y, M.z)
 		var/chosen_phrase = pick(
 		"<B><span class='alert'>W</span><span class='notice'>H</span>A<span class='alert'>T</span><span class='notice'>.</span></B>",\
 		"<span class='alert'><B>What the [pick("hell","fuck","christ","shit")]?!</B></span>",\
@@ -93,7 +93,8 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 		toThrow.throw_at(target, 6, 1)
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_HORRIFYING))	// Divide by 10, less bee spam!
+		if (prob(origin.probability * MICROBIO_EFFECT_PROBABILITY_FACTOR_RARE))	// Divide by 5, less bee spam!
+			M.emote("sneeze")
 			sneeze(M, origin)
 			make_cloud(M, origin.master.hexcolors)
 			for (var/mob/neighbor in range(1))
@@ -102,13 +103,13 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/congestion
 	name = "Congestion"
 	desc = "The infected sneezes frequently."
-	reactionlist = list("pepper", "histamine", "smelling_salt", "saline")
-	reactionmessage = "The microbes violently discharge fluids when contacting with the reagent."
+	associated_reagent = "histamine"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
+		if (prob(origin.probability * MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
 			M.visible_message("<span class='alert'>[M] sneezes!</span>", "<span class='alert'>You sneeze.</span>", \
 			"<span class='alert'>You hear someone sneezing.</span>")
+			M.emote("sneeze")
 			make_cloud(M, origin.master.hexcolors)
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_AEROBIC)
@@ -116,11 +117,12 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/coughing
 	name = "Coughing"
 	desc = "Violent coughing occasionally plagues the infected."
-	reactionlist = list("cold_medicine", "spaceacillin")
+	associated_reagent = "smokepowder"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
-			M.show_message("<span class='alert'>You cough.</span>")
+		if (prob(origin.probability * MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
+			M.emote("cough")
+			boutput(M, "<span class='alert'>You cough.</span>")
 			make_cloud(M, origin.master.hexcolors)
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_AEROBIC)
@@ -128,13 +130,12 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 /datum/microbioeffects/malevolent/sweating
 	name = "Sweating"
 	desc = "The infected person sweats like a pig."
-	reactionlist = MB_COLD_REAGENTS
-	reactionmessage = "The microbes stop producing droplets of liquid."
+	associated_reagent = "saline"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability*MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
+		if (prob(origin.probability * MICROBIO_EFFECT_PROBABILITY_FACTOR_UNCOMMON))
 			make_puddle(M, origin.master.hexcolors)
-			M.show_message(pick("<span class='alert'>You feel rather warm.</span>", \
+			boutput(M, pick("<span class='alert'>You feel rather warm.</span>", \
 			"<span class='alert'>You're sweating heavily.</span>", \
 			"<span class='alert'>You're soaked in your own sweat.</span>"))
 			for (var/mob/neighbor in range(1))

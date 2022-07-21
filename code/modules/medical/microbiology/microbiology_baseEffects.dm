@@ -3,11 +3,8 @@ ABSTRACT_TYPE(/datum/microbioeffects)
 	var/name = "You shouldn't be seeing this!"
 	var/desc = "You shouldn't be seeing this!"
 
-	/// What reagents (id) will cause a response under inspection?
-	var/reactionlist = list()
-
-	/// Defaults to a generic "dislikes reagent" message.
-	var/reactionmessage = MICROBIO_INSPECT_DISLIKES_GENERIC
+	/// What reagent (id) is used to make this effect?
+	var/associated_reagent = "water"
 
 	/**
 	 * This is the center of the custom disease effect.
@@ -36,12 +33,12 @@ ABSTRACT_TYPE(/datum/microbioeffects)
 			return	// The target succeeded in the protect roll
 		if (H2.infected(microbio_controls.pull_from_upstream(origin.master.uid)))	//Make sure we are sending the most updated culture.
 			if (contact_type == MICROBIO_TRANSMISSION_TYPE_AEROBIC)
-				target.show_message(MICROBIO_TRANSMISSION_TYPE_AEROBIC_MSG)
+				boutput(target, MICROBIO_TRANSMISSION_TYPE_AEROBIC_MSG)
 			else if (contact_type == MICROBIO_TRANSMISSION_TYPE_PHYSICAL)
-				target.show_message(MICROBIO_TRANSMISSION_TYPE_PHYSICAL_MSG)
+				boutput(target, MICROBIO_TRANSMISSION_TYPE_PHYSICAL_MSG)
 			else
-				target.show_message(MICROBIO_TRANSMISSION_GENERIC_MSG)
-			logTheThing("pathology", H1, target, "infects [constructTarget(H2,"pathology")] with [origin.master.name] (uid: [origin.master.uid]) through direct contact ([contact_type]).")
+				boutput(target, MICROBIO_TRANSMISSION_GENERIC_MSG)
+			logTheThing("pathology", H1, target, "infects [constructTarget(H2, "pathology")] with [origin.master.name] (uid: [origin.master.uid]) through direct contact ([contact_type]).")
 			return 1
 
 	// this should give people better feedback about who is infected and how to avoid it
