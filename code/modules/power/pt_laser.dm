@@ -37,6 +37,8 @@
 	var/excess = null //for tgui readout
 	var/is_charging = FALSE //for tgui readout
 
+	var/bio_bonus = 1
+
 /obj/machinery/power/pt_laser/New()
 	..()
 
@@ -176,7 +178,7 @@
 	if (round(adjusted_output) == 0)
 		return FALSE
 
-	var/output_mw = adjusted_output / 1e6
+	var/output_mw = src.bio_bonus * adjusted_output / 1e6
 
 	#define LOW_CAP (20) //provide a nice scalar for deminishing returns instead of a slow steady climb
 	#define BUX_PER_WORK_CAP (5000-LOW_CAP) //at inf power, generate 5000$/tick, also max amt to drain/tick

@@ -1139,6 +1139,19 @@ datum
 				if (prob(50))
 					DNA.endurance++
 
+		space_fungus/yeast
+			name = "yeast"
+			id = "yeast"
+			description = "Extracted from space fungus, yeast is extremely useful for cooking and brewing."
+
+			reaction_obj(var/obj/O, var/volume)
+				// oven
+				if (istype(O, /obj/submachine/chef_oven))
+					var/obj/submachine/chef_oven/oven = O
+					oven.yeast_supply += volume
+				// still has its own handling because it is a reagent_dispenser
+				..()
+
 		cryostylane
 			name = "cryostylane"
 			id = "cryostylane"
@@ -3214,7 +3227,10 @@ datum
 			// fluid todo : Hey we should have a reaction_obj that applies blood overlay
 
 			on_mob_life(var/mob/M, var/mult = 1)
-				// Let's assume that blood immediately mixes with the bloodstream of the mob.
+				// Do not allow microdoses or gradual dosing to infect.
+				if (src.volume < 4.5)	//same as var/minimum_to_infect
+					pathogens_processed = TRUE
+					return
 				if (!pathogens_processed) //Only process pathogens once
 					pathogens_processed = TRUE
 					for (var/uid in src.microbes)

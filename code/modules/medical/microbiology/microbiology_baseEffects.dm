@@ -45,12 +45,12 @@ ABSTRACT_TYPE(/datum/microbioeffects)
 	/// creates a non-infective cloud
 	proc/make_cloud(var/mob/M, var/hex)
 		var/turf/T = get_turf(M)
-		var/obj/decal/cleanable/pathogen_cloud/D = make_cleanable(/obj/decal/cleanable/pathogen_cloud,T)
+		var/obj/decal/cleanable/pathogen_cloud/D = make_cleanable(/obj/decal/cleanable/pathogen_cloud, T)
 		D.color = hex
 
 	// this should give people better feedback about who is infected and how to avoid it
 	/// creates a non-infective puddle
 	proc/make_puddle(var/mob/M, var/hex)
 		var/turf/T = get_turf(M)
-		var/obj/decal/cleanable/pathogen_sweat/D = make_cleanable(/obj/decal/cleanable/pathogen_sweat,T)
+		var/obj/decal/cleanable/pathogen_sweat/D = make_cleanable(/obj/decal/cleanable/pathogen_sweat, T)
 		D.color = hex

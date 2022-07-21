@@ -313,7 +313,6 @@ Potentially stack-space intensive
 				//adjust infection total
 				output += "<b>Infection Total:</b> <a href='?src=\ref[src];action=pathogen_creator;do=infectiontotal;topic_holder=\ref[topic_holder]'>[P.infectiontotal]</a><br>"
 
-
 				//adjust duration total
 				output += "<b>Duration Total:</b> <a href='?src=\ref[src];action=pathogen_creator;do=durationtotal;topic_holder=\ref[topic_holder]'>[P.durationtotal]</a><br>"
 
@@ -343,7 +342,7 @@ Potentially stack-space intensive
 
 		switch(href_list["action"])
 
-			// Tabs
+			// Change tabs
 			if ("setstate")
 				cdc_state[key] = text2num_safe(href_list["state"])
 

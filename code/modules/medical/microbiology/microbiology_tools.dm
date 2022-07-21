@@ -65,7 +65,6 @@
 	desc = "A 3D-printed vial. Can hold up to 5 units. Barely."
 	can_recycle = FALSE
 
-	// or just do initial_volume = 5 : child type doesn't need double def
 	New()
 		. = ..()
 		AddComponent(/datum/component/biodegradable)
@@ -77,7 +76,6 @@
 	icon_state = "vial0"
 	item_state = "vial"
 
-	// or just do initial_volume = 5 : child type doesn't need double def : is the ..() still necessary?
 	New()
 		..()
 		SPAWN(2 SECONDS)

@@ -324,19 +324,21 @@
 	if (src.mutantrace)
 		src.mutantrace.onLife(mult)
 
+	// here i am, cleaning up. -xyzzy
+
 	if (!isdead(src)) // Marq was here, breaking everything.
 
 		if (src.sims && src.ckey) // ckey will be null if it's an npc, so they're skipped
 			src.sims.Life()
 
-		if (prob(1) && prob(5))
+		if (prob(0.05))
 			src.handle_random_emotes()
 
 		for (var/uid as anything in src.microbes)
 			var/datum/microbeplayerdata/origin = src.microbes[uid]
 			origin.mob_act(src, origin)
 
-	else if (isdead(src) && src.microbes.len)
+	else if (isdead(src))
 		for (var/uid as anything in src.microbes)
 			var/datum/microbeplayerdata/origin = src.microbes[uid]
 			src.cured(origin)

@@ -255,6 +255,7 @@ var/list/oven_recipes = list()
 	var/list/recipes = null
 	//var/allowed = list(/obj/item/reagent_containers/food/, /obj/item/parts/robot_parts/head, /obj/item/clothing/head/butt, /obj/item/organ/brain/obj/item)
 	var/allowed = list(/obj/item)
+	var/yeast_supply = 0
 
 	emag_act(var/mob/user, var/obj/item/card/emag/E)
 		if (!emagged)
@@ -718,7 +719,8 @@ table#cooktime a#start {
 					if (bonus == 1)
 						F.quality = 5
 					else if (bonus == -1)
-						F.quality = recipebonus - cook_amt
+						F.quality = min(5, src.yeast_supply + recipebonus - cook_amt)	//use yeast to match up if possible.
+						src.yeast_supply -= max(0, F.quality - recipebonus + cook_amt)	//deduct yeast used
 						if (istype(F, /obj/item/reagent_containers/food/snacks))
 							F.heal_amt = 0
 					if (src.emagged && istype(F))

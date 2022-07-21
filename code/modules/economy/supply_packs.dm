@@ -353,18 +353,6 @@ ABSTRACT_TYPE(/datum/supply_packs)
 	containertype = /obj/storage/crate/medical
 	containername = "Medical Crate"
 
-/datum/supply_packs/microbiology
-	name = "CDC sample crate"
-	desc = "x5 Prepared Vials for Microbiology"
-	category = "Medical Department"
-	contains = list(/obj/item/reagent_containers/glass/vial/prepared, \
-					/obj/item/reagent_containers/glass/vial/prepared, \
-					/obj/item/reagent_containers/glass/vial/prepared, \
-					/obj/item/reagent_containers/glass/vial/prepared, \
-					/obj/item/reagent_containers/glass/vial/prepared)
-	cost = 2500
-	containertype = /obj/storage/secure/crate/medical/cdc		//To grab the description
-	containername = "Medical: Microbiology Samples Crate"
 
 /datum/supply_packs/complex/glass_recycler
 	name = "Glass Recycler"

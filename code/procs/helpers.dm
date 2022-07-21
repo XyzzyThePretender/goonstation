@@ -2512,9 +2512,9 @@ proc/check_whitelist(var/atom/TA, var/list/whitelist, var/mob/user as mob, var/c
 			TA.reagents.del_reagent(reagent_id)
 			found = 1
 	if (TA.reagents.has_reagent("blood"))
-		if (TA.reagents.get_reagent("blood").microbes.len)
-			TA.reagents.del_reagent("blood")
-			found = 1
+		TA.reagents.reagent_list["blood"].microbes = null
+		custom_message = "<span class='alert'>[TA] disinfects the blood.</span>"
+		found = 1
 	if (found)
 		if(user)
 			boutput(user, "[custom_message]")

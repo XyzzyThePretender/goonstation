@@ -14,10 +14,11 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	associated_reagent = "ipecac"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_toxin_damage() < damage_cap))
-			M.take_toxin_damage(origin.probability)
+		if (prob(origin.probability))
 			M.emote("groan")
 			boutput(M, "<span class='alert'>Your stomach hurts.</span>")
+			if (M.get_toxin_damage() < damage_cap)
+				M.take_toxin_damage(origin.probability)
 
 /datum/microbioeffects/malevolent/muscleache
 	name = "Muscle Ache"
@@ -25,9 +26,10 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	associated_reagent = "itching"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_brute_damage() < damage_cap))
-			M.TakeDamage("All", origin.probability, 0)
+		if (prob(origin.probability))
 			boutput(M, "<span class='alert'>Your muscles ache.</span>")
+			if (M.get_brute_damage() <= damage_cap)
+				M.TakeDamage("All", origin.probability, 0)
 
 /datum/microbioeffects/malevolent/fever
 	name = "Fever"
@@ -35,10 +37,11 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	associated_reagent = "infernite"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_burn_damage() < damage_cap))
+		if (prob(origin.probability))
 			M.bodytemperature += origin.probability
-			M.TakeDamage("chest", 0, origin.probability)
 			boutput(M, "<span class='alert'>You feel hot.</span>")
+			if (M.get_burn_damage() <= damage_cap)
+				M.TakeDamage("chest", 0, origin.probability)
 
 /datum/microbioeffects/malevolent/chills
 	name = "Chills"
@@ -46,11 +49,12 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 	associated_reagent = "cryoxadone"
 
 	mob_act(var/mob/M, var/datum/microbeplayerdata/origin)
-		if (prob(origin.probability) && (M.get_burn_damage() <= damage_cap))
+		if (prob(origin.probability))
 			M.bodytemperature -= origin.probability
-			M.TakeDamage("chest", 0, origin.probability)
 			M.emote("shiver")
 			boutput(M, "<span class='alert'>You feel cold.</span>")
+			if (M.get_burn_damage() <= damage_cap)
+				M.TakeDamage("chest", 0, origin.probability)
 		if (M.bodytemperature < 0)
 			M.bodytemperature = 0
 
@@ -99,6 +103,8 @@ ABSTRACT_TYPE(/datum/microbioeffects/malevolent)
 			make_cloud(M, origin.master.hexcolors)
 			for (var/mob/neighbor in range(1))
 				infect_direct(neighbor, origin, MICROBIO_TRANSMISSION_TYPE_AEROBIC)
+		else if (prob(origin.probability))
+			M.emote("sniff", "nosepick")
 
 /datum/microbioeffects/malevolent/congestion
 	name = "Congestion"

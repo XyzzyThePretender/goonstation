@@ -1364,6 +1364,7 @@ for some reason I brought it back and tried to clean it up a bit and I regret ev
 	var/obj/machinery/power/collector_array/CAE = null
 	var/obj/machinery/power/collector_array/CAW = null
 	var/list/obj/machinery/the_singularity/S = null
+	var/bio_bonus = 1
 
 /obj/machinery/power/collector_control/New()
 	..()
@@ -1499,7 +1500,7 @@ for some reason I brought it back and tried to clean it up a bit and I regret ev
 		for(var/obj/machinery/the_singularity/singu in S)
 			if(singu && !QDELETED(singu))
 				power_s += singu.energy*((singu.radius*2+1)**2)/DEFAULT_AREA  //should give the area of the singularity and divide it by the area of a standard singularity(a 5x5)
-		power_p += 50
+		power_p += 50 * src.bio_bonus
 		power_a = power_p*power_s*50
 		src.lastpower = power_a
 		add_avail(power_a)

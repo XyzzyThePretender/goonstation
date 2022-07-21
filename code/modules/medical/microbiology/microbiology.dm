@@ -1,11 +1,12 @@
 /datum/microbe
 	/// String-Num. Should not be changed in-game under any circumstances. Used as the key in associative lists.
 	var/uid = ""
+
 	var/name = ""
 	var/desc = ""
 
 	/// String-Hex. Used to color clouds on a successful aerobic transmission effect call.
-	var/hexcolors = ""
+	var/hexcolors = "#C00000"
 
 	/// Number. Should not be changed in-game. Holds the time in seconds when the datum was created.
 	var/creation_time = null
@@ -27,7 +28,7 @@
 
 	//Double check the implementation of the process() overall and ensure proper modernization
 	/// Number. Holds the total duration in deciseconds (as manipulated by SECONDS).
-	var/durationtotal = 0
+	var/durationtotal = MICROBIO_LOWERDURATIONVALUE
 
 	/// Datum-type. Holds the suppressant data.
 	var/datum/suppressant/suppressant = null
@@ -48,7 +49,7 @@
 
 	New()
 		..()
-		creation_time = round(world.time)		//deciseconds
+		src.creation_time = round(world.time)		//deciseconds
 		src.uid = "[microbio_controls.next_uid]"
 		microbio_controls.next_uid++
 		generate_name()
@@ -60,7 +61,7 @@
 		src.name = "[capitalize(pick_string_autokey("names/last.txt"))]'s [pick(MICROBIO_NAMINGLIST)]"
 		return
 
-	/// Atomized for rerolling convenience in admincreator
+	/// Atomized for rerolling convenience in randomgen/admincreator
 	proc/generate_effects()
 		for (var/i in 1 to 3)	// 3 to limit server loading
 			var/check = FALSE
@@ -75,15 +76,12 @@
 
 	//Organizing this proc WIP
 	proc/generate_attributes()
-		src.hexcolors = random_hex()
+		src.hexcolors = "#[random_hex(6)]"
 		src.durationtotal = rand(MICROBIO_LOWERDURATIONVALUE, MICROBIO_UPPERDURATIONVALUE) SECONDS
-
 		//Natural infection potentials should be determined by the number of living minds at the time of creation.
 		//No idea how to do that yet.
 		src.infectioncount = rand(6, 18)
 		src.infectiontotal = src.infectioncount
-		//Crew shortages could/should set natural cultures as fully reported.
-
 
 	/// Called for naturally generated cultures.
 	proc/randomize()
@@ -106,16 +104,20 @@
 
 	/// Increments the corresponding catagory var, then adds the effect and applies effect_data.
 	proc/add_symptom(var/datum/microbioeffects/E)
-		if (!(E in src.effects))
-			if (istype(E, /datum/microbioeffects/benevolent))
-				src.goodeffectcount++
-			else if (istype(E, /datum/microbioeffects/neutral))
-				src.neutraleffectcount++
-			else if (istype(E, /datum/microbioeffects/malevolent))
-				src.badeffectcount++
+		. = FALSE
+		if (E in src.effects)
+			return FALSE
+		if (istype(E, /datum/microbioeffects/benevolent))
+			src.goodeffectcount++
+			. = TRUE
+		else if (istype(E, /datum/microbioeffects/neutral))
+			src.neutraleffectcount++
+			. = TRUE
+		else if (istype(E, /datum/microbioeffects/malevolent))
+			src.badeffectcount++
+			. = TRUE
+		if (.)
 			src.effects += E
-			return TRUE
-		else return FALSE
 
 	/// if all is TRUE, removes all effects and zeroes the effect counters.
 	proc/remove_symptom(var/datum/microbioeffects/E, var/all = FALSE)
@@ -175,7 +177,7 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 	//Double check the implementation of the process() overall and ensure proper modernization
 	proc/progress_pathogen(var/mob/M, var/datum/microbeplayerdata/origin)
 		origin.ticked = TRUE
-		if (!(origin.duration) || isdead(M))
+		if (origin.duration <= 0)
 			M.cured(origin)
 			return
 		if (origin.iscured)
@@ -211,6 +213,8 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 	if (!(P.infectioncount))	//If the microbe has already infected to capacity, return
 		return FALSE
 	if (isdead(src))	//Don't infect dead people
+		return FALSE
+	if (istype(src, /mob/living/carbon/human/virtual)) // No VR infections
 		return FALSE
 	if (ischangeling(src) || isvampire(src))	// Vampires were missing here. They're immune to old-style diseases too (Convair880).
 		return FALSE
@@ -250,3 +254,16 @@ ABSTRACT_TYPE(/datum/microbeplayerdata)
 	if (!isdead(src))
 		boutput(src, "<span class='notice'>You feel that the disease has passed.</span>")
 	return TRUE
+
+/mob/living/verb/toggle_custom_disease_immunity()
+	set src = usr
+	set name = "Toggle Total Immunity to Custom Diseases"
+	set category = "Commands"
+	set desc = "Opt out of or into the experimental disease system. This only prevents you from getting new infections!"
+
+	var/mob/living/carbon/human/H = src
+	if (H.totalimmunity)
+		src.show_text("You are now susceptible to new diseases.", "red")
+	else
+		src.show_text("You will not be infected by new diseases.", "blue")
+	H.totalimmunity = !H.totalimmunity

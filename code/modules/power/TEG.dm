@@ -1413,6 +1413,7 @@ Present 	Unscrewed  Connected 	Unconnected		Missing
 	density = 1
 	mats = 20
 	deconstruct_flags = DECON_WRENCH | DECON_CROWBAR | DECON_WELDER
+	var/bio_bonus = 1
 
 	var/obj/machinery/atmospherics/unary/furnace_connector/f_connector = null
 	var/datum/digital_filter/exponential_moving_average/heat_filter = new
@@ -1470,7 +1471,7 @@ Present 	Unscrewed  Connected 	Unconnected		Missing
 		var/fuel_burn_scale = ( -0.48 * fuel_fuel_ratio ) * ( (3*fuel_fuel_ratio)-5 )
 
 		// charcoal actual high temp is 2500C
-		var/additional_heat = fuel_burn_scale * (3000)
+		var/additional_heat = fuel_burn_scale * (3000) * bio_bonus
 
 		src.f_connector.current_temperature = heat_filter.process(ambient_temp + 200 + additional_heat)
 		f_connector.heat()

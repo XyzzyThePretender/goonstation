@@ -469,6 +469,9 @@
 	icon_state = "still"
 	amount_per_transfer_from_this = 25
 	event_handler_flags = NO_MOUSEDROP_QOL
+	var/base_production = 10
+	var/yeast_bonus = 1
+	var/production = 10
 
 	// returns whether the inserted item was brewed
 	proc/brew(var/obj/item/W as obj)
@@ -486,10 +489,11 @@
 			return FALSE
 
 		if (islist(brew_result))
-			for (var/i in brew_result)
-				src.reagents.add_reagent(i, 10)
+			src.production = src.base_production * src.yeast_bonus
+			for (var/i as anything in brew_result)
+				src.reagents.add_reagent(i, production)
 		else
-			src.reagents.add_reagent(brew_result, 20)
+			src.reagents.add_reagent(brew_result, 2 * production)
 
 		src.visible_message("<span class='notice'>[src] brews up [W]!</span>")
 		return TRUE
@@ -508,6 +512,13 @@
 				qdel(W)
 				return
 			else  ..()
+
+		else if (istype(W, /obj/item/reagent_containers/glass))
+			var/obj/item/reagent_containers/C = W
+			if (C.reagents.has_reagent("yeast"))
+				src.yeast_bonus += 0.1 * C.reagents.get_reagent_amount("yeast")
+				C.reagents.del_reagent("yeast")
+				boutput(user, "<span class='notice'>You add yeast to the [src.name], improving the production.</span>")
 		else ..()
 
 	MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)

@@ -668,7 +668,7 @@ var/list/blood_decal_violent_icon_states = list("floor1", "floor2", "floor3", "f
 	New()
 		..()
 		SPAWN(rand(3, 6) SECONDS)
-		qdel(src)
+			qdel(src)
 
 /obj/decal/cleanable/paper
 	name = "paper"

@@ -751,14 +751,42 @@
 	anchored = TRUE
 	density = TRUE
 	flags = NOSPLASH
-	var/obj/item/reagent_containers/glass/petridish/target = null
+	var/obj/item/reagent_containers/glass/beaker/beaker = null
 	var/medium = null
 
 	update_icon()
-		if (src.target)
-			icon_state = "incubator_on"
+		if (src.beaker)
+			src.icon_state = "incubator_on"
 		else
-			icon_state = "incubator"
+			src.icon_state = "incubator"
+
+	attackby(var/obj/item/O, mob/user)
+		if (istype(O, /obj/item/reagent_containers/glass/beaker))
+			var/obj/item/reagent_containers/C = O
+
+			if (user.equipped() != O)
+				return
+
+			if (!(user in range(1)))
+				boutput(user, "<span class='alert'>You must be near the machine to do that.</span>")
+				return
+
+			if (!C.reagents.has_reagent("space_fungus"))
+				boutput(user, "<span class='alert'>The [C.name] doesn't have any space fungus to cultivate!</span>")
+				return
+
+			if (src.beaker)
+				user.put_in_hand_or_drop(src.beaker)
+				boutput(user, "You swap [src.beaker] out of [src].")
+				src.beaker = C
+				if (C.loc == user)
+					user.u_equip(C)
+				return
+
+			else
+				src.beaker = C
+				user.u_equip(C)
+				boutput(user, "<span class='notice'>You insert the beaker into the machine.</span>")
 
 // Send this to vending.dm?
 /obj/machinery/vending/microbiology
@@ -781,5 +809,3 @@
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/beaker/egg, 20)
 		product_list += new/datum/data/vending_product(/obj/item/reagent_containers/glass/beaker/spaceacillin, 10)
 		product_list += new/datum/data/vending_product(/obj/item/device/analyzer/healthanalyzer, 4)
-
-
